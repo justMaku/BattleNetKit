@@ -1,0 +1,5 @@
+syntax = "proto2";
+
+message BindResponse {
+	repeated uint32 imported_service_id = 1 [packed = true];
+}

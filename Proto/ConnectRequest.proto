@@ -1,0 +1,9 @@
+syntax = "proto2";
+
+import "ProcessId.proto";
+import "BindRequest.proto";
+
+message ConnectRequest {
+	optional ProcessId client_id = 1;
+	required BindRequest bind_request = 2;
+}

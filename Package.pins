@@ -1,0 +1,36 @@
+{
+  "autoPin": true,
+  "pins": [
+    {
+      "package": "CLibreSSL",
+      "reason": null,
+      "repositoryURL": "https://github.com/vapor/clibressl.git",
+      "version": "0.1.17"
+    },
+    {
+      "package": "Core",
+      "reason": null,
+      "repositoryURL": "https://github.com/vapor/core.git",
+      "version": "0.5.1"
+    },
+    {
+      "package": "ProtocolBuffers",
+      "reason": null,
+      "repositoryURL": "https://github.com/justMaku/protobuf-swift",
+      "version": "4.0.0"
+    },
+    {
+      "package": "Socks",
+      "reason": null,
+      "repositoryURL": "https://github.com/vapor/socks.git",
+      "version": "0.12.2"
+    },
+    {
+      "package": "TLS",
+      "reason": null,
+      "repositoryURL": "https://github.com/vapor/tls.git",
+      "version": "0.8.1"
+    }
+  ],
+  "version": 1
+}

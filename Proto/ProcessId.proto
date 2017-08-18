@@ -1,0 +1,6 @@
+syntax = "proto2";
+
+message ProcessId {
+	required uint32 label = 1;
+	required uint32 epoch = 2;
+}

@@ -1,0 +1,8 @@
+syntax = "proto2";
+
+import "BoundService.proto";
+
+message BindRequest {
+	repeated fixed32 imported_services_hash = 1;
+	repeated BoundService exported_services = 2;
+}

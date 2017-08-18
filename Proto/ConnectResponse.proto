@@ -1,0 +1,12 @@
+syntax = "proto2";
+
+import "ProcessId.proto";
+import "BindResponse.proto";
+
+message ConnectResponse {
+	required ProcessId server_id = 1;
+	optional ProcessId client_id = 2;
+	optional uint32 bind_result = 3;
+	optional BindResponse bind_response = 4;
+	optional uint64 server_time = 6;
+}

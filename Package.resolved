@@ -1,0 +1,52 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CLibreSSL",
+        "repositoryURL": "https://github.com/vapor/clibressl.git",
+        "state": {
+          "branch": null,
+          "revision": "bbfab7acac491caa6d44b355ebc669c5d863a06e",
+          "version": "0.1.17"
+        }
+      },
+      {
+        "package": "Core",
+        "repositoryURL": "https://github.com/vapor/core.git",
+        "state": {
+          "branch": null,
+          "revision": "14831507cbeaded48d319c5718118c26bd19d0e0",
+          "version": "0.5.1"
+        }
+      },
+      {
+        "package": "Socks",
+        "repositoryURL": "https://github.com/vapor/socks.git",
+        "state": {
+          "branch": null,
+          "revision": "460dc7f14ae25859fdd8e0f3a0563c9f06b2a4d3",
+          "version": "0.12.2"
+        }
+      },
+      {
+        "package": "SwiftProtobuf",
+        "repositoryURL": "https://github.com/apple/swift-protobuf.git",
+        "state": {
+          "branch": null,
+          "revision": "c9af05760fcdc5b034e0093eb2eac827c6efc5d5",
+          "version": "0.9.904"
+        }
+      },
+      {
+        "package": "TLS",
+        "repositoryURL": "https://github.com/vapor/tls.git",
+        "state": {
+          "branch": null,
+          "revision": "7816e4e8df6f11601e14d4e443de9b65afb4e019",
+          "version": "0.8.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

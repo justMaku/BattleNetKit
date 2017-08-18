@@ -1,0 +1,6 @@
+syntax = "proto2";
+
+message BoundService {
+	required fixed32 hash = 1;
+	required uint32 id = 2;
+}
