@@ -1,0 +1,12 @@
+lane :build do
+    sh "swift build"
+end
+
+lane :test do
+    sh "swift test"
+end
+
+lane :ci do
+    build
+    danger
+end
