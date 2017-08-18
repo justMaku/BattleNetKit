@@ -21,7 +21,6 @@ protocol MethodType: RawRepresentable {
 
 protocol ServiceType {
     var id: UInt32 { get }
-    
     static var name: String { get }
 }
 
