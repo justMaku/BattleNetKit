@@ -8,5 +8,6 @@ end
 
 lane :ci do
     build
+    test
     danger
 end

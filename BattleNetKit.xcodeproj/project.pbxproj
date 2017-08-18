@@ -850,7 +850,7 @@
 		OBJ_952 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_188 /* Package.swift */; };
 		OBJ_958 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_222 /* Package.swift */; };
 		OBJ_964 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_915 /* Package.swift */; };
-		OBJ_970 /* OstaraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* OstaraTests.swift */; };
+		OBJ_970 /* BattleNetKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* BattleNetKitTests.swift */; };
 		OBJ_972 /* PluginLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SwiftProtobuf::PluginLibrary::Product" /* PluginLibrary.framework */; };
 		OBJ_973 /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SwiftProtobuf::SwiftProtobuf::Product" /* SwiftProtobuf.framework */; };
 		OBJ_974 /* TLS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "TLS::TLS::Product" /* TLS.framework */; };
@@ -1295,7 +1295,7 @@
 		OBJ_297 /* bn_exp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bn_exp.c; sourceTree = "<group>"; };
 		OBJ_298 /* bn_exp2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bn_exp2.c; sourceTree = "<group>"; };
 		OBJ_299 /* bn_gcd.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bn_gcd.c; sourceTree = "<group>"; };
-		OBJ_30 /* OstaraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OstaraTests.swift; sourceTree = "<group>"; };
+		OBJ_30 /* BattleNetKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleNetKitTests.swift; sourceTree = "<group>"; };
 		OBJ_300 /* bn_gf2m.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bn_gf2m.c; sourceTree = "<group>"; };
 		OBJ_301 /* bn_kron.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bn_kron.c; sourceTree = "<group>"; };
 		OBJ_302 /* bn_lib.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bn_lib.c; sourceTree = "<group>"; };
@@ -2977,7 +2977,7 @@
 		OBJ_29 /* OstaraTests */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_30 /* OstaraTests.swift */,
+				OBJ_30 /* BattleNetKitTests.swift */,
 			);
 			name = OstaraTests;
 			path = Tests/OstaraTests;
@@ -4514,7 +4514,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_970 /* OstaraTests.swift in Sources */,
+				OBJ_970 /* BattleNetKitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
