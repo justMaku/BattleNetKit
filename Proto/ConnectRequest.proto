@@ -5,5 +5,5 @@ import "BindRequest.proto";
 
 message ConnectRequest {
 	optional ProcessId client_id = 1;
-	required BindRequest bind_request = 2;
+	optional BindRequest bind_request = 2;
 }

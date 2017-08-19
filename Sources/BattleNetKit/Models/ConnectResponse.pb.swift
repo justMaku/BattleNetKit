@@ -58,6 +58,15 @@ struct ConnectResponse: SwiftProtobuf.Message {
   /// Clears the value of `bindResponse`. Subsequent reads from it will return its default value.
   mutating func clearBindResponse() {_storage._bindResponse = nil}
 
+  var contentHandleArray: ConnectionMeteringContentHandles {
+    get {return _storage._contentHandleArray ?? ConnectionMeteringContentHandles()}
+    set {_uniqueStorage()._contentHandleArray = newValue}
+  }
+  /// Returns true if `contentHandleArray` has been explicitly set.
+  var hasContentHandleArray: Bool {return _storage._contentHandleArray != nil}
+  /// Clears the value of `contentHandleArray`. Subsequent reads from it will return its default value.
+  mutating func clearContentHandleArray() {_storage._contentHandleArray = nil}
+
   var serverTime: UInt64 {
     get {return _storage._serverTime ?? 0}
     set {_uniqueStorage()._serverTime = newValue}
@@ -76,6 +85,7 @@ struct ConnectResponse: SwiftProtobuf.Message {
       if _storage._serverID == nil {return false}
       if let v = _storage._serverID, !v.isInitialized {return false}
       if let v = _storage._clientID, !v.isInitialized {return false}
+      if let v = _storage._contentHandleArray, !v.isInitialized {return false}
       return true
     }
   }
@@ -93,6 +103,7 @@ struct ConnectResponse: SwiftProtobuf.Message {
         case 2: try decoder.decodeSingularMessageField(value: &_storage._clientID)
         case 3: try decoder.decodeSingularUInt32Field(value: &_storage._bindResult)
         case 4: try decoder.decodeSingularMessageField(value: &_storage._bindResponse)
+        case 5: try decoder.decodeSingularMessageField(value: &_storage._contentHandleArray)
         case 6: try decoder.decodeSingularUInt64Field(value: &_storage._serverTime)
         default: break
         }
@@ -118,6 +129,9 @@ struct ConnectResponse: SwiftProtobuf.Message {
       if let v = _storage._bindResponse {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
       }
+      if let v = _storage._contentHandleArray {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      }
       if let v = _storage._serverTime {
         try visitor.visitSingularUInt64Field(value: v, fieldNumber: 6)
       }
@@ -128,6 +142,137 @@ struct ConnectResponse: SwiftProtobuf.Message {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+struct ConnectionMeteringContentHandles: SwiftProtobuf.Message {
+  static let protoMessageName: String = "ConnectionMeteringContentHandles"
+
+  var contentHandle: [ContentHandle] = []
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  public var isInitialized: Bool {
+    if !SwiftProtobuf.Internal.areAllInitialized(self.contentHandle) {return false}
+    return true
+  }
+
+  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
+  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
+  /// initializers are defined in the SwiftProtobuf library. See the Message and
+  /// Message+*Additions` files.
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.contentHandle)
+      default: break
+      }
+    }
+  }
+
+  /// Used by the encoding methods of the SwiftProtobuf library, not generally
+  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
+  /// other serializer methods are defined in the SwiftProtobuf library. See the
+  /// `Message` and `Message+*Additions` files.
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.contentHandle.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.contentHandle, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+}
+
+struct ContentHandle: SwiftProtobuf.Message {
+  static let protoMessageName: String = "ContentHandle"
+
+  var region: UInt32 {
+    get {return _region ?? 0}
+    set {_region = newValue}
+  }
+  /// Returns true if `region` has been explicitly set.
+  var hasRegion: Bool {return self._region != nil}
+  /// Clears the value of `region`. Subsequent reads from it will return its default value.
+  mutating func clearRegion() {self._region = nil}
+
+  var usage: UInt32 {
+    get {return _usage ?? 0}
+    set {_usage = newValue}
+  }
+  /// Returns true if `usage` has been explicitly set.
+  var hasUsage: Bool {return self._usage != nil}
+  /// Clears the value of `usage`. Subsequent reads from it will return its default value.
+  mutating func clearUsage() {self._usage = nil}
+
+  var hash: Data {
+    get {return _hash ?? SwiftProtobuf.Internal.emptyData}
+    set {_hash = newValue}
+  }
+  /// Returns true if `hash` has been explicitly set.
+  var hasHash: Bool {return self._hash != nil}
+  /// Clears the value of `hash`. Subsequent reads from it will return its default value.
+  mutating func clearHash() {self._hash = nil}
+
+  var protoURL: String {
+    get {return _protoURL ?? String()}
+    set {_protoURL = newValue}
+  }
+  /// Returns true if `protoURL` has been explicitly set.
+  var hasProtoURL: Bool {return self._protoURL != nil}
+  /// Clears the value of `protoURL`. Subsequent reads from it will return its default value.
+  mutating func clearProtoURL() {self._protoURL = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  public var isInitialized: Bool {
+    if self._region == nil {return false}
+    if self._usage == nil {return false}
+    if self._hash == nil {return false}
+    return true
+  }
+
+  /// Used by the decoding initializers in the SwiftProtobuf library, not generally
+  /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
+  /// initializers are defined in the SwiftProtobuf library. See the Message and
+  /// Message+*Additions` files.
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFixed32Field(value: &self._region)
+      case 2: try decoder.decodeSingularFixed32Field(value: &self._usage)
+      case 3: try decoder.decodeSingularBytesField(value: &self._hash)
+      case 4: try decoder.decodeSingularStringField(value: &self._protoURL)
+      default: break
+      }
+    }
+  }
+
+  /// Used by the encoding methods of the SwiftProtobuf library, not generally
+  /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
+  /// other serializer methods are defined in the SwiftProtobuf library. See the
+  /// `Message` and `Message+*Additions` files.
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._region {
+      try visitor.visitSingularFixed32Field(value: v, fieldNumber: 1)
+    }
+    if let v = self._usage {
+      try visitor.visitSingularFixed32Field(value: v, fieldNumber: 2)
+    }
+    if let v = self._hash {
+      try visitor.visitSingularBytesField(value: v, fieldNumber: 3)
+    }
+    if let v = self._protoURL {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  fileprivate var _region: UInt32? = nil
+  fileprivate var _usage: UInt32? = nil
+  fileprivate var _hash: Data? = nil
+  fileprivate var _protoURL: String? = nil
+}
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension ConnectResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -136,6 +281,7 @@ extension ConnectResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtob
     2: .standard(proto: "client_id"),
     3: .standard(proto: "bind_result"),
     4: .standard(proto: "bind_response"),
+    5: .standard(proto: "content_handle_array"),
     6: .standard(proto: "server_time"),
   ]
 
@@ -144,6 +290,7 @@ extension ConnectResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtob
     var _clientID: ProcessId? = nil
     var _bindResult: UInt32? = nil
     var _bindResponse: BindResponse? = nil
+    var _contentHandleArray: ConnectionMeteringContentHandles? = nil
     var _serverTime: UInt64? = nil
 
     static let defaultInstance = _StorageClass()
@@ -155,6 +302,7 @@ extension ConnectResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtob
       _clientID = source._clientID
       _bindResult = source._bindResult
       _bindResponse = source._bindResponse
+      _contentHandleArray = source._contentHandleArray
       _serverTime = source._serverTime
     }
   }
@@ -175,11 +323,42 @@ extension ConnectResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtob
         if _storage._clientID != other_storage._clientID {return false}
         if _storage._bindResult != other_storage._bindResult {return false}
         if _storage._bindResponse != other_storage._bindResponse {return false}
+        if _storage._contentHandleArray != other_storage._contentHandleArray {return false}
         if _storage._serverTime != other_storage._serverTime {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension ConnectionMeteringContentHandles: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "content_handle"),
+  ]
+
+  func _protobuf_generated_isEqualTo(other: ConnectionMeteringContentHandles) -> Bool {
+    if self.contentHandle != other.contentHandle {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension ContentHandle: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "region"),
+    2: .same(proto: "usage"),
+    3: .same(proto: "hash"),
+    4: .standard(proto: "proto_url"),
+  ]
+
+  func _protobuf_generated_isEqualTo(other: ContentHandle) -> Bool {
+    if self._region != other._region {return false}
+    if self._usage != other._usage {return false}
+    if self._hash != other._hash {return false}
+    if self._protoURL != other._protoURL {return false}
     if unknownFields != other.unknownFields {return false}
     return true
   }

@@ -46,7 +46,6 @@ struct ConnectRequest: SwiftProtobuf.Message {
 
   public var isInitialized: Bool {
     return withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if _storage._bindRequest == nil {return false}
       if let v = _storage._clientID, !v.isInitialized {return false}
       if let v = _storage._bindRequest, !v.isInitialized {return false}
       return true

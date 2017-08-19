@@ -8,5 +8,17 @@ message ConnectResponse {
 	optional ProcessId client_id = 2;
 	optional uint32 bind_result = 3;
 	optional BindResponse bind_response = 4;
+	optional ConnectionMeteringContentHandles content_handle_array = 5;
 	optional uint64 server_time = 6;
+}
+
+message ConnectionMeteringContentHandles {
+	repeated ContentHandle content_handle = 1;
+}
+
+message ContentHandle {
+	required fixed32 region = 1;
+	required fixed32 usage = 2;
+	required bytes hash = 3;
+	optional string proto_url = 4;
 }

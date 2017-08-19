@@ -1,0 +1,7 @@
+syntax = "proto2";
+
+message EchoRequest {
+  optional fixed64 time = 1;
+  optional bool network_only = 2 [default = false];
+  optional bytes payload = 3;
+}

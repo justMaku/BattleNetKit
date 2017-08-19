@@ -1,0 +1,17 @@
+syntax = "proto2";
+
+message LogonRequest {
+	optional string program = 1;
+	optional string platform = 2;
+	optional string locale = 3;
+	optional string email = 4;
+	optional string version = 5;
+	optional int32 application_version = 6;
+	optional bool public_computer = 7;
+	optional bytes sso_id = 8;
+	optional bool disconnect_on_cookie_fail = 9 [default = false];
+	optional bool allow_logon_queue_notifications = 10 [default = false];
+	optional bool web_client_verification = 11 [default = false];
+	optional bytes cached_web_credentials = 12;
+	optional string user_agent = 14;
+}
