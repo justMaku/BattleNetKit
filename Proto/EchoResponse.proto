@@ -1,0 +1,6 @@
+syntax = "proto2";
+
+message EchoResponse {
+  optional fixed64 time = 1;
+  optional bytes payload = 2;
+}

@@ -162,6 +162,7 @@ PLATFORMS
 DEPENDENCIES
   danger
   fastlane
+  xcpretty
 
 BUNDLED WITH
    1.15.3

@@ -1,5 +1,5 @@
 //
-//  AuthenticationService.swift
+//  AuthenticationClientService.swift
 //  OstaraKit
 //
 //  Created by Michał Kałużny on 04/08/2017.
@@ -8,10 +8,56 @@
 
 import Foundation
 
-class AuthenticationService: ServiceType {
-    let id: UInt32 = 1
+class AuthenticationServerService: ServiceType {
+    var id: UInt32? = nil
+    static let name = "bnet.protocol.authentication.AuthenticationServer"
     
+    static func method(with id: UInt32) throws -> MethodType {
+        guard let method = Method(id: id) else {
+            throw ServiceTypeError.unknownMethodForService(method: id)
+        }
+        
+        return method
+    }
+    
+    enum Method: Int, MethodType {
+        case logon = 1
+        
+        var name: String {
+            switch self {
+            case .logon: return "Logon"
+            }
+        }
+        
+        var requestType: Message.Type {
+            switch self {
+            case .logon: return LogonRequest.self
+            }
+        }
+        
+        var responseType: Message.Type {
+            switch self {
+            default: fatalError()
+            }
+        }
+        
+        var id: UInt32 {
+            return UInt32(self.rawValue)
+        }
+    }
+}
+
+class AuthenticationClientService: ServiceType {
+    var id: UInt32? = nil
     static let name = "bnet.protocol.authentication.AuthenticationClient"
+    
+    static func method(with id: UInt32) throws -> MethodType {
+        guard let method = Method(id: id) else {
+            throw ServiceTypeError.unknownMethodForService(method: id)
+        }
+        
+        return method
+    }
     
     enum Method: Int, MethodType {
         case moduleLoad = 1
@@ -53,11 +99,7 @@ class AuthenticationService: ServiceType {
             default: fatalError()
             }
         }
-        
-        static var all: [AuthenticationService.Method] {
-            return [.moduleLoad, .moduleMessage, .accountSettings, .serverStateChange, .logonComplete, .memModuleLoad, .logonUpdate, .logonQueueUpdate, .logonQueueEnd, .gameAccountSelected]
-        }
-        
+
         var id: UInt32 {
             return UInt32(self.rawValue)
         }

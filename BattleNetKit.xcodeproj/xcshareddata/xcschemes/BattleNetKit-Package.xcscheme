@@ -173,9 +173,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BattleNetKit::OstaraTests"
-               BuildableName = "OstaraTests.xctest"
-               BlueprintName = "OstaraTests"
+               BlueprintIdentifier = "BattleNetKit::BattleNetKitTests"
+               BuildableName = "BattleNetKitTests.xctest"
+               BlueprintName = "BattleNetKitTests"
                ReferencedContainer = "container:BattleNetKit.xcodeproj">
             </BuildableReference>
          </TestableReference>

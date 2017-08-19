@@ -9,8 +9,17 @@
 import Foundation
 
 class ConnectionService: ServiceType {
-    let id: UInt32 = 0
+    static let id: UInt32 = 0
     static let name = "bnet.protocol.connection.ConnectionService"
+    var id: UInt32? = ConnectionService.id
+    
+    static func method(with id: UInt32) throws -> MethodType {
+        guard let method = Method(id: id) else {
+            throw ServiceTypeError.unknownMethodForService(method: id)
+        }
+        
+        return method
+    }
     
     enum Method: Int, MethodType {
         case connect = 1
@@ -36,6 +45,7 @@ class ConnectionService: ServiceType {
         var responseType: Message.Type {
             switch self {
                 case .connect: return ConnectResponse.self
+                case .echo: return EchoResponse.self
                 default: fatalError()
             }
         }
@@ -43,12 +53,9 @@ class ConnectionService: ServiceType {
         var requestType: Message.Type {
             switch self {
                 case .connect: return ConnectRequest.self
+                case .echo: return EchoRequest.self
                 default: fatalError()
             }
-        }
-        
-        static var all: [Method] {
-            return [.connect, .bind, .echo, .forceDisconnect, .keepAlive, .encrypt, .requestDisconnect]
         }
         
         var id: UInt32 {
