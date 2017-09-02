@@ -88,8 +88,9 @@ final public class BattleNet {
                 service.id = i
                 i += 1
             }
-            print("Exporting service: \(type(of: service).name) (\(try service.hash())) with ID: \(service.id!)")
+            print("Exporting service: \(type(of: service).name) 0x\(service.hexHash()) with ID: \(service.id!)")
             boundService.id = service.id!
+            boundServices.append(boundService)
         }
         
         bindRequest.exportedServices = boundServices
@@ -109,7 +110,7 @@ final public class BattleNet {
             for (key, var service) in services.enumerated() {
                 let id = connectResponse.bindResponse.importedServiceID[key]
                 do {
-                    print("Importing service: \(type(of: service).name) (\(try service.hash())) with ID: \(id)")
+                    print("Importing service: \(type(of: service).name) 0x\(service.hexHash()) with ID: \(id)")
                 } catch let error {
                     return
                 }
@@ -126,19 +127,16 @@ final public class BattleNet {
     
     func login() throws {
         var logonRequest = LogonRequest()
-        logonRequest.program = "WoW"
+        logonRequest.program = "WTCG"
         logonRequest.locale = "enGB"
         logonRequest.platform = "And"
         logonRequest.version = "0"
-        logonRequest.applicationVersion = 1
+        logonRequest.applicationVersion = 20457
         logonRequest.publicComputer = false
         logonRequest.allowLogonQueueNotifications = true
         logonRequest.webClientVerification = true
         
-        let data = try? logonRequest.serializedData()
-        try data?.write(to: URL.init(fileURLWithPath: "/tmp/packet2.bin"))
-        
-        guard let s = try service(with: 1) as? AuthenticationServerService else {
+        guard let s = try importedService(with: 1) as? AuthenticationServerService else {
             return
         }
         
@@ -207,8 +205,20 @@ extension BattleNet: ConnectionDelegate {
         }
     }
     
-    func service(with id: UInt32) throws -> ServiceType  {
+    func exportedService(with id: UInt32) throws -> ServiceType  {
+        switch id {
+        case ConnectionService.id:
+            return self.connectionService
+        default:
+            if let service = exportedServices.first(where: { service in service.id == id }) {
+                return service
+            }
+        }
         
+        throw Error.unknownService(serviceId: id)
+    }
+    
+    func importedService(with id: UInt32) throws -> ServiceType  {
         switch id {
         case ConnectionService.id:
             return self.connectionService
