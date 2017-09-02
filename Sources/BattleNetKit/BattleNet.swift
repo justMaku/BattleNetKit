@@ -88,7 +88,6 @@ final public class BattleNet {
                 service.id = i
                 i += 1
             }
-            print("Exporting service: \(type(of: service).name) 0x\(service.hexHash()) with ID: \(service.id!)")
             boundService.id = service.id!
             boundServices.append(boundService)
         }
@@ -109,11 +108,6 @@ final public class BattleNet {
             
             for (key, var service) in services.enumerated() {
                 let id = connectResponse.bindResponse.importedServiceID[key]
-                do {
-                    print("Importing service: \(type(of: service).name) 0x\(service.hexHash()) with ID: \(id)")
-                } catch let error {
-                    return
-                }
                 service.id = id
             }
             

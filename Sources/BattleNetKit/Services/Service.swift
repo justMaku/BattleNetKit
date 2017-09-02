@@ -48,6 +48,7 @@ enum MethodTypeError: Swift.Error {
 enum ServiceTypeError: Swift.Error {
     case invalidRoutingForPacket(packet: Packet)
     case unknownMethodForService(method: UInt32)
+    case unableToCreateHashForName(name: String)
 }
 
 enum ServiceName: UInt32 {
@@ -79,7 +80,7 @@ extension ServiceType {
     func hash() throws -> UInt32 {
         var hash: UInt32 = 0x811C9DC5;
         guard let bytes = Self.name.data(using: .ascii, allowLossyConversion: false)?.bytes else {
-            return 0 // TODO: Throw an error here
+            throw ServiceTypeError.unableToCreateHashForName(name: Self.name)
         }
         
         for byte in bytes {
@@ -88,10 +89,6 @@ extension ServiceType {
         }
         
         return hash
-    }
-    
-    func hexHash() -> String {
-        return try! String(hash(), radix: 16, uppercase: false)
     }
     
     func handle(_ packet: Packet) throws {
