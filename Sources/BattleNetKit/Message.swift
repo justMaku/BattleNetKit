@@ -8,10 +8,4 @@
 
 import SwiftProtobuf
 
-protocol Message: SwiftProtobuf.Message {}
-
-extension ConnectRequest: Message {}
-extension ConnectResponse: Message {}
-extension EchoRequest: Message {}
-extension EchoResponse: Message {}
-extension LogonRequest: Message {}
+typealias Message = SwiftProtobuf.Message

@@ -23,9 +23,6 @@ struct Packet {
             UInt8(headerSize) & 255
         ]
         
-        try headerData.write(to: URL(fileURLWithPath: "/Users/maku/Desktop/header.bin"))
-        try messageData?.write(to: URL(fileURLWithPath: "/Users/maku/Desktop/message.bin"))
-
         let sizeData = Data(bytes: sizeBytes)
         
         return sizeData + headerData + (messageData ?? Data())

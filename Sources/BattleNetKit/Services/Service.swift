@@ -90,6 +90,10 @@ extension ServiceType {
         return hash
     }
     
+    func hexHash() -> String {
+        return try! String(hash(), radix: 16, uppercase: false)
+    }
+    
     func handle(_ packet: Packet) throws {
         guard packet.header.serviceID == self.id else {
             throw ServiceTypeError.invalidRoutingForPacket(packet: packet)

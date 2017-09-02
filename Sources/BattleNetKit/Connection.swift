@@ -11,7 +11,8 @@ import TLS
 
 protocol ConnectionDelegate {
     func handle(_ packet: Packet, context: Connection.Context?) throws
-    func service(with id: UInt32) throws -> ServiceType 
+    func importedService(with id: UInt32) throws -> ServiceType
+    func exportedService(with id: UInt32) throws -> ServiceType
 }
 
 class Connection {
@@ -154,7 +155,7 @@ class Connection {
         let messageBytes = try socket.receive(max: Int(header.size))
         let messageData = Data(bytes: messageBytes)
         
-        print("[\(header.token)] Received call to service: \(header.serviceID) method: \(header.methodID)")
+        print("[\(header.token)] Received call to service: \(header.serviceID) method: \(header.methodID) status: \(BattleNetError(rawValue: header.status)!)")
 
         if messageBytes.count == 0 {
             print(header)
@@ -173,7 +174,7 @@ class Connection {
                 message = try reponseType.init(serializedData: messageData)
             }
         } else {
-            guard let service = try delegate?.service(with: header.serviceID) else {
+            guard let service = try delegate?.exportedService(with: header.serviceID) else {
                 return nil
             }
             
