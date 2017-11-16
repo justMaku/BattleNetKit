@@ -121,7 +121,7 @@ final public class BattleNet {
     
     func login() throws {
         var logonRequest = LogonRequest()
-        logonRequest.program = "WTCG"
+        logonRequest.program = "WoW"
         logonRequest.locale = "enGB"
         logonRequest.platform = "And"
         logonRequest.version = "0"
@@ -177,13 +177,17 @@ final public class BattleNet {
 }
 
 extension BattleNet: ConnectionDelegate {
-    func handle(_ packet: Packet, context: Connection.Context?) throws {        
-        switch packet.header.serviceID {
+    func handle(_ packet: Packet, context: Connection.Context?) throws {
+        
+        let serviceId = packet.header.serviceID
+        let methodId = packet.header.methodID
+        
+        switch serviceId {
         case ConnectionService.id:
-            switch packet.header.methodID {
+            switch methodId {
             case ConnectionService.Method.echo.id:
                 try echo(packet: packet)
-            default: throw Error.invalidRemoteInvocation(method: packet.header.methodID, service: packet.header.serviceID, message: packet.message)
+            default: throw Error.invalidRemoteInvocation(method: methodId, service: serviceId, message: packet.message)
             }
         case ReplyService.id:
             guard let context = context else {
@@ -195,7 +199,10 @@ extension BattleNet: ConnectionDelegate {
             case .reply(_, let completionBlock, _):
                 completionBlock(packet)
             }
-        default: throw Error.unknownService(serviceId: packet.header.serviceID)
+        default:
+            let service = try exportedService(with: serviceId)
+            let method = try type(of: service).method(with: methodId)
+            print("Unhandled call to: \(method.name) on \(type(of: service).name)")
         }
     }
     

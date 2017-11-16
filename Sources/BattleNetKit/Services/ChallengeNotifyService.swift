@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ChallangeNotifyService: ServiceType {
+class ChallengeNotifyService: ServiceType {
     var id: UInt32? = nil
     
     static let name = "bnet.protocol.challenge.ChallengeNotify"

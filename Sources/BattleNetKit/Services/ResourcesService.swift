@@ -34,11 +34,6 @@ class AccountService: UnimplementedService {
     static let name = "bnet.protocol.account.AccountService"
 }
 
-class ChallengeNotifyService: UnimplementedService {
-    var id: UInt32? = nil
-    static let name = "bnet.protocol.challenge.ChallengeNotify"
-}
-
 class ChallengeService: UnimplementedService {
     var id: UInt32? = nil
     static let name = "bnet.protocol.challenge.ChallengeService"
