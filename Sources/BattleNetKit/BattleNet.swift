@@ -26,17 +26,29 @@ final public class BattleNet {
         case unknownService(serviceId: UInt32)
     }
     
+    enum State {
+        case disconnected
+        case connecting
+        case authenticating
+        case connected
+    }
+    
     let connection: Connection
     let region: Region
+    var state: State = .disconnected
     
     let connectionService = ConnectionService()
     
     fileprivate var exportedServices: [ServiceType] = []
     fileprivate var importedServices: [ServiceType] = []
     
-    public init(region: Region) throws {
+    private let token: String
+    
+    public init(region: Region, token: String = "") throws {
         self.region = region
         self.connection = try Connection(region: region)
+        self.token = token
+
         self.connection.delegate = self
         
         importedServices = [
@@ -121,16 +133,20 @@ final public class BattleNet {
     
     func login() throws {
         var logonRequest = LogonRequest()
-        logonRequest.program = "WoW"
-        logonRequest.locale = "enGB"
-        logonRequest.platform = "And"
+        logonRequest.program = Constants.clientTypeName
+        logonRequest.locale = Constants.localeName
+        logonRequest.platform = Constants.platformName
         logonRequest.version = "0"
-        logonRequest.applicationVersion = 20457
+        logonRequest.applicationVersion = 1
         logonRequest.publicComputer = false
         logonRequest.allowLogonQueueNotifications = true
         logonRequest.webClientVerification = true
         
-        guard let s = try importedService(with: 1) as? AuthenticationServerService else {
+        if let tokenData = token.data(using: .ascii) {
+            logonRequest.cachedWebCredentials = tokenData
+        }
+        
+        guard let s = importedService(of: AuthenticationServerService.self) else {
             return
         }
         
@@ -174,6 +190,14 @@ final public class BattleNet {
             connection.queue(packet)
         }
     }
+    
+    func importedService<Service: ServiceType>(of type: Service.Type) -> Service? {
+        if type == ConnectionService.self {
+            return self.connectionService as? Service
+        } else {
+            return importedServices.first(where: { service in type(of: service) == type }) as? Service
+        }
+    }
 }
 
 extension BattleNet: ConnectionDelegate {
@@ -187,7 +211,8 @@ extension BattleNet: ConnectionDelegate {
             switch methodId {
             case ConnectionService.Method.echo.id:
                 try echo(packet: packet)
-            default: throw Error.invalidRemoteInvocation(method: methodId, service: serviceId, message: packet.message)
+            default:
+                throw Error.invalidRemoteInvocation(method: methodId, service: serviceId, message: packet.message)
             }
         case ReplyService.id:
             guard let context = context else {
@@ -203,6 +228,42 @@ extension BattleNet: ConnectionDelegate {
             let service = try exportedService(with: serviceId)
             let method = try type(of: service).method(with: methodId)
             print("Unhandled call to: \(method.name) on \(type(of: service).name)")
+
+            if method is AuthenticationClientService.Method {
+                guard let message = packet.message as? LogonResult else {
+                    return
+                }
+                
+                let entity = message.gameAccount.first!
+                let secret = Data.init(count: 32)
+                let identity = JSONRealmListTicketIdentity(entityID: entity)
+                let clientInfo = JSONRealmListTicketClientInformation(info: JamJSONRealmListTicketClientInformation(
+                    platform: Constants.platformName.fourCC(),
+                    currentTime: (Int32)(Date().timeIntervalSince1970),
+                    buildVariant: Constants.buildVariant,
+                    timeZone: "Etc/UTC",
+                    versionDataBuild: Constants.clientVersion.versionBuild,
+                    audioLocale: Constants.localeName.fourCC(),
+                    version: Constants.clientVersion,
+                    secret: secret.bytes,
+                    type: Constants.clientTypeName.fourCC(),
+                    textLocale: Constants.localeName.fourCC()
+                    )
+                )
+
+                let request = try ClientRequest(command: "RealmListTicketRequest", parameters: [
+                    try Attribute(parameter: "Identity", jam: identity),
+                    try Attribute(parameter: "ClientInfo", jam: clientInfo),
+                ])
+
+                guard let service = importedService(of: GameUtilitiesService.self) else {
+                    return
+                }
+                
+                try call(method: GameUtilitiesService.Method.processClientRequest, on: service, with: request) { response in
+                    print("Response!")
+                }
+            }
         }
     }
     
@@ -230,5 +291,9 @@ extension BattleNet: ConnectionDelegate {
         }
         
         throw Error.unknownService(serviceId: id)
+    }
+    
+    func connection(_: Connection, didConnectToRegion: Region) {
+        self.state = .connecting
     }
 }

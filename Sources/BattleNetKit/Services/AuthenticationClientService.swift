@@ -97,6 +97,8 @@ class AuthenticationClientService: ServiceType {
         var responseType: Message.Type {
             switch self {
             case .logonQueueUpdate: return LogonQueueUpdateRequest.self
+            case .logonUpdate: return LogonUpdateRequest.self
+            case .logonComplete: return LogonResult.self
             default: fatalError()
             }
         }

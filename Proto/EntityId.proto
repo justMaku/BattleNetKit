@@ -1,0 +1,6 @@
+syntax = "proto2";
+
+message EntityId {
+	optional fixed64 high = 1;
+	optional fixed64 low = 2;
+}

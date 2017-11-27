@@ -1,0 +1,15 @@
+syntax = "proto2";
+
+import "EntityId.proto";
+
+message Variant {
+	optional bool bool_value = 2;
+	optional int64 int_value = 3;
+	optional double float_value = 4;
+	optional string string_value = 5;
+	optional bytes blob_value = 6;
+	optional bytes message_value = 7;
+	optional string fourcc_value = 8;
+	optional uint64 uint_value = 9;
+	optional EntityId entityid_value = 10;
+}

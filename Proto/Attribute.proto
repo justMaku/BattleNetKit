@@ -1,0 +1,7 @@
+syntax = "proto2";
+import "Variant.proto";
+
+message Attribute {
+	required string name = 1;
+	required Variant value = 2;
+}

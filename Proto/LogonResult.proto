@@ -1,0 +1,14 @@
+syntax = "proto2";
+
+import "EntityId.proto";
+
+message LogonResult {
+	optional uint32 error_code = 1;
+	optional EntityId account = 2;
+	repeated EntityId game_account = 3;
+	optional string email = 4;
+	repeated uint32 available_region = 5;
+	optional uint32 connected_region = 6;
+	optional string battle_tag = 7;
+	optional string geoip_country = 8;
+}

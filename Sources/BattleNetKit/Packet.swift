@@ -13,7 +13,6 @@ struct Packet {
     let message: Message?
     
     func encode() throws -> Data {
-        
         let headerData = try header.serializedData()
         let messageData = try message?.serializedData()
         

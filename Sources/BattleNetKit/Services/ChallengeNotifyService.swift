@@ -44,6 +44,7 @@ class ChallengeNotifyService: ServiceType {
         
         var responseType: Message.Type {
             switch self {
+            case .onExternalChallenge: return ChallengeExternalRequest.self
             default: fatalError()
             }
         }

@@ -1,13 +1,13 @@
 //
 //  BattleNetError.swift
-//  BattleNetKitSamplePackageDescription
+//  BattleNetKit
 //
 //  Created by Michał Kałużny on 19.08.17.
 //
 
 import Foundation
 
-enum BattleNetError: UInt32
+enum BattleNetError: UInt32, Error
 {
     case ok = 0
     case `internal` = 1

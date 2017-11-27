@@ -6,11 +6,22 @@
 //
 //
 
-public enum Region: String {
-    case eu
-    case us
-    
+public enum Region: UInt32, Codable {
+    case unknown = 0
+    case us = 1
+    case eu = 2
+    case test = 98
+
     var host: String {
-        return self.rawValue + ".actual.battle.net"
+        return self.name + ".actual.battle.net"
+    }
+    
+    var name: String {
+        switch self {
+        case .us: return "us"
+        case .eu: return "eu"
+        case .test: return "test"
+        case .unknown: return "unk"
+        }
     }
 }

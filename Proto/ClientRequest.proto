@@ -1,0 +1,12 @@
+syntax = "proto2";
+
+import "Attribute.proto";
+import "ProcessId.proto";
+import "EntityId.proto";
+
+message ClientRequest {
+	repeated Attribute attribute = 1;
+	optional ProcessId host = 2;
+	optional EntityId bnet_account_id = 3;
+	optional EntityId game_account_id = 4;
+}

@@ -1,6 +1,6 @@
 //
 //  ResourcesService.swift
-//  BattleNetKitSamplePackageDescription
+//  BattleNetKit
 //
 //  Created by Michał Kałużny on 19.08.17.
 //
@@ -27,11 +27,6 @@ class ResourceService: UnimplementedService {
 class AccountNotifyService: UnimplementedService {
     var id: UInt32? = nil
     static let name = "bnet.protocol.account.AccountNotify"
-}
-
-class AccountService: UnimplementedService {
-    var id: UInt32? = nil
-    static let name = "bnet.protocol.account.AccountService"
 }
 
 class ChallengeService: UnimplementedService {
@@ -87,11 +82,6 @@ class GameMasterService: UnimplementedService {
 class GameMasterSubscriberService: UnimplementedService {
     var id: UInt32? = nil
     static let name = "bnet.protocol.game_master.GameMasterSubscriber"
-}
-
-class GameUtilitiesService: UnimplementedService {
-    var id: UInt32? = nil
-    static let name = "bnet.protocol.game_utilities.GameUtilities"
 }
 
 class NotificationListenerService: UnimplementedService {

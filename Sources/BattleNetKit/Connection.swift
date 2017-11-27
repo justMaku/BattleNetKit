@@ -10,6 +10,7 @@ import Foundation
 import TLS
 
 protocol ConnectionDelegate {
+    func connection(_: Connection, didConnectToRegion: Region)
     func handle(_ packet: Packet, context: Connection.Context?) throws
     func importedService(with id: UInt32) throws -> ServiceType
     func exportedService(with id: UInt32) throws -> ServiceType
@@ -20,6 +21,7 @@ class Connection {
     enum Error: Swift.Error {
         case noContextForReply(header: Header)
         case invalidContextForReply(header: Header)
+        case unknownBattleNetStatus(error: UInt32)
     }
     
     enum Context {
@@ -31,8 +33,6 @@ class Connection {
     
     static private let auroraPort: UInt16 = 1119;
     
-
-    
     public var delegate: ConnectionDelegate? = nil
     
     private let socket: Socket
@@ -42,6 +42,7 @@ class Connection {
     private var awaitingReply: [UInt32: Context] = [:]
 
     private var running = false
+    private var queue = DispatchQueue(label: "loop")
         
     init(region: Region) throws {
         self.region = region
@@ -56,17 +57,19 @@ class Connection {
     
     func connect() throws {
         try socket.connect(servername: region.host)
+        self.delegate?.connection(self, didConnectToRegion: region)
     }
     
     func run() throws {
         running = true
-        try loop()
+        
+        queue.async {
+            try? self.loop()
+        }
     }
     
     func loop() throws {
         while (running) {
-            keepAlive()
-            
             for (token, context) in outgoingQueue {
                 switch context {
                 case .noReply(let packet):
@@ -89,12 +92,6 @@ class Connection {
                 }
             }
         }
-    }
-    
-    func keepAlive() {
-//        let header = Header()
-//        header.serviceID = ConnectionService.id
-//        header.methodID = ConnectionService.Method.forceDisconnect
     }
     
     func stop() {
@@ -138,7 +135,6 @@ class Connection {
 
         let packetData = try modifiedPacket.encode()
         try socket.send(packetData.bytes)
-        print("[\(modifiedPacket.header.token)] Sending call to service: \(modifiedPacket.header.serviceID) method: \(modifiedPacket.header.methodID)")
     }
     
     func read() throws -> Packet? {
@@ -152,13 +148,18 @@ class Connection {
         let headerBytes = try socket.receive(max: Int(size))
         let headerData = Data(bytes: headerBytes)
         let header = try Header(serializedData: headerData)
+        
+        guard header.status == BattleNetError.ok.rawValue else {
+            guard let error = BattleNetError(rawValue: header.status) else {
+                throw Error.unknownBattleNetStatus(error: header.status)
+            }
+            throw error
+        }
+        
         let messageBytes = try socket.receive(max: Int(header.size))
         let messageData = Data(bytes: messageBytes)
         
-        print("[\(header.token)] Received call to service: \(header.serviceID) method: \(header.methodID) status: \(BattleNetError(rawValue: header.status)!)")
-
         if messageBytes.count == 0 {
-            print(header)
             return nil
         }
         

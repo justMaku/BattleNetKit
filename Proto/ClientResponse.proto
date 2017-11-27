@@ -1,0 +1,7 @@
+syntax = "proto2";
+
+import "Attribute.proto";
+
+message ClientResponse {
+	repeated Attribute attribute = 1;
+}
