@@ -20,6 +20,10 @@ class AuthenticationServerService: ServiceType {
         return method
     }
     
+    static func handles(_ type: MethodType) -> Bool {
+        return type(of: type) == Method.self
+    }
+    
     enum Method: Int, MethodType {
         case logon = 1
         
@@ -57,6 +61,10 @@ class AuthenticationClientService: ServiceType {
         }
         
         return method
+    }
+    
+    static func handles(_ type: MethodType) -> Bool {
+        return type(of: type) == Method.self
     }
     
     enum Method: Int, MethodType {

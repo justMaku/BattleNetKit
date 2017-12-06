@@ -9,7 +9,6 @@
 import Foundation
 
 protocol MethodType {
-    
     var id: UInt32 { get }
     var name: String { get }
     var requestType: Message.Type { get }
@@ -29,6 +28,8 @@ protocol ServiceType {
     
     var id: UInt32? { get set }
     static func method(with id: UInt32) throws -> MethodType
+    
+    static func handles(_ type: MethodType) -> Bool
 }
 
 class ReplyService: ServiceType {
@@ -38,6 +39,10 @@ class ReplyService: ServiceType {
     
     static func method(with id: UInt32) throws -> MethodType {
         throw ServiceTypeError.unknownMethodForService(method: id)
+    }
+    
+    static func handles(_ type: MethodType) -> Bool {
+        return false
     }
 }
 
@@ -49,6 +54,7 @@ enum ServiceTypeError: Swift.Error {
     case invalidRoutingForPacket(packet: Packet)
     case unknownMethodForService(method: UInt32)
     case unableToCreateHashForName(name: String)
+    case cantRegisterUnboundService
 }
 
 enum ServiceName: UInt32 {

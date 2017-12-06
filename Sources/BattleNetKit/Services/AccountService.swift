@@ -19,6 +19,10 @@ class AccountService: ServiceType {
         return method
     }
     
+    static func handles(_ method: MethodType) -> Bool {
+        return type(of: method) == Method.self
+    }
+    
     enum Method: Int, MethodType {
         case createGameAccount = 14
         

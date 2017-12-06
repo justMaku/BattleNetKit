@@ -19,6 +19,10 @@ class GameUtilitiesService: ServiceType {
         return method
     }
     
+    static func handles(_ type: MethodType) -> Bool {
+        return type(of: type) == Method.self
+    }
+    
     enum Method: Int, MethodType {
         case processClientRequest = 1
         

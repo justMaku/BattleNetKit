@@ -21,6 +21,10 @@ class ConnectionService: ServiceType {
         return method
     }
     
+    static func handles(_ type: MethodType) -> Bool {
+        return type(of: type) == Method.self
+    }
+    
     enum Method: Int, MethodType {
         case connect = 1
         case bind = 2

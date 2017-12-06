@@ -17,6 +17,10 @@ extension UnimplementedService {
     static func method(with id: UInt32) throws -> MethodType {
         throw Error.unimplementedService(name: self.name)
     }
+    
+    static func handles(_ type: MethodType) -> Bool {
+        return false
+    }
 }
 
 class ResourceService: UnimplementedService {

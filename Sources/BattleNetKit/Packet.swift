@@ -9,6 +9,11 @@
 import Foundation
 
 struct Packet {
+    enum Error: Swift.Error {
+        case unexpectedNilMessage(packet: Packet)
+        case unexpectedMessageType(type: Message.Type)
+    }
+    
     let header: Header
     let message: Message?
     
@@ -25,5 +30,17 @@ struct Packet {
         let sizeData = Data(bytes: sizeBytes)
         
         return sizeData + headerData + (messageData ?? Data())
+    }
+    
+    func extract<Response: Message>() throws -> Response {
+        guard let message = self.message else {
+            throw Error.unexpectedNilMessage(packet: self)
+        }
+        
+        guard let casted = message as? Response else {
+            throw Error.unexpectedMessageType(type: type(of: message))
+        }
+        
+        return casted
     }
 }

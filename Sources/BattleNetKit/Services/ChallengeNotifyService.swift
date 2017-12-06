@@ -21,6 +21,10 @@ class ChallengeNotifyService: ServiceType {
         return method
     }
     
+    static func handles(_ type: MethodType) -> Bool {
+        return type(of: type) == Method.self
+    }
+    
     enum Method: Int, MethodType {
         case challengeUser = 1
         case challengeResult = 2

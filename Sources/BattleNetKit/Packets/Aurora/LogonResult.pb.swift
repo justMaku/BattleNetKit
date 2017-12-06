@@ -86,6 +86,15 @@ struct LogonResult: SwiftProtobuf.Message {
   /// Clears the value of `geoipCountry`. Subsequent reads from it will return its default value.
   mutating func clearGeoipCountry() {_storage._geoipCountry = nil}
 
+  var sessionKey: Data {
+    get {return _storage._sessionKey ?? SwiftProtobuf.Internal.emptyData}
+    set {_uniqueStorage()._sessionKey = newValue}
+  }
+  /// Returns true if `sessionKey` has been explicitly set.
+  var hasSessionKey: Bool {return _storage._sessionKey != nil}
+  /// Clears the value of `sessionKey`. Subsequent reads from it will return its default value.
+  mutating func clearSessionKey() {_storage._sessionKey = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -107,6 +116,7 @@ struct LogonResult: SwiftProtobuf.Message {
         case 6: try decoder.decodeSingularUInt32Field(value: &_storage._connectedRegion)
         case 7: try decoder.decodeSingularStringField(value: &_storage._battleTag)
         case 8: try decoder.decodeSingularStringField(value: &_storage._geoipCountry)
+        case 9: try decoder.decodeSingularBytesField(value: &_storage._sessionKey)
         default: break
         }
       }
@@ -143,6 +153,9 @@ struct LogonResult: SwiftProtobuf.Message {
       if let v = _storage._geoipCountry {
         try visitor.visitSingularStringField(value: v, fieldNumber: 8)
       }
+      if let v = _storage._sessionKey {
+        try visitor.visitSingularBytesField(value: v, fieldNumber: 9)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -162,6 +175,7 @@ extension LogonResult: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._
     6: .standard(proto: "connected_region"),
     7: .standard(proto: "battle_tag"),
     8: .standard(proto: "geoip_country"),
+    9: .standard(proto: "session_key"),
   ]
 
   fileprivate class _StorageClass {
@@ -173,6 +187,7 @@ extension LogonResult: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._
     var _connectedRegion: UInt32? = nil
     var _battleTag: String? = nil
     var _geoipCountry: String? = nil
+    var _sessionKey: Data? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -187,6 +202,7 @@ extension LogonResult: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._
       _connectedRegion = source._connectedRegion
       _battleTag = source._battleTag
       _geoipCountry = source._geoipCountry
+      _sessionKey = source._sessionKey
     }
   }
 
@@ -210,6 +226,7 @@ extension LogonResult: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._
         if _storage._connectedRegion != other_storage._connectedRegion {return false}
         if _storage._battleTag != other_storage._battleTag {return false}
         if _storage._geoipCountry != other_storage._geoipCountry {return false}
+        if _storage._sessionKey != other_storage._sessionKey {return false}
         return true
       }
       if !storagesAreEqual {return false}

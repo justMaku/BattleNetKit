@@ -11,4 +11,5 @@ message LogonResult {
 	optional uint32 connected_region = 6;
 	optional string battle_tag = 7;
 	optional string geoip_country = 8;
+	optional bytes session_key = 9;
 }

@@ -10,10 +10,11 @@ import Foundation
 import TLS
 
 protocol ConnectionDelegate {
-    func connection(_: Connection, didConnectToRegion: Region)
+    func connection(_: Connection, didConnectToRegion: Region) throws
     func handle(_ packet: Packet, context: Connection.Context?) throws
-    func importedService(with id: UInt32) throws -> ServiceType
-    func exportedService(with id: UInt32) throws -> ServiceType
+    func service(importedAs id: UInt32) throws -> ServiceType
+    func service(exportedAs id: UInt32) throws -> ServiceType
+    func handle(_ error: Error) throws
 }
 
 class Connection {
@@ -29,14 +30,15 @@ class Connection {
         case reply(packet: Packet, completionBlock: CompletionBlock, responseType: Message.Type)
     }
     
-    typealias CompletionBlock = ((Packet) -> Void)
+    typealias CompletionBlock = ((Packet) throws -> Void)
     
     static private let auroraPort: UInt16 = 1119;
     
     public var delegate: ConnectionDelegate? = nil
     
+    public let region: Region
+    
     private let socket: Socket
-    private let region: Region
     private var requestToken: UInt32 = 0
     private var outgoingQueue: [UInt32: Context] = [:]
     private var awaitingReply: [UInt32: Context] = [:]
@@ -57,14 +59,20 @@ class Connection {
     
     func connect() throws {
         try socket.connect(servername: region.host)
-        self.delegate?.connection(self, didConnectToRegion: region)
+        try self.delegate?.connection(self, didConnectToRegion: region)
     }
     
     func run() throws {
         running = true
         
         queue.async {
-            try? self.loop()
+            do {
+                try self.loop()
+            } catch let error {
+                try? self.delegate?.handle(error)
+                self.running = false
+                return
+            }
         }
     }
     
@@ -107,6 +115,7 @@ class Connection {
         }
         
         outgoingQueue[token] = Context.noReply(packet: packet)
+        Log.debug("Queued message to service: \(packet.header.serviceID), method: \(packet.header.methodID)", domain: .aurora)
     }
     
     func queue(_ packet: Packet, completion: @escaping CompletionBlock, responseType: Message.Type) {
@@ -118,6 +127,7 @@ class Connection {
         }
 
         outgoingQueue[token] = Context.reply(packet: packet, completionBlock: completion, responseType: responseType)
+        Log.debug("Queued message with a callback to service: \(packet.header.serviceID), method: \(packet.header.methodID)", domain: .aurora)
     }
     
     private func next() -> UInt32 {
@@ -135,6 +145,7 @@ class Connection {
 
         let packetData = try modifiedPacket.encode()
         try socket.send(packetData.bytes)
+        Log.debug("Sent message to service: \(packet.header.serviceID), method: \(packet.header.methodID)", domain: .aurora)
     }
     
     func read() throws -> Packet? {
@@ -164,6 +175,7 @@ class Connection {
         }
         
         let message: Message
+        
         if header.serviceID == ReplyService.id {
             guard let context = awaitingReply[header.token] else {
                 throw Error.noContextForReply(header: header)
@@ -175,7 +187,7 @@ class Connection {
                 message = try reponseType.init(serializedData: messageData)
             }
         } else {
-            guard let service = try delegate?.exportedService(with: header.serviceID) else {
+            guard let service = try delegate?.service(exportedAs: header.serviceID) else {
                 return nil
             }
             
@@ -186,7 +198,8 @@ class Connection {
         }
         
         let packet = Packet(header: header, message: message)
-        
+        Log.debug("Received packet, service: \(packet.header.serviceID), method: \(packet.header.methodID)", domain: .aurora)
+
         return packet
     }
 }
