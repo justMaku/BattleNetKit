@@ -8,7 +8,7 @@
 import Foundation
 import Rainbow
 
-enum Log {
+public enum Log {
     private enum Level: String {
         case debug
         case warning
@@ -23,7 +23,7 @@ enum Log {
         }
     }
     
-    enum Domain: String {
+    public enum Domain: String {
         case aurora
         case connection
         case authentication
@@ -32,18 +32,18 @@ enum Log {
         case realmlist
     }
     
-    static public var enabled = false
+    static public var enabled = true
     static public let shouldUseColors = true
     
-    static func debug(_ message: @autoclosure () -> String, domain: Domain? = nil) {
+    public static func debug(_ message: @autoclosure () -> String, domain: Domain? = nil) {
         log(message, level: .debug, domain: domain)
     }
     
-    static func warning(_ message: @autoclosure () -> String, domain: Domain? = nil) {
+    public static func warning(_ message: @autoclosure () -> String, domain: Domain? = nil) {
         log(message, level: .warning, domain: domain)
     }
 
-    static func error(_ message: @autoclosure () -> String, domain: Domain? = nil) {
+    public static func error(_ message: @autoclosure () -> String, domain: Domain? = nil) {
         log(message, level: .error, domain: domain)
     }
 

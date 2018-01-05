@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "BattleNetKit",
     products: [
-        .executable(name: "BattleNetKit", targets: ["BattleNetKit"])
+        .library(name: "BattleNetKit", targets: ["BattleNetKit"]),
     ],
     dependencies: [
         .package(url: "https://github.com/vapor/tls", from: "0.8.0"),
@@ -20,6 +20,12 @@ let package = Package(
                 "SwiftProtobuf",
                 "Rainbow",
                 "CZlib"
+            ]
+        ),
+        .target(
+            name: "BattleNetKitSample",
+            dependencies: [
+                "BattleNetKit"
             ]
         )
     ],

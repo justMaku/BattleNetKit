@@ -14,6 +14,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BattleNetKit::BattleNetKitSample"
+               BuildableName = "BattleNetKitSample"
+               BlueprintName = "BattleNetKitSample"
+               ReferencedContainer = "container:BattleNetKit.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "BattleNetKit::BattleNetKit"
                BuildableName = "BattleNetKit.framework"
                BlueprintName = "BattleNetKit"
@@ -159,9 +173,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BattleNetKit::BattleNetKit"
-            BuildableName = "BattleNetKit.framework"
-            BlueprintName = "BattleNetKit"
+            BlueprintIdentifier = "BattleNetKit::BattleNetKitSample"
+            BuildableName = "BattleNetKitSample"
+            BlueprintName = "BattleNetKitSample"
             ReferencedContainer = "container:BattleNetKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
