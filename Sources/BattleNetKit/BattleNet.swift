@@ -8,8 +8,14 @@
 
 import Foundation
 
-final public class BattleNet {
-    enum State {
+
+public protocol BattleNetDelegate {
+    func client(_ client: BattleNet, didChangeState to: BattleNet.State)
+}
+
+public class BattleNet {
+    
+    public enum State {
         case disconnected
         case connecting
         case bound
@@ -18,19 +24,24 @@ final public class BattleNet {
         case connected
     }
     
-    let region: Region
-    var state: State = .disconnected
+    public let region: Region
+    public var delegate: BattleNetDelegate?
     
     //MARK: - APIs
-    public var connectionAPI: ConnectionAPI! = nil
-    public var authenticationAPI: AuthenticationAPI! = nil
-    public var gamesUtilitiesAPI: GamesUtilitiesAPI! = nil
-    public var realmlistAPI: RealmlistAPI! = nil
+    private (set) public var connectionAPI: ConnectionAPI! = nil
+    private (set) public var authenticationAPI: AuthenticationAPI! = nil
+    private (set) public var gamesUtilitiesAPI: GamesUtilitiesAPI! = nil
+    private (set) public var realmlistAPI: RealmlistAPI! = nil
 
     internal let connection: Connection
-    internal let token: String
     
-    var apis: [API] = []
+    fileprivate let token: String
+    fileprivate var apis: [API] = []
+    fileprivate (set) var state: State = .disconnected {
+        didSet {
+            self.delegate?.client(self, didChangeState: state)
+        }
+    }
     
     public init(region: Region, token: String) throws {
         self.region = region
@@ -80,8 +91,7 @@ extension BattleNet: ConnectionAPIDelegate {
 
 extension BattleNet: AuthenticationAPIDelegate {
     func authenticated(as username: String) throws {
+        self.state = .connected
         Log.debug("Authenticated as: \(username)", domain: .client)
-        
-        try self.realmlistAPI.requestRealmlistTicket(gameAccount: self.authenticationAPI.gameAccounts.first!)
     }
 }
