@@ -31,13 +31,13 @@ public class GamesUtilitiesAPI: API {
         }
     }
     
-    func getAllValues(for attribute: Attribute, completion: @escaping ([Variant]) -> Void) throws {
+    func getAllValues(for attribute: Attribute, completion: @escaping ([Variant]) throws -> Void) throws {
         var request = GetAllValuesForAttributeRequest()
         request.attributeKey = attribute.name
         
         try self.client.connectionAPI.call(GameUtilitiesService.Method.getAllValuesForAttribute, message: request) { (packet) in
             let response: GetAllValuesForAttributeResponse = try packet.extract()
-            completion(response.attributeValue)
+            try completion(response.attributeValue)
         }
     }
 }

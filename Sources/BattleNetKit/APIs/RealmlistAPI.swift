@@ -11,6 +11,8 @@ public class RealmlistAPI: API {
     
     enum Error: Swift.Error {
         case noRealmlistTicketReceived
+        case noRealmlistReceived
+        case noServerAddressesRecevied
     }
     
     let client: BattleNet
@@ -22,7 +24,50 @@ public class RealmlistAPI: API {
     func bind(to connectionAPI: ConnectionAPI) throws {}
     func register(with connectionAPI: ConnectionAPI) throws {}
     
-    public func requestRealmlistTicket(gameAccount: EntityId, completion: @escaping (Data) -> Void) throws {
+    
+    public func requestRealmlist(for account: EntityId, completion: @escaping (Realmlist) throws -> Void) throws {
+        var realmlist = Realmlist()
+        
+        let mainGroup = DispatchGroup()
+        mainGroup.enter()
+        try self.requestRealmlistTicket(gameAccount: account) { (ticket) in
+            try self.requestSubRegions { (subregions) in
+                let regionsGroup = DispatchGroup()
+
+                try subregions.forEach { subregion in
+                    regionsGroup.enter()
+
+                    realmlist[subregion] = []
+                    try self.requestRealmList(in: subregion, with: ticket) { (realms) in
+                        let realmsGroup = DispatchGroup()
+                        
+                        try realms.forEach { realm in
+                            realmsGroup.enter()
+                            try self.requestRealmIpAddress(for: realm, in: subregion, with: ticket) { addresses in
+                                let entry = RealmlistEntry(realm, addresses)
+                                realmlist[subregion]?.append(entry)
+                                realmsGroup.leave()
+                            }
+                        }
+                        
+                        realmsGroup.notify(queue: .main) {
+                            regionsGroup.leave()
+                        }
+                    }
+                }
+                
+                regionsGroup.notify(queue: .main) {
+                    mainGroup.leave()
+                }
+            }
+        }
+        
+        mainGroup.notify(queue: .main) {
+            try? completion(realmlist)
+        }
+    }
+    
+    public func requestRealmlistTicket(gameAccount: EntityId, completion: @escaping (Data) throws -> Void) throws {
         Log.debug("Requesting realmlist ticket", domain: .realmlist)
         let secret = Data.init(count: 32)
         let identity = JSONRealmListTicketIdentity(entityID: gameAccount)
@@ -52,31 +97,36 @@ public class RealmlistAPI: API {
                 throw Error.noRealmlistTicketReceived
             }
             
-            completion(ticket)
+            try completion(ticket)
         }
     }
     
-    public func requestSubRegions(completion: @escaping ([String]) -> Void) throws {
+    public func requestSubRegions(completion: @escaping ([Subregion]) throws -> Void) throws {
         try self.client.gamesUtilitiesAPI.getAllValues(for: Attribute.init(command: "CharacterListRequest")) { (attributes) in
-            completion(attributes.map { $0.stringValue })
+            try completion(attributes.map(Subregion.init))
         }
     }
-    public func requestRealmList(in region: String, with ticket: Data, completion: @escaping ([JamJSONRealmListUpdatePart]) -> Void) throws {
-        let request = try ClientRequest(command: "CharacterListRequest", value: region, parameters: [
+    
+    public func requestRealmList(in subregion: Subregion, with ticket: Data, completion: @escaping ([Realm]) throws -> Void) throws {
+        let request = try ClientRequest(command: "CharacterListRequest", value: subregion.description, parameters: [
                 Attribute(parameter: "RealmListTicket", value: ticket)
             ]
         )
         
         try self.client.gamesUtilitiesAPI.send(request) { (response) in
             guard let realmlist = response.attribute["Param_RealmList"] else {
-                throw Error.noRealmlistTicketReceived
+                throw Error.noRealmlistReceived
             }
             
-            let realms = try realmlist.value.jamValue(of: JSONRealmListUpdates.self).updates
-            completion(realms)
-    public func requestRealmIpAddress(for address: UInt64, in subregion: String, with ticket: Data, completion: @escaping (String) -> Void) throws {
-        let request = try ClientRequest(command: "RealmJoinRequest", value: subregion, parameters: [
-            Attribute(parameter: "RealmAddress", value: address),
+            let jam = try realmlist.value.jamValue(of: JSONRealmListUpdates.self)
+            let realms = jam.updates.map { $0.update }.map(Realm.init)
+            try completion(realms)
+        }
+    }
+
+    public func requestRealmIpAddress(for realm: Realm, in subregion: Subregion, with ticket: Data, completion: @escaping ([Address]) throws -> Void) throws {
+        let request = try ClientRequest(command: "RealmJoinRequest", value: subregion.description, parameters: [
+            Attribute(parameter: "RealmAddress", value: realm.identifier),
             Attribute(parameter: "RealmListTicket", value: ticket),
             Attribute(parameter: "BnetSessionKey", value: self.client.authenticationAPI.sessionKey ?? Data())
             ]
@@ -87,9 +137,9 @@ public class RealmlistAPI: API {
                 throw Error.noServerAddressesRecevied
             }
             
-            let addresses = try attribute.value.jamValue(of: JSONRealmListServerIPAddresses.self)
-            
-            completion(addresses.families.first?.addresses.first?.ip ?? "")
+            let jam = try attribute.value.jamValue(of: JSONRealmListServerIPAddresses.self)
+            let addresses = jam.families.flatMap { $0.addresses }.map(Address.init)
+            try completion(addresses)
         }
     }
 }
