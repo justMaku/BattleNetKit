@@ -2972,8 +2972,8 @@
 		OBJ_76 /* BattleNetKitSample */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_77 /* RealmlistDumper.swift */,
 				OBJ_78 /* main.swift */,
+				OBJ_77 /* RealmlistDumper.swift */,
 			);
 			name = BattleNetKitSample;
 			path = Sources/BattleNetKitSample;

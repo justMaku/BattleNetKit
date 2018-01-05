@@ -15,9 +15,13 @@ do {
         exit(1)
     }
     
+    // Log.enabled = fals // To disable logging.
+    
     let token = CommandLine.arguments[1]
     let dumper = try BattleNetRealmlistDumper(region: .test, token: token)
     try dumper.connect()
+    
+    
 } catch let error {
     Log.error(error.localizedDescription)
     exit(1)
