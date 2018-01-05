@@ -74,7 +74,22 @@ public class RealmlistAPI: API {
             
             let realms = try realmlist.value.jamValue(of: JSONRealmListUpdates.self).updates
             completion(realms)
+    public func requestRealmIpAddress(for address: UInt64, in subregion: String, with ticket: Data, completion: @escaping (String) -> Void) throws {
+        let request = try ClientRequest(command: "RealmJoinRequest", value: subregion, parameters: [
+            Attribute(parameter: "RealmAddress", value: address),
+            Attribute(parameter: "RealmListTicket", value: ticket),
+            Attribute(parameter: "BnetSessionKey", value: self.client.authenticationAPI.sessionKey ?? Data())
+            ]
+        )
+        
+        try self.client.gamesUtilitiesAPI.send(request) { response in
+            guard let attribute = response.attribute["Param_ServerAddresses"] else {
+                throw Error.noServerAddressesRecevied
+            }
+            
+            let addresses = try attribute.value.jamValue(of: JSONRealmListServerIPAddresses.self)
+            
+            completion(addresses.families.first?.addresses.first?.ip ?? "")
         }
     }
-    
 }
