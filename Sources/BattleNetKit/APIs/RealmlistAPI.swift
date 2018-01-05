@@ -44,7 +44,7 @@ public class RealmlistAPI: API {
                         try realms.forEach { realm in
                             realmsGroup.enter()
                             try self.requestRealmIpAddress(for: realm, in: subregion, with: ticket) { addresses in
-                                let entry = RealmlistEntry(realm, addresses)
+                                let entry = RealmlistEntry(realm: realm, addresses: addresses)
                                 realmlist[subregion]?.append(entry)
                                 realmsGroup.leave()
                             }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Address: CustomStringConvertible {
+public struct Address: CustomStringConvertible, Codable {
     public var description: String
     
     let port: UInt16
@@ -20,7 +20,7 @@ public struct Address: CustomStringConvertible {
     }
 }
 
-public struct Version {
+public struct Version: CustomStringConvertible, Codable {
     let major: UInt32
     let minor: UInt32
     let patch: UInt32
@@ -32,9 +32,13 @@ public struct Version {
         self.patch = jam.versionRevision
         self.build = jam.versionBuild
     }
+    
+    public var description: String {
+        return "\(major).\(minor).\(patch)" + " (" + String(build) + ")"
+    }
 }
 
-public struct Subregion: CustomStringConvertible, Hashable, Equatable {
+public struct Subregion: CustomStringConvertible, Hashable, Equatable, Codable {
     enum Error: Swift.Error {
         case invalidVariantType
         case invalidDescription
@@ -82,9 +86,13 @@ public struct Subregion: CustomStringConvertible, Hashable, Equatable {
 }
 
 public typealias Realmlist = [Subregion: [RealmlistEntry]]
-public typealias RealmlistEntry = (realm: Realm, addresses: [Address])
 
-public struct Realm: Hashable, Equatable {
+public struct RealmlistEntry: Codable {
+    let realm: Realm
+    let addresses: [Address]
+}
+
+public struct Realm: Hashable, Equatable, Codable {
     let name: String
     let supportedVersion: Version
     let identifier: UInt64
