@@ -32,7 +32,8 @@ enum Log {
         case realmlist
     }
     
-    static let shouldUseColors = true
+    static public var enabled = false
+    static public let shouldUseColors = true
     
     static func debug(_ message: @autoclosure () -> String, domain: Domain? = nil) {
         log(message, level: .debug, domain: domain)
@@ -47,6 +48,9 @@ enum Log {
     }
 
     private static func log(_ message: @autoclosure () -> String, level: Level, domain: Domain? = nil) {
+        guard Log.enabled else {
+            return
+        }
         
         var output = "[\(level.rawValue.uppercased())]"
         
