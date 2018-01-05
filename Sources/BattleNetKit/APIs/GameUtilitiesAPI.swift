@@ -30,4 +30,14 @@ public class GamesUtilitiesAPI: API {
             try completion(response)
         }
     }
+    
+    func getAllValues(for attribute: Attribute, completion: @escaping ([Variant]) -> Void) throws {
+        var request = GetAllValuesForAttributeRequest()
+        request.attributeKey = attribute.name
+        
+        try self.client.connectionAPI.call(GameUtilitiesService.Method.getAllValuesForAttribute, message: request) { (packet) in
+            let response: GetAllValuesForAttributeResponse = try packet.extract()
+            completion(response.attributeValue)
+        }
+    }
 }

@@ -1,0 +1,9 @@
+syntax = "proto2";
+
+import "EntityId.proto";
+
+message GetAllValuesForAttributeRequest {
+	optional string attribute_key = 1;
+	optional EntityId agent_id = 2;
+	optional fixed32 program = 5;
+}

@@ -25,22 +25,27 @@ class GameUtilitiesService: ServiceType {
     
     enum Method: Int, MethodType {
         case processClientRequest = 1
+        case getAllValuesForAttribute = 10
+
         
         var name: String {
             switch self {
             case .processClientRequest: return "ProcessClientRequest"
+            case .getAllValuesForAttribute: return "GetAllValuesForAttribute"
             }
         }
         
         var responseType: Message.Type {
             switch self {
             case .processClientRequest: return ClientResponse.self
+            case .getAllValuesForAttribute: return GetAllValuesForAttributeResponse.self
             }
         }
         
         var requestType: Message.Type {
             switch self {
             case .processClientRequest: return ClientRequest.self
+            case .getAllValuesForAttribute: return GetAllValuesForAttributeRequest.self
             }
         }
         

@@ -1,0 +1,7 @@
+syntax = "proto2";
+
+import "Variant.proto";
+
+message GetAllValuesForAttributeResponse {
+	repeated Variant attribute_value = 1;
+}
