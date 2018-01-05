@@ -32,7 +32,7 @@ enum Log {
         case realmlist
     }
     
-    static let shouldUseColors = false
+    static let shouldUseColors = true
     
     static func debug(_ message: @autoclosure () -> String, domain: Domain? = nil) {
         log(message, level: .debug, domain: domain)
