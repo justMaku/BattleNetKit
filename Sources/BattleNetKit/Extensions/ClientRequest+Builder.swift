@@ -8,10 +8,10 @@
 import Foundation
 
 extension ClientRequest {
-    init(command: String, parameters: [Attribute]) throws {
+    init(command: String, value: Variantable? = nil, parameters: [Attribute]) throws {
         self.init()
         
-        let commandAttribute = try Attribute(command: command)
+        let commandAttribute = try Attribute(command: command, value: value)
         self.attribute = [commandAttribute]
         self.attribute.append(contentsOf: parameters)
     }
@@ -41,11 +41,16 @@ extension Attribute {
         return self.name.starts(with: "Param_")
     }
     
-    init(command: String) throws {
+    init(command: String, value: Variantable? = nil) throws {
         self.init()
         
         self.name = "Command_\(command)_v1_b9"
-        self.value = try Variant(0)
+        
+        if let value = value {
+            self.value = try Variant(value)
+        } else {
+            self.value = try Variant(0)
+        }
     }
     
     init(parameter: String) {
@@ -114,6 +119,19 @@ extension Variant {
         self.init()
         
         self.fourccValue = value
+    }
+    
+    public func jamValue<T>(of type: T.Type) throws -> T where T: Decodable {
+        let data = try self.blobValue.advanced(by: 4).decode()
+        
+        let decoder = JSONDecoder()
+        
+        let name = String(describing: T.self) + ":"
+        let json = data
+            .prefix(upTo: data.count - 1) // Get rid of \0 at the end
+            .advanced(by: name.count) // Get rid of T: at the beginning
+        
+        return try decoder.decode(T.self, from: json)
     }
 }
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct JamJSONRealmListUpdatePart: Codable {
+public struct JamJSONRealmListUpdatePart: Codable {
     let update: JamJSONRealmEntry
     let deleting: Bool
 }

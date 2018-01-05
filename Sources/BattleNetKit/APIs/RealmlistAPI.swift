@@ -61,4 +61,20 @@ public class RealmlistAPI: API {
             completion(attributes.map { $0.stringValue })
         }
     }
+    public func requestRealmList(in region: String, with ticket: Data, completion: @escaping ([JamJSONRealmListUpdatePart]) -> Void) throws {
+        let request = try ClientRequest(command: "CharacterListRequest", value: region, parameters: [
+                Attribute(parameter: "RealmListTicket", value: ticket)
+            ]
+        )
+        
+        try self.client.gamesUtilitiesAPI.send(request) { (response) in
+            guard let realmlist = response.attribute["Param_RealmList"] else {
+                throw Error.noRealmlistTicketReceived
+            }
+            
+            let realms = try realmlist.value.jamValue(of: JSONRealmListUpdates.self).updates
+            completion(realms)
+        }
+    }
+    
 }

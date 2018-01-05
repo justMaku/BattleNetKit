@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct JamJSONRealmEntry: Codable {
-    let wowRealmAddress: UInt32
-    let cfgTimezonesID: Int32
-    let populationState: Int32
-    let version: JamJSONGameVersion
-    let cfgRealmsID: Int32
-    let flags: UInt32
-    let name: String
-    let cfgConfigsID: Int32
-    let cfgLanguagesID: Int32
+public struct JamJSONRealmEntry: Codable {
+    public let wowRealmAddress: UInt32
+    public let cfgTimezonesID: Int32
+    public let populationState: Int32
+    public let version: JamJSONGameVersion
+    public let cfgRealmsID: Int32
+    public let flags: UInt32
+    public let name: String
+    public let cfgConfigsID: Int32
+    public let cfgLanguagesID: Int32
 }

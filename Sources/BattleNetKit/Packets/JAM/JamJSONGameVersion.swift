@@ -7,7 +7,7 @@
 
 import Foundation
 
-internal struct JamJSONGameVersion: Codable {
+public struct JamJSONGameVersion: Codable {
     let versionMajor: UInt32
     let versionMinor: UInt32
     let versionRevision: UInt32
