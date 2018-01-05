@@ -1,11 +1,27 @@
+// swift-tools-version:4.0
 import PackageDescription
 
 let package = Package(
     name: "BattleNetKit",
+    products: [
+        .executable(name: "BattleNetKit", targets: ["BattleNetKit"])
+    ],
     dependencies: [
-        .Package(url: "https://github.com/vapor/tls.git", majorVersion: 0, minor: 8),
-        .Package(url: "https://github.com/apple/swift-protobuf.git", Version(1,0,2)),
-        .Package(url: "https://github.com/onevcat/Rainbow", Version(3,0,0)),
-	.Package(url: "https://github.com/IBM-Swift/CZlib", Version(0,1,2)) 
-    ]
+        .package(url: "https://github.com/vapor/tls", from: "0.8.0"),
+        .package(url: "https://github.com/apple/swift-protobuf", from: "1.0.2"),
+        .package(url: "https://github.com/onevcat/Rainbow", from: "3.0.0"),
+        .package(url: "https://github.com/IBM-Swift/CZlib", from: "0.1.2")
+    ],
+    targets: [
+        .target(
+            name: "BattleNetKit",
+            dependencies: [
+                "TLS",
+                "SwiftProtobuf",
+                "Rainbow",
+                "CZlib"
+            ]
+        )
+    ],
+    swiftLanguageVersions: [4]
 )

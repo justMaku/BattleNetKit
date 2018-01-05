@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/onevcat/Rainbow",
         "state": {
           "branch": null,
-          "revision": "dfe579abc72347618e0ffde4faa36fa085c5f3bc",
-          "version": "3.0.0"
+          "revision": "f407235c7e473c3cb2d2907bb6822616d22a0b78",
+          "version": "3.0.3"
         }
       },
       {
@@ -48,7 +48,7 @@
       },
       {
         "package": "SwiftProtobuf",
-        "repositoryURL": "https://github.com/apple/swift-protobuf.git",
+        "repositoryURL": "https://github.com/apple/swift-protobuf",
         "state": {
           "branch": null,
           "revision": "9dea0a4e64f9c3eb73db3308e7302f45cd8380b2",
@@ -57,7 +57,7 @@
       },
       {
         "package": "TLS",
-        "repositoryURL": "https://github.com/vapor/tls.git",
+        "repositoryURL": "https://github.com/vapor/tls",
         "state": {
           "branch": null,
           "revision": "7816e4e8df6f11601e14d4e443de9b65afb4e019",

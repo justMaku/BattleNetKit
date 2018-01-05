@@ -42,34 +42,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "SwiftProtobuf::protoc-gen-swift"
-               BuildableName = "protoc-gen-swift"
-               BlueprintName = "protoc-gen-swift"
-               ReferencedContainer = "container:BattleNetKit.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "SwiftProtobuf::SwiftProtobufPluginLibrary"
-               BuildableName = "SwiftProtobufPluginLibrary.framework"
-               BlueprintName = "SwiftProtobufPluginLibrary"
-               ReferencedContainer = "container:BattleNetKit.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "SwiftProtobuf::SwiftProtobuf"
                BuildableName = "SwiftProtobuf.framework"
                BlueprintName = "SwiftProtobuf"
@@ -169,16 +141,6 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BattleNetKit::BattleNetKitTests"
-               BuildableName = "BattleNetKitTests.xctest"
-               BlueprintName = "BattleNetKitTests"
-               ReferencedContainer = "container:BattleNetKit.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <AdditionalOptions>
       </AdditionalOptions>
