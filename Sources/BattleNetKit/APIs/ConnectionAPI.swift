@@ -164,7 +164,7 @@ extension ConnectionAPI {
 // MARK: Response Handlers
 extension ConnectionAPI {
     func handlePing(packet: Packet) throws {
-        Log.debug("ping", domain: .connection)
+        Log.debug("Ping", domain: .connection)
         guard let ping = packet.message as? EchoResponse else {
             throw Error.invalidRemoteInvocation(method: packet.header.methodID, service: packet.header.serviceID, message: packet.message)
         }
@@ -174,7 +174,7 @@ extension ConnectionAPI {
         pong.payload = ping.payload
         
         try reply(to: packet, with: pong)
-        Log.debug("pong", domain: .connection)
+        Log.debug("Pong", domain: .connection)
     }
 }
 
