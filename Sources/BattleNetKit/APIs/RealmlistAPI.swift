@@ -18,7 +18,7 @@ public class RealmlistAPI: API {
     func bind(to connectionAPI: ConnectionAPI) throws {}
     func register(with connectionAPI: ConnectionAPI) throws {}
     
-    func requestRealmlistTicket(gameAccount: EntityId) throws {
+    public func requestRealmlistTicket(gameAccount: EntityId, completion: ()) throws {
         Log.debug("Requesting realmlist ticket", domain: .realmlist)
         let secret = Data.init(count: 32)
         let identity = JSONRealmListTicketIdentity(entityID: gameAccount)

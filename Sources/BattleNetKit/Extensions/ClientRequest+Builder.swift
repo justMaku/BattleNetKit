@@ -109,7 +109,7 @@ extension Variant {
     }
 }
 
-protocol Variantable {}
+public protocol Variantable {}
 extension Bool: Variantable {}
 extension Int64: Variantable {}
 extension Double: Variantable {}
