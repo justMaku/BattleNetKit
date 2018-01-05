@@ -55,4 +55,10 @@ public class RealmlistAPI: API {
             completion(ticket)
         }
     }
+    
+    public func requestSubRegions(completion: @escaping ([String]) -> Void) throws {
+        try self.client.gamesUtilitiesAPI.getAllValues(for: Attribute.init(command: "CharacterListRequest")) { (attributes) in
+            completion(attributes.map { $0.stringValue })
+        }
+    }
 }
