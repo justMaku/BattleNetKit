@@ -19,91 +19,91 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct LogonResult: SwiftProtobuf.Message {
-  static let protoMessageName: String = "LogonResult"
+public struct LogonResult: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "LogonResult"
 
-  var errorCode: UInt32 {
+  public var errorCode: UInt32 {
     get {return _storage._errorCode ?? 0}
     set {_uniqueStorage()._errorCode = newValue}
   }
   /// Returns true if `errorCode` has been explicitly set.
-  var hasErrorCode: Bool {return _storage._errorCode != nil}
+  public var hasErrorCode: Bool {return _storage._errorCode != nil}
   /// Clears the value of `errorCode`. Subsequent reads from it will return its default value.
-  mutating func clearErrorCode() {_storage._errorCode = nil}
+  public mutating func clearErrorCode() {_storage._errorCode = nil}
 
-  var account: EntityId {
+  public var account: EntityId {
     get {return _storage._account ?? EntityId()}
     set {_uniqueStorage()._account = newValue}
   }
   /// Returns true if `account` has been explicitly set.
-  var hasAccount: Bool {return _storage._account != nil}
+  public var hasAccount: Bool {return _storage._account != nil}
   /// Clears the value of `account`. Subsequent reads from it will return its default value.
-  mutating func clearAccount() {_storage._account = nil}
+  public mutating func clearAccount() {_storage._account = nil}
 
-  var gameAccount: [EntityId] {
+  public var gameAccount: [EntityId] {
     get {return _storage._gameAccount}
     set {_uniqueStorage()._gameAccount = newValue}
   }
 
-  var email: String {
+  public var email: String {
     get {return _storage._email ?? String()}
     set {_uniqueStorage()._email = newValue}
   }
   /// Returns true if `email` has been explicitly set.
-  var hasEmail: Bool {return _storage._email != nil}
+  public var hasEmail: Bool {return _storage._email != nil}
   /// Clears the value of `email`. Subsequent reads from it will return its default value.
-  mutating func clearEmail() {_storage._email = nil}
+  public mutating func clearEmail() {_storage._email = nil}
 
-  var availableRegion: [UInt32] {
+  public var availableRegion: [UInt32] {
     get {return _storage._availableRegion}
     set {_uniqueStorage()._availableRegion = newValue}
   }
 
-  var connectedRegion: UInt32 {
+  public var connectedRegion: UInt32 {
     get {return _storage._connectedRegion ?? 0}
     set {_uniqueStorage()._connectedRegion = newValue}
   }
   /// Returns true if `connectedRegion` has been explicitly set.
-  var hasConnectedRegion: Bool {return _storage._connectedRegion != nil}
+  public var hasConnectedRegion: Bool {return _storage._connectedRegion != nil}
   /// Clears the value of `connectedRegion`. Subsequent reads from it will return its default value.
-  mutating func clearConnectedRegion() {_storage._connectedRegion = nil}
+  public mutating func clearConnectedRegion() {_storage._connectedRegion = nil}
 
-  var battleTag: String {
+  public var battleTag: String {
     get {return _storage._battleTag ?? String()}
     set {_uniqueStorage()._battleTag = newValue}
   }
   /// Returns true if `battleTag` has been explicitly set.
-  var hasBattleTag: Bool {return _storage._battleTag != nil}
+  public var hasBattleTag: Bool {return _storage._battleTag != nil}
   /// Clears the value of `battleTag`. Subsequent reads from it will return its default value.
-  mutating func clearBattleTag() {_storage._battleTag = nil}
+  public mutating func clearBattleTag() {_storage._battleTag = nil}
 
-  var geoipCountry: String {
+  public var geoipCountry: String {
     get {return _storage._geoipCountry ?? String()}
     set {_uniqueStorage()._geoipCountry = newValue}
   }
   /// Returns true if `geoipCountry` has been explicitly set.
-  var hasGeoipCountry: Bool {return _storage._geoipCountry != nil}
+  public var hasGeoipCountry: Bool {return _storage._geoipCountry != nil}
   /// Clears the value of `geoipCountry`. Subsequent reads from it will return its default value.
-  mutating func clearGeoipCountry() {_storage._geoipCountry = nil}
+  public mutating func clearGeoipCountry() {_storage._geoipCountry = nil}
 
-  var sessionKey: Data {
+  public var sessionKey: Data {
     get {return _storage._sessionKey ?? SwiftProtobuf.Internal.emptyData}
     set {_uniqueStorage()._sessionKey = newValue}
   }
   /// Returns true if `sessionKey` has been explicitly set.
-  var hasSessionKey: Bool {return _storage._sessionKey != nil}
+  public var hasSessionKey: Bool {return _storage._sessionKey != nil}
   /// Clears the value of `sessionKey`. Subsequent reads from it will return its default value.
-  mutating func clearSessionKey() {_storage._sessionKey = nil}
+  public mutating func clearSessionKey() {_storage._sessionKey = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   /// Used by the decoding initializers in the SwiftProtobuf library, not generally
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     _ = _uniqueStorage()
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
@@ -127,7 +127,7 @@ struct LogonResult: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       if let v = _storage._errorCode {
         try visitor.visitSingularUInt32Field(value: v, fieldNumber: 1)
@@ -166,7 +166,7 @@ struct LogonResult: SwiftProtobuf.Message {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension LogonResult: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "error_code"),
     2: .same(proto: "account"),
     3: .standard(proto: "game_account"),
@@ -213,7 +213,7 @@ extension LogonResult: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._
     return _storage
   }
 
-  func _protobuf_generated_isEqualTo(other: LogonResult) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: LogonResult) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0

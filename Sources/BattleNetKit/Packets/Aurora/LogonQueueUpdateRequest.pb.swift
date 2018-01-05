@@ -19,39 +19,39 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct LogonQueueUpdateRequest: SwiftProtobuf.Message {
-  static let protoMessageName: String = "LogonQueueUpdateRequest"
+public struct LogonQueueUpdateRequest: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "LogonQueueUpdateRequest"
 
-  var position: UInt32 {
+  public var position: UInt32 {
     get {return _position ?? 0}
     set {_position = newValue}
   }
   /// Returns true if `position` has been explicitly set.
-  var hasPosition: Bool {return self._position != nil}
+  public var hasPosition: Bool {return self._position != nil}
   /// Clears the value of `position`. Subsequent reads from it will return its default value.
-  mutating func clearPosition() {self._position = nil}
+  public mutating func clearPosition() {self._position = nil}
 
-  var estimatedTime: UInt64 {
+  public var estimatedTime: UInt64 {
     get {return _estimatedTime ?? 0}
     set {_estimatedTime = newValue}
   }
   /// Returns true if `estimatedTime` has been explicitly set.
-  var hasEstimatedTime: Bool {return self._estimatedTime != nil}
+  public var hasEstimatedTime: Bool {return self._estimatedTime != nil}
   /// Clears the value of `estimatedTime`. Subsequent reads from it will return its default value.
-  mutating func clearEstimatedTime() {self._estimatedTime = nil}
+  public mutating func clearEstimatedTime() {self._estimatedTime = nil}
 
-  var etaDeviationInSec: UInt64 {
+  public var etaDeviationInSec: UInt64 {
     get {return _etaDeviationInSec ?? 0}
     set {_etaDeviationInSec = newValue}
   }
   /// Returns true if `etaDeviationInSec` has been explicitly set.
-  var hasEtaDeviationInSec: Bool {return self._etaDeviationInSec != nil}
+  public var hasEtaDeviationInSec: Bool {return self._etaDeviationInSec != nil}
   /// Clears the value of `etaDeviationInSec`. Subsequent reads from it will return its default value.
-  mutating func clearEtaDeviationInSec() {self._etaDeviationInSec = nil}
+  public mutating func clearEtaDeviationInSec() {self._etaDeviationInSec = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   public var isInitialized: Bool {
     if self._position == nil {return false}
@@ -64,7 +64,7 @@ struct LogonQueueUpdateRequest: SwiftProtobuf.Message {
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularUInt32Field(value: &self._position)
@@ -79,7 +79,7 @@ struct LogonQueueUpdateRequest: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if let v = self._position {
       try visitor.visitSingularUInt32Field(value: v, fieldNumber: 1)
     }
@@ -100,13 +100,13 @@ struct LogonQueueUpdateRequest: SwiftProtobuf.Message {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension LogonQueueUpdateRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "position"),
     2: .standard(proto: "estimated_time"),
     3: .standard(proto: "eta_deviation_in_sec"),
   ]
 
-  func _protobuf_generated_isEqualTo(other: LogonQueueUpdateRequest) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: LogonQueueUpdateRequest) -> Bool {
     if self._position != other._position {return false}
     if self._estimatedTime != other._estimatedTime {return false}
     if self._etaDeviationInSec != other._etaDeviationInSec {return false}

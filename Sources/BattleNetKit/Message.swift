@@ -8,4 +8,4 @@
 
 import SwiftProtobuf
 
-typealias Message = SwiftProtobuf.Message
+public typealias Message = SwiftProtobuf.Message

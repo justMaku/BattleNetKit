@@ -19,30 +19,30 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct BoundService: SwiftProtobuf.Message {
-  static let protoMessageName: String = "BoundService"
+public struct BoundService: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "BoundService"
 
-  var hash: UInt32 {
+  public var hash: UInt32 {
     get {return _hash ?? 0}
     set {_hash = newValue}
   }
   /// Returns true if `hash` has been explicitly set.
-  var hasHash: Bool {return self._hash != nil}
+  public var hasHash: Bool {return self._hash != nil}
   /// Clears the value of `hash`. Subsequent reads from it will return its default value.
-  mutating func clearHash() {self._hash = nil}
+  public mutating func clearHash() {self._hash = nil}
 
-  var id: UInt32 {
+  public var id: UInt32 {
     get {return _id ?? 0}
     set {_id = newValue}
   }
   /// Returns true if `id` has been explicitly set.
-  var hasID: Bool {return self._id != nil}
+  public var hasID: Bool {return self._id != nil}
   /// Clears the value of `id`. Subsequent reads from it will return its default value.
-  mutating func clearID() {self._id = nil}
+  public mutating func clearID() {self._id = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   public var isInitialized: Bool {
     if self._hash == nil {return false}
@@ -54,7 +54,7 @@ struct BoundService: SwiftProtobuf.Message {
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularFixed32Field(value: &self._hash)
@@ -68,7 +68,7 @@ struct BoundService: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if let v = self._hash {
       try visitor.visitSingularFixed32Field(value: v, fieldNumber: 1)
     }
@@ -85,12 +85,12 @@ struct BoundService: SwiftProtobuf.Message {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension BoundService: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "hash"),
     2: .same(proto: "id"),
   ]
 
-  func _protobuf_generated_isEqualTo(other: BoundService) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: BoundService) -> Bool {
     if self._hash != other._hash {return false}
     if self._id != other._id {return false}
     if unknownFields != other.unknownFields {return false}

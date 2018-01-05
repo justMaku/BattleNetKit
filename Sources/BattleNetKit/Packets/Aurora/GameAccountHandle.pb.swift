@@ -19,39 +19,39 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct GameAccountHandle: SwiftProtobuf.Message {
-  static let protoMessageName: String = "GameAccountHandle"
+public struct GameAccountHandle: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "GameAccountHandle"
 
-  var id: UInt32 {
+  public var id: UInt32 {
     get {return _id ?? 0}
     set {_id = newValue}
   }
   /// Returns true if `id` has been explicitly set.
-  var hasID: Bool {return self._id != nil}
+  public var hasID: Bool {return self._id != nil}
   /// Clears the value of `id`. Subsequent reads from it will return its default value.
-  mutating func clearID() {self._id = nil}
+  public mutating func clearID() {self._id = nil}
 
-  var program: UInt32 {
+  public var program: UInt32 {
     get {return _program ?? 0}
     set {_program = newValue}
   }
   /// Returns true if `program` has been explicitly set.
-  var hasProgram: Bool {return self._program != nil}
+  public var hasProgram: Bool {return self._program != nil}
   /// Clears the value of `program`. Subsequent reads from it will return its default value.
-  mutating func clearProgram() {self._program = nil}
+  public mutating func clearProgram() {self._program = nil}
 
-  var region: UInt32 {
+  public var region: UInt32 {
     get {return _region ?? 0}
     set {_region = newValue}
   }
   /// Returns true if `region` has been explicitly set.
-  var hasRegion: Bool {return self._region != nil}
+  public var hasRegion: Bool {return self._region != nil}
   /// Clears the value of `region`. Subsequent reads from it will return its default value.
-  mutating func clearRegion() {self._region = nil}
+  public mutating func clearRegion() {self._region = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   public var isInitialized: Bool {
     if self._id == nil {return false}
@@ -64,7 +64,7 @@ struct GameAccountHandle: SwiftProtobuf.Message {
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularFixed32Field(value: &self._id)
@@ -79,7 +79,7 @@ struct GameAccountHandle: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if let v = self._id {
       try visitor.visitSingularFixed32Field(value: v, fieldNumber: 1)
     }
@@ -100,13 +100,13 @@ struct GameAccountHandle: SwiftProtobuf.Message {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension GameAccountHandle: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "program"),
     3: .same(proto: "region"),
   ]
 
-  func _protobuf_generated_isEqualTo(other: GameAccountHandle) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: GameAccountHandle) -> Bool {
     if self._id != other._id {return false}
     if self._program != other._program {return false}
     if self._region != other._region {return false}

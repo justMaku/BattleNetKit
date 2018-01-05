@@ -19,135 +19,135 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct LogonRequest: SwiftProtobuf.Message {
-  static let protoMessageName: String = "LogonRequest"
+public struct LogonRequest: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "LogonRequest"
 
-  var program: String {
+  public var program: String {
     get {return _program ?? String()}
     set {_program = newValue}
   }
   /// Returns true if `program` has been explicitly set.
-  var hasProgram: Bool {return self._program != nil}
+  public var hasProgram: Bool {return self._program != nil}
   /// Clears the value of `program`. Subsequent reads from it will return its default value.
-  mutating func clearProgram() {self._program = nil}
+  public mutating func clearProgram() {self._program = nil}
 
-  var platform: String {
+  public var platform: String {
     get {return _platform ?? String()}
     set {_platform = newValue}
   }
   /// Returns true if `platform` has been explicitly set.
-  var hasPlatform: Bool {return self._platform != nil}
+  public var hasPlatform: Bool {return self._platform != nil}
   /// Clears the value of `platform`. Subsequent reads from it will return its default value.
-  mutating func clearPlatform() {self._platform = nil}
+  public mutating func clearPlatform() {self._platform = nil}
 
-  var locale: String {
+  public var locale: String {
     get {return _locale ?? String()}
     set {_locale = newValue}
   }
   /// Returns true if `locale` has been explicitly set.
-  var hasLocale: Bool {return self._locale != nil}
+  public var hasLocale: Bool {return self._locale != nil}
   /// Clears the value of `locale`. Subsequent reads from it will return its default value.
-  mutating func clearLocale() {self._locale = nil}
+  public mutating func clearLocale() {self._locale = nil}
 
-  var email: String {
+  public var email: String {
     get {return _email ?? String()}
     set {_email = newValue}
   }
   /// Returns true if `email` has been explicitly set.
-  var hasEmail: Bool {return self._email != nil}
+  public var hasEmail: Bool {return self._email != nil}
   /// Clears the value of `email`. Subsequent reads from it will return its default value.
-  mutating func clearEmail() {self._email = nil}
+  public mutating func clearEmail() {self._email = nil}
 
-  var version: String {
+  public var version: String {
     get {return _version ?? String()}
     set {_version = newValue}
   }
   /// Returns true if `version` has been explicitly set.
-  var hasVersion: Bool {return self._version != nil}
+  public var hasVersion: Bool {return self._version != nil}
   /// Clears the value of `version`. Subsequent reads from it will return its default value.
-  mutating func clearVersion() {self._version = nil}
+  public mutating func clearVersion() {self._version = nil}
 
-  var applicationVersion: Int32 {
+  public var applicationVersion: Int32 {
     get {return _applicationVersion ?? 0}
     set {_applicationVersion = newValue}
   }
   /// Returns true if `applicationVersion` has been explicitly set.
-  var hasApplicationVersion: Bool {return self._applicationVersion != nil}
+  public var hasApplicationVersion: Bool {return self._applicationVersion != nil}
   /// Clears the value of `applicationVersion`. Subsequent reads from it will return its default value.
-  mutating func clearApplicationVersion() {self._applicationVersion = nil}
+  public mutating func clearApplicationVersion() {self._applicationVersion = nil}
 
-  var publicComputer: Bool {
+  public var publicComputer: Bool {
     get {return _publicComputer ?? false}
     set {_publicComputer = newValue}
   }
   /// Returns true if `publicComputer` has been explicitly set.
-  var hasPublicComputer: Bool {return self._publicComputer != nil}
+  public var hasPublicComputer: Bool {return self._publicComputer != nil}
   /// Clears the value of `publicComputer`. Subsequent reads from it will return its default value.
-  mutating func clearPublicComputer() {self._publicComputer = nil}
+  public mutating func clearPublicComputer() {self._publicComputer = nil}
 
-  var ssoID: Data {
+  public var ssoID: Data {
     get {return _ssoID ?? SwiftProtobuf.Internal.emptyData}
     set {_ssoID = newValue}
   }
   /// Returns true if `ssoID` has been explicitly set.
-  var hasSsoID: Bool {return self._ssoID != nil}
+  public var hasSsoID: Bool {return self._ssoID != nil}
   /// Clears the value of `ssoID`. Subsequent reads from it will return its default value.
-  mutating func clearSsoID() {self._ssoID = nil}
+  public mutating func clearSsoID() {self._ssoID = nil}
 
-  var disconnectOnCookieFail: Bool {
+  public var disconnectOnCookieFail: Bool {
     get {return _disconnectOnCookieFail ?? false}
     set {_disconnectOnCookieFail = newValue}
   }
   /// Returns true if `disconnectOnCookieFail` has been explicitly set.
-  var hasDisconnectOnCookieFail: Bool {return self._disconnectOnCookieFail != nil}
+  public var hasDisconnectOnCookieFail: Bool {return self._disconnectOnCookieFail != nil}
   /// Clears the value of `disconnectOnCookieFail`. Subsequent reads from it will return its default value.
-  mutating func clearDisconnectOnCookieFail() {self._disconnectOnCookieFail = nil}
+  public mutating func clearDisconnectOnCookieFail() {self._disconnectOnCookieFail = nil}
 
-  var allowLogonQueueNotifications: Bool {
+  public var allowLogonQueueNotifications: Bool {
     get {return _allowLogonQueueNotifications ?? false}
     set {_allowLogonQueueNotifications = newValue}
   }
   /// Returns true if `allowLogonQueueNotifications` has been explicitly set.
-  var hasAllowLogonQueueNotifications: Bool {return self._allowLogonQueueNotifications != nil}
+  public var hasAllowLogonQueueNotifications: Bool {return self._allowLogonQueueNotifications != nil}
   /// Clears the value of `allowLogonQueueNotifications`. Subsequent reads from it will return its default value.
-  mutating func clearAllowLogonQueueNotifications() {self._allowLogonQueueNotifications = nil}
+  public mutating func clearAllowLogonQueueNotifications() {self._allowLogonQueueNotifications = nil}
 
-  var webClientVerification: Bool {
+  public var webClientVerification: Bool {
     get {return _webClientVerification ?? false}
     set {_webClientVerification = newValue}
   }
   /// Returns true if `webClientVerification` has been explicitly set.
-  var hasWebClientVerification: Bool {return self._webClientVerification != nil}
+  public var hasWebClientVerification: Bool {return self._webClientVerification != nil}
   /// Clears the value of `webClientVerification`. Subsequent reads from it will return its default value.
-  mutating func clearWebClientVerification() {self._webClientVerification = nil}
+  public mutating func clearWebClientVerification() {self._webClientVerification = nil}
 
-  var cachedWebCredentials: Data {
+  public var cachedWebCredentials: Data {
     get {return _cachedWebCredentials ?? SwiftProtobuf.Internal.emptyData}
     set {_cachedWebCredentials = newValue}
   }
   /// Returns true if `cachedWebCredentials` has been explicitly set.
-  var hasCachedWebCredentials: Bool {return self._cachedWebCredentials != nil}
+  public var hasCachedWebCredentials: Bool {return self._cachedWebCredentials != nil}
   /// Clears the value of `cachedWebCredentials`. Subsequent reads from it will return its default value.
-  mutating func clearCachedWebCredentials() {self._cachedWebCredentials = nil}
+  public mutating func clearCachedWebCredentials() {self._cachedWebCredentials = nil}
 
-  var userAgent: String {
+  public var userAgent: String {
     get {return _userAgent ?? String()}
     set {_userAgent = newValue}
   }
   /// Returns true if `userAgent` has been explicitly set.
-  var hasUserAgent: Bool {return self._userAgent != nil}
+  public var hasUserAgent: Bool {return self._userAgent != nil}
   /// Clears the value of `userAgent`. Subsequent reads from it will return its default value.
-  mutating func clearUserAgent() {self._userAgent = nil}
+  public mutating func clearUserAgent() {self._userAgent = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   /// Used by the decoding initializers in the SwiftProtobuf library, not generally
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self._program)
@@ -172,7 +172,7 @@ struct LogonRequest: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if let v = self._program {
       try visitor.visitSingularStringField(value: v, fieldNumber: 1)
     }
@@ -233,7 +233,7 @@ struct LogonRequest: SwiftProtobuf.Message {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension LogonRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "program"),
     2: .same(proto: "platform"),
     3: .same(proto: "locale"),
@@ -249,7 +249,7 @@ extension LogonRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf.
     14: .standard(proto: "user_agent"),
   ]
 
-  func _protobuf_generated_isEqualTo(other: LogonRequest) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: LogonRequest) -> Bool {
     if self._program != other._program {return false}
     if self._platform != other._platform {return false}
     if self._locale != other._locale {return false}

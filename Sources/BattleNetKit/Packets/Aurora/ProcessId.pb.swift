@@ -19,30 +19,30 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct ProcessId: SwiftProtobuf.Message {
-  static let protoMessageName: String = "ProcessId"
+public struct ProcessId: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "ProcessId"
 
-  var label: UInt32 {
+  public var label: UInt32 {
     get {return _label ?? 0}
     set {_label = newValue}
   }
   /// Returns true if `label` has been explicitly set.
-  var hasLabel: Bool {return self._label != nil}
+  public var hasLabel: Bool {return self._label != nil}
   /// Clears the value of `label`. Subsequent reads from it will return its default value.
-  mutating func clearLabel() {self._label = nil}
+  public mutating func clearLabel() {self._label = nil}
 
-  var epoch: UInt32 {
+  public var epoch: UInt32 {
     get {return _epoch ?? 0}
     set {_epoch = newValue}
   }
   /// Returns true if `epoch` has been explicitly set.
-  var hasEpoch: Bool {return self._epoch != nil}
+  public var hasEpoch: Bool {return self._epoch != nil}
   /// Clears the value of `epoch`. Subsequent reads from it will return its default value.
-  mutating func clearEpoch() {self._epoch = nil}
+  public mutating func clearEpoch() {self._epoch = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   public var isInitialized: Bool {
     if self._label == nil {return false}
@@ -54,7 +54,7 @@ struct ProcessId: SwiftProtobuf.Message {
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularUInt32Field(value: &self._label)
@@ -68,7 +68,7 @@ struct ProcessId: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if let v = self._label {
       try visitor.visitSingularUInt32Field(value: v, fieldNumber: 1)
     }
@@ -85,12 +85,12 @@ struct ProcessId: SwiftProtobuf.Message {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension ProcessId: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "label"),
     2: .same(proto: "epoch"),
   ]
 
-  func _protobuf_generated_isEqualTo(other: ProcessId) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: ProcessId) -> Bool {
     if self._label != other._label {return false}
     if self._epoch != other._epoch {return false}
     if unknownFields != other.unknownFields {return false}

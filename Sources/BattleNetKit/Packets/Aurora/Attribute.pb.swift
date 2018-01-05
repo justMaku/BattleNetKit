@@ -19,30 +19,30 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct Attribute: SwiftProtobuf.Message {
-  static let protoMessageName: String = "Attribute"
+public struct Attribute: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "Attribute"
 
-  var name: String {
+  public var name: String {
     get {return _storage._name ?? String()}
     set {_uniqueStorage()._name = newValue}
   }
   /// Returns true if `name` has been explicitly set.
-  var hasName: Bool {return _storage._name != nil}
+  public var hasName: Bool {return _storage._name != nil}
   /// Clears the value of `name`. Subsequent reads from it will return its default value.
-  mutating func clearName() {_storage._name = nil}
+  public mutating func clearName() {_storage._name = nil}
 
-  var value: Variant {
+  public var value: Variant {
     get {return _storage._value ?? Variant()}
     set {_uniqueStorage()._value = newValue}
   }
   /// Returns true if `value` has been explicitly set.
-  var hasValue: Bool {return _storage._value != nil}
+  public var hasValue: Bool {return _storage._value != nil}
   /// Clears the value of `value`. Subsequent reads from it will return its default value.
-  mutating func clearValue() {_storage._value = nil}
+  public mutating func clearValue() {_storage._value = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   public var isInitialized: Bool {
     return withExtendedLifetime(_storage) { (_storage: _StorageClass) in
@@ -56,7 +56,7 @@ struct Attribute: SwiftProtobuf.Message {
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     _ = _uniqueStorage()
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
@@ -73,7 +73,7 @@ struct Attribute: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       if let v = _storage._name {
         try visitor.visitSingularStringField(value: v, fieldNumber: 1)
@@ -91,7 +91,7 @@ struct Attribute: SwiftProtobuf.Message {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension Attribute: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
     2: .same(proto: "value"),
   ]
@@ -117,7 +117,7 @@ extension Attribute: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._Pr
     return _storage
   }
 
-  func _protobuf_generated_isEqualTo(other: Attribute) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: Attribute) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0

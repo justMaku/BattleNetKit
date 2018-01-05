@@ -19,21 +19,21 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct LogonUpdateRequest: SwiftProtobuf.Message {
-  static let protoMessageName: String = "LogonUpdateRequest"
+public struct LogonUpdateRequest: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "LogonUpdateRequest"
 
-  var errorCode: UInt32 {
+  public var errorCode: UInt32 {
     get {return _errorCode ?? 0}
     set {_errorCode = newValue}
   }
   /// Returns true if `errorCode` has been explicitly set.
-  var hasErrorCode: Bool {return self._errorCode != nil}
+  public var hasErrorCode: Bool {return self._errorCode != nil}
   /// Clears the value of `errorCode`. Subsequent reads from it will return its default value.
-  mutating func clearErrorCode() {self._errorCode = nil}
+  public mutating func clearErrorCode() {self._errorCode = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   public var isInitialized: Bool {
     if self._errorCode == nil {return false}
@@ -44,7 +44,7 @@ struct LogonUpdateRequest: SwiftProtobuf.Message {
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularUInt32Field(value: &self._errorCode)
@@ -57,7 +57,7 @@ struct LogonUpdateRequest: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if let v = self._errorCode {
       try visitor.visitSingularUInt32Field(value: v, fieldNumber: 1)
     }
@@ -70,11 +70,11 @@ struct LogonUpdateRequest: SwiftProtobuf.Message {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension LogonUpdateRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "error_code"),
   ]
 
-  func _protobuf_generated_isEqualTo(other: LogonUpdateRequest) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: LogonUpdateRequest) -> Bool {
     if self._errorCode != other._errorCode {return false}
     if unknownFields != other.unknownFields {return false}
     return true

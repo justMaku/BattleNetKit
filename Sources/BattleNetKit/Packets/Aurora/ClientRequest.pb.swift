@@ -19,44 +19,44 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct ClientRequest: SwiftProtobuf.Message {
-  static let protoMessageName: String = "ClientRequest"
+public struct ClientRequest: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "ClientRequest"
 
-  var attribute: [Attribute] {
+  public var attribute: [Attribute] {
     get {return _storage._attribute}
     set {_uniqueStorage()._attribute = newValue}
   }
 
-  var host: ProcessId {
+  public var host: ProcessId {
     get {return _storage._host ?? ProcessId()}
     set {_uniqueStorage()._host = newValue}
   }
   /// Returns true if `host` has been explicitly set.
-  var hasHost: Bool {return _storage._host != nil}
+  public var hasHost: Bool {return _storage._host != nil}
   /// Clears the value of `host`. Subsequent reads from it will return its default value.
-  mutating func clearHost() {_storage._host = nil}
+  public mutating func clearHost() {_storage._host = nil}
 
-  var bnetAccountID: EntityId {
+  public var bnetAccountID: EntityId {
     get {return _storage._bnetAccountID ?? EntityId()}
     set {_uniqueStorage()._bnetAccountID = newValue}
   }
   /// Returns true if `bnetAccountID` has been explicitly set.
-  var hasBnetAccountID: Bool {return _storage._bnetAccountID != nil}
+  public var hasBnetAccountID: Bool {return _storage._bnetAccountID != nil}
   /// Clears the value of `bnetAccountID`. Subsequent reads from it will return its default value.
-  mutating func clearBnetAccountID() {_storage._bnetAccountID = nil}
+  public mutating func clearBnetAccountID() {_storage._bnetAccountID = nil}
 
-  var gameAccountID: EntityId {
+  public var gameAccountID: EntityId {
     get {return _storage._gameAccountID ?? EntityId()}
     set {_uniqueStorage()._gameAccountID = newValue}
   }
   /// Returns true if `gameAccountID` has been explicitly set.
-  var hasGameAccountID: Bool {return _storage._gameAccountID != nil}
+  public var hasGameAccountID: Bool {return _storage._gameAccountID != nil}
   /// Clears the value of `gameAccountID`. Subsequent reads from it will return its default value.
-  mutating func clearGameAccountID() {_storage._gameAccountID = nil}
+  public mutating func clearGameAccountID() {_storage._gameAccountID = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   public var isInitialized: Bool {
     return withExtendedLifetime(_storage) { (_storage: _StorageClass) in
@@ -70,7 +70,7 @@ struct ClientRequest: SwiftProtobuf.Message {
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     _ = _uniqueStorage()
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
@@ -89,7 +89,7 @@ struct ClientRequest: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       if !_storage._attribute.isEmpty {
         try visitor.visitRepeatedMessageField(value: _storage._attribute, fieldNumber: 1)
@@ -113,7 +113,7 @@ struct ClientRequest: SwiftProtobuf.Message {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension ClientRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "attribute"),
     2: .same(proto: "host"),
     3: .standard(proto: "bnet_account_id"),
@@ -145,7 +145,7 @@ extension ClientRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf
     return _storage
   }
 
-  func _protobuf_generated_isEqualTo(other: ClientRequest) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: ClientRequest) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0

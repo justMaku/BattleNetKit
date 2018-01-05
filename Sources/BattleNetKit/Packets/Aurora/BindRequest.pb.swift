@@ -19,16 +19,16 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct BindRequest: SwiftProtobuf.Message {
-  static let protoMessageName: String = "BindRequest"
+public struct BindRequest: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "BindRequest"
 
-  var importedServicesHash: [UInt32] = []
+  public var importedServicesHash: [UInt32] = []
 
-  var exportedServices: [BoundService] = []
+  public var exportedServices: [BoundService] = []
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   public var isInitialized: Bool {
     if !SwiftProtobuf.Internal.areAllInitialized(self.exportedServices) {return false}
@@ -39,7 +39,7 @@ struct BindRequest: SwiftProtobuf.Message {
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeRepeatedFixed32Field(value: &self.importedServicesHash)
@@ -53,7 +53,7 @@ struct BindRequest: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.importedServicesHash.isEmpty {
       try visitor.visitRepeatedFixed32Field(value: self.importedServicesHash, fieldNumber: 1)
     }
@@ -67,12 +67,12 @@ struct BindRequest: SwiftProtobuf.Message {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension BindRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "imported_services_hash"),
     2: .standard(proto: "exported_services"),
   ]
 
-  func _protobuf_generated_isEqualTo(other: BindRequest) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: BindRequest) -> Bool {
     if self.importedServicesHash != other.importedServicesHash {return false}
     if self.exportedServices != other.exportedServices {return false}
     if unknownFields != other.unknownFields {return false}

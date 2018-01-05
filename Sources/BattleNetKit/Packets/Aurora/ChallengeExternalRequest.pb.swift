@@ -19,45 +19,45 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct ChallengeExternalRequest: SwiftProtobuf.Message {
-  static let protoMessageName: String = "ChallengeExternalRequest"
+public struct ChallengeExternalRequest: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "ChallengeExternalRequest"
 
-  var requestToken: String {
+  public var requestToken: String {
     get {return _requestToken ?? String()}
     set {_requestToken = newValue}
   }
   /// Returns true if `requestToken` has been explicitly set.
-  var hasRequestToken: Bool {return self._requestToken != nil}
+  public var hasRequestToken: Bool {return self._requestToken != nil}
   /// Clears the value of `requestToken`. Subsequent reads from it will return its default value.
-  mutating func clearRequestToken() {self._requestToken = nil}
+  public mutating func clearRequestToken() {self._requestToken = nil}
 
-  var payloadType: String {
+  public var payloadType: String {
     get {return _payloadType ?? String()}
     set {_payloadType = newValue}
   }
   /// Returns true if `payloadType` has been explicitly set.
-  var hasPayloadType: Bool {return self._payloadType != nil}
+  public var hasPayloadType: Bool {return self._payloadType != nil}
   /// Clears the value of `payloadType`. Subsequent reads from it will return its default value.
-  mutating func clearPayloadType() {self._payloadType = nil}
+  public mutating func clearPayloadType() {self._payloadType = nil}
 
-  var payload: Data {
+  public var payload: Data {
     get {return _payload ?? SwiftProtobuf.Internal.emptyData}
     set {_payload = newValue}
   }
   /// Returns true if `payload` has been explicitly set.
-  var hasPayload: Bool {return self._payload != nil}
+  public var hasPayload: Bool {return self._payload != nil}
   /// Clears the value of `payload`. Subsequent reads from it will return its default value.
-  mutating func clearPayload() {self._payload = nil}
+  public mutating func clearPayload() {self._payload = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   /// Used by the decoding initializers in the SwiftProtobuf library, not generally
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self._requestToken)
@@ -72,7 +72,7 @@ struct ChallengeExternalRequest: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if let v = self._requestToken {
       try visitor.visitSingularStringField(value: v, fieldNumber: 1)
     }
@@ -93,13 +93,13 @@ struct ChallengeExternalRequest: SwiftProtobuf.Message {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension ChallengeExternalRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "request_token"),
     2: .standard(proto: "payload_type"),
     3: .same(proto: "payload"),
   ]
 
-  func _protobuf_generated_isEqualTo(other: ChallengeExternalRequest) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: ChallengeExternalRequest) -> Bool {
     if self._requestToken != other._requestToken {return false}
     if self._payloadType != other._payloadType {return false}
     if self._payload != other._payload {return false}

@@ -19,30 +19,30 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct ObjectAddress: SwiftProtobuf.Message {
-  static let protoMessageName: String = "ObjectAddress"
+public struct ObjectAddress: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "ObjectAddress"
 
-  var host: ProcessId {
+  public var host: ProcessId {
     get {return _storage._host ?? ProcessId()}
     set {_uniqueStorage()._host = newValue}
   }
   /// Returns true if `host` has been explicitly set.
-  var hasHost: Bool {return _storage._host != nil}
+  public var hasHost: Bool {return _storage._host != nil}
   /// Clears the value of `host`. Subsequent reads from it will return its default value.
-  mutating func clearHost() {_storage._host = nil}
+  public mutating func clearHost() {_storage._host = nil}
 
-  var objectID: UInt64 {
+  public var objectID: UInt64 {
     get {return _storage._objectID ?? 0}
     set {_uniqueStorage()._objectID = newValue}
   }
   /// Returns true if `objectID` has been explicitly set.
-  var hasObjectID: Bool {return _storage._objectID != nil}
+  public var hasObjectID: Bool {return _storage._objectID != nil}
   /// Clears the value of `objectID`. Subsequent reads from it will return its default value.
-  mutating func clearObjectID() {_storage._objectID = nil}
+  public mutating func clearObjectID() {_storage._objectID = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   public var isInitialized: Bool {
     return withExtendedLifetime(_storage) { (_storage: _StorageClass) in
@@ -56,7 +56,7 @@ struct ObjectAddress: SwiftProtobuf.Message {
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     _ = _uniqueStorage()
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
@@ -73,7 +73,7 @@ struct ObjectAddress: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       if let v = _storage._host {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
@@ -88,48 +88,48 @@ struct ObjectAddress: SwiftProtobuf.Message {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct ErrorInfo: SwiftProtobuf.Message {
-  static let protoMessageName: String = "ErrorInfo"
+public struct ErrorInfo: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "ErrorInfo"
 
-  var objectAddress: ObjectAddress {
+  public var objectAddress: ObjectAddress {
     get {return _storage._objectAddress ?? ObjectAddress()}
     set {_uniqueStorage()._objectAddress = newValue}
   }
   /// Returns true if `objectAddress` has been explicitly set.
-  var hasObjectAddress: Bool {return _storage._objectAddress != nil}
+  public var hasObjectAddress: Bool {return _storage._objectAddress != nil}
   /// Clears the value of `objectAddress`. Subsequent reads from it will return its default value.
-  mutating func clearObjectAddress() {_storage._objectAddress = nil}
+  public mutating func clearObjectAddress() {_storage._objectAddress = nil}
 
-  var status: UInt32 {
+  public var status: UInt32 {
     get {return _storage._status ?? 0}
     set {_uniqueStorage()._status = newValue}
   }
   /// Returns true if `status` has been explicitly set.
-  var hasStatus: Bool {return _storage._status != nil}
+  public var hasStatus: Bool {return _storage._status != nil}
   /// Clears the value of `status`. Subsequent reads from it will return its default value.
-  mutating func clearStatus() {_storage._status = nil}
+  public mutating func clearStatus() {_storage._status = nil}
 
-  var serviceHash: UInt32 {
+  public var serviceHash: UInt32 {
     get {return _storage._serviceHash ?? 0}
     set {_uniqueStorage()._serviceHash = newValue}
   }
   /// Returns true if `serviceHash` has been explicitly set.
-  var hasServiceHash: Bool {return _storage._serviceHash != nil}
+  public var hasServiceHash: Bool {return _storage._serviceHash != nil}
   /// Clears the value of `serviceHash`. Subsequent reads from it will return its default value.
-  mutating func clearServiceHash() {_storage._serviceHash = nil}
+  public mutating func clearServiceHash() {_storage._serviceHash = nil}
 
-  var methodID: UInt32 {
+  public var methodID: UInt32 {
     get {return _storage._methodID ?? 0}
     set {_uniqueStorage()._methodID = newValue}
   }
   /// Returns true if `methodID` has been explicitly set.
-  var hasMethodID: Bool {return _storage._methodID != nil}
+  public var hasMethodID: Bool {return _storage._methodID != nil}
   /// Clears the value of `methodID`. Subsequent reads from it will return its default value.
-  mutating func clearMethodID() {_storage._methodID = nil}
+  public mutating func clearMethodID() {_storage._methodID = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   public var isInitialized: Bool {
     return withExtendedLifetime(_storage) { (_storage: _StorageClass) in
@@ -146,7 +146,7 @@ struct ErrorInfo: SwiftProtobuf.Message {
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     _ = _uniqueStorage()
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
@@ -165,7 +165,7 @@ struct ErrorInfo: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       if let v = _storage._objectAddress {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
@@ -186,77 +186,77 @@ struct ErrorInfo: SwiftProtobuf.Message {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct Header: SwiftProtobuf.Message {
-  static let protoMessageName: String = "Header"
+public struct Header: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "Header"
 
-  var serviceID: UInt32 {
+  public var serviceID: UInt32 {
     get {return _serviceID ?? 0}
     set {_serviceID = newValue}
   }
   /// Returns true if `serviceID` has been explicitly set.
-  var hasServiceID: Bool {return self._serviceID != nil}
+  public var hasServiceID: Bool {return self._serviceID != nil}
   /// Clears the value of `serviceID`. Subsequent reads from it will return its default value.
-  mutating func clearServiceID() {self._serviceID = nil}
+  public mutating func clearServiceID() {self._serviceID = nil}
 
-  var methodID: UInt32 {
+  public var methodID: UInt32 {
     get {return _methodID ?? 0}
     set {_methodID = newValue}
   }
   /// Returns true if `methodID` has been explicitly set.
-  var hasMethodID: Bool {return self._methodID != nil}
+  public var hasMethodID: Bool {return self._methodID != nil}
   /// Clears the value of `methodID`. Subsequent reads from it will return its default value.
-  mutating func clearMethodID() {self._methodID = nil}
+  public mutating func clearMethodID() {self._methodID = nil}
 
-  var token: UInt32 {
+  public var token: UInt32 {
     get {return _token ?? 0}
     set {_token = newValue}
   }
   /// Returns true if `token` has been explicitly set.
-  var hasToken: Bool {return self._token != nil}
+  public var hasToken: Bool {return self._token != nil}
   /// Clears the value of `token`. Subsequent reads from it will return its default value.
-  mutating func clearToken() {self._token = nil}
+  public mutating func clearToken() {self._token = nil}
 
-  var objectID: UInt64 {
+  public var objectID: UInt64 {
     get {return _objectID ?? 0}
     set {_objectID = newValue}
   }
   /// Returns true if `objectID` has been explicitly set.
-  var hasObjectID: Bool {return self._objectID != nil}
+  public var hasObjectID: Bool {return self._objectID != nil}
   /// Clears the value of `objectID`. Subsequent reads from it will return its default value.
-  mutating func clearObjectID() {self._objectID = nil}
+  public mutating func clearObjectID() {self._objectID = nil}
 
-  var size: UInt32 {
+  public var size: UInt32 {
     get {return _size ?? 0}
     set {_size = newValue}
   }
   /// Returns true if `size` has been explicitly set.
-  var hasSize: Bool {return self._size != nil}
+  public var hasSize: Bool {return self._size != nil}
   /// Clears the value of `size`. Subsequent reads from it will return its default value.
-  mutating func clearSize() {self._size = nil}
+  public mutating func clearSize() {self._size = nil}
 
-  var status: UInt32 {
+  public var status: UInt32 {
     get {return _status ?? 0}
     set {_status = newValue}
   }
   /// Returns true if `status` has been explicitly set.
-  var hasStatus: Bool {return self._status != nil}
+  public var hasStatus: Bool {return self._status != nil}
   /// Clears the value of `status`. Subsequent reads from it will return its default value.
-  mutating func clearStatus() {self._status = nil}
+  public mutating func clearStatus() {self._status = nil}
 
-  var error: [ErrorInfo] = []
+  public var error: [ErrorInfo] = []
 
-  var timeout: UInt64 {
+  public var timeout: UInt64 {
     get {return _timeout ?? 0}
     set {_timeout = newValue}
   }
   /// Returns true if `timeout` has been explicitly set.
-  var hasTimeout: Bool {return self._timeout != nil}
+  public var hasTimeout: Bool {return self._timeout != nil}
   /// Clears the value of `timeout`. Subsequent reads from it will return its default value.
-  mutating func clearTimeout() {self._timeout = nil}
+  public mutating func clearTimeout() {self._timeout = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   public var isInitialized: Bool {
     if self._serviceID == nil {return false}
@@ -269,7 +269,7 @@ struct Header: SwiftProtobuf.Message {
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularUInt32Field(value: &self._serviceID)
@@ -289,7 +289,7 @@ struct Header: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if let v = self._serviceID {
       try visitor.visitSingularUInt32Field(value: v, fieldNumber: 1)
     }
@@ -329,7 +329,7 @@ struct Header: SwiftProtobuf.Message {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension ObjectAddress: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "host"),
     2: .standard(proto: "object_id"),
   ]
@@ -355,7 +355,7 @@ extension ObjectAddress: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf
     return _storage
   }
 
-  func _protobuf_generated_isEqualTo(other: ObjectAddress) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: ObjectAddress) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -372,7 +372,7 @@ extension ObjectAddress: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf
 }
 
 extension ErrorInfo: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "object_address"),
     2: .same(proto: "status"),
     3: .standard(proto: "service_hash"),
@@ -404,7 +404,7 @@ extension ErrorInfo: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._Pr
     return _storage
   }
 
-  func _protobuf_generated_isEqualTo(other: ErrorInfo) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: ErrorInfo) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -423,7 +423,7 @@ extension ErrorInfo: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._Pr
 }
 
 extension Header: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "service_id"),
     2: .standard(proto: "method_id"),
     3: .same(proto: "token"),
@@ -434,7 +434,7 @@ extension Header: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._Proto
     8: .same(proto: "timeout"),
   ]
 
-  func _protobuf_generated_isEqualTo(other: Header) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: Header) -> Bool {
     if self._serviceID != other._serviceID {return false}
     if self._methodID != other._methodID {return false}
     if self._token != other._token {return false}

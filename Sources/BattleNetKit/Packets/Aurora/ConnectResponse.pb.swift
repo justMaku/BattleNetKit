@@ -19,66 +19,66 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct ConnectResponse: SwiftProtobuf.Message {
-  static let protoMessageName: String = "ConnectResponse"
+public struct ConnectResponse: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "ConnectResponse"
 
-  var serverID: ProcessId {
+  public var serverID: ProcessId {
     get {return _storage._serverID ?? ProcessId()}
     set {_uniqueStorage()._serverID = newValue}
   }
   /// Returns true if `serverID` has been explicitly set.
-  var hasServerID: Bool {return _storage._serverID != nil}
+  public var hasServerID: Bool {return _storage._serverID != nil}
   /// Clears the value of `serverID`. Subsequent reads from it will return its default value.
-  mutating func clearServerID() {_storage._serverID = nil}
+  public mutating func clearServerID() {_storage._serverID = nil}
 
-  var clientID: ProcessId {
+  public var clientID: ProcessId {
     get {return _storage._clientID ?? ProcessId()}
     set {_uniqueStorage()._clientID = newValue}
   }
   /// Returns true if `clientID` has been explicitly set.
-  var hasClientID: Bool {return _storage._clientID != nil}
+  public var hasClientID: Bool {return _storage._clientID != nil}
   /// Clears the value of `clientID`. Subsequent reads from it will return its default value.
-  mutating func clearClientID() {_storage._clientID = nil}
+  public mutating func clearClientID() {_storage._clientID = nil}
 
-  var bindResult: UInt32 {
+  public var bindResult: UInt32 {
     get {return _storage._bindResult ?? 0}
     set {_uniqueStorage()._bindResult = newValue}
   }
   /// Returns true if `bindResult` has been explicitly set.
-  var hasBindResult: Bool {return _storage._bindResult != nil}
+  public var hasBindResult: Bool {return _storage._bindResult != nil}
   /// Clears the value of `bindResult`. Subsequent reads from it will return its default value.
-  mutating func clearBindResult() {_storage._bindResult = nil}
+  public mutating func clearBindResult() {_storage._bindResult = nil}
 
-  var bindResponse: BindResponse {
+  public var bindResponse: BindResponse {
     get {return _storage._bindResponse ?? BindResponse()}
     set {_uniqueStorage()._bindResponse = newValue}
   }
   /// Returns true if `bindResponse` has been explicitly set.
-  var hasBindResponse: Bool {return _storage._bindResponse != nil}
+  public var hasBindResponse: Bool {return _storage._bindResponse != nil}
   /// Clears the value of `bindResponse`. Subsequent reads from it will return its default value.
-  mutating func clearBindResponse() {_storage._bindResponse = nil}
+  public mutating func clearBindResponse() {_storage._bindResponse = nil}
 
-  var contentHandleArray: ConnectionMeteringContentHandles {
+  public var contentHandleArray: ConnectionMeteringContentHandles {
     get {return _storage._contentHandleArray ?? ConnectionMeteringContentHandles()}
     set {_uniqueStorage()._contentHandleArray = newValue}
   }
   /// Returns true if `contentHandleArray` has been explicitly set.
-  var hasContentHandleArray: Bool {return _storage._contentHandleArray != nil}
+  public var hasContentHandleArray: Bool {return _storage._contentHandleArray != nil}
   /// Clears the value of `contentHandleArray`. Subsequent reads from it will return its default value.
-  mutating func clearContentHandleArray() {_storage._contentHandleArray = nil}
+  public mutating func clearContentHandleArray() {_storage._contentHandleArray = nil}
 
-  var serverTime: UInt64 {
+  public var serverTime: UInt64 {
     get {return _storage._serverTime ?? 0}
     set {_uniqueStorage()._serverTime = newValue}
   }
   /// Returns true if `serverTime` has been explicitly set.
-  var hasServerTime: Bool {return _storage._serverTime != nil}
+  public var hasServerTime: Bool {return _storage._serverTime != nil}
   /// Clears the value of `serverTime`. Subsequent reads from it will return its default value.
-  mutating func clearServerTime() {_storage._serverTime = nil}
+  public mutating func clearServerTime() {_storage._serverTime = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   public var isInitialized: Bool {
     return withExtendedLifetime(_storage) { (_storage: _StorageClass) in
@@ -94,7 +94,7 @@ struct ConnectResponse: SwiftProtobuf.Message {
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     _ = _uniqueStorage()
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
@@ -115,7 +115,7 @@ struct ConnectResponse: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       if let v = _storage._serverID {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
@@ -142,14 +142,14 @@ struct ConnectResponse: SwiftProtobuf.Message {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct ConnectionMeteringContentHandles: SwiftProtobuf.Message {
-  static let protoMessageName: String = "ConnectionMeteringContentHandles"
+public struct ConnectionMeteringContentHandles: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "ConnectionMeteringContentHandles"
 
-  var contentHandle: [ContentHandle] = []
+  public var contentHandle: [ContentHandle] = []
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   public var isInitialized: Bool {
     if !SwiftProtobuf.Internal.areAllInitialized(self.contentHandle) {return false}
@@ -160,7 +160,7 @@ struct ConnectionMeteringContentHandles: SwiftProtobuf.Message {
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeRepeatedMessageField(value: &self.contentHandle)
@@ -173,7 +173,7 @@ struct ConnectionMeteringContentHandles: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.contentHandle.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.contentHandle, fieldNumber: 1)
     }
@@ -181,48 +181,48 @@ struct ConnectionMeteringContentHandles: SwiftProtobuf.Message {
   }
 }
 
-struct ContentHandle: SwiftProtobuf.Message {
-  static let protoMessageName: String = "ContentHandle"
+public struct ContentHandle: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "ContentHandle"
 
-  var region: UInt32 {
+  public var region: UInt32 {
     get {return _region ?? 0}
     set {_region = newValue}
   }
   /// Returns true if `region` has been explicitly set.
-  var hasRegion: Bool {return self._region != nil}
+  public var hasRegion: Bool {return self._region != nil}
   /// Clears the value of `region`. Subsequent reads from it will return its default value.
-  mutating func clearRegion() {self._region = nil}
+  public mutating func clearRegion() {self._region = nil}
 
-  var usage: UInt32 {
+  public var usage: UInt32 {
     get {return _usage ?? 0}
     set {_usage = newValue}
   }
   /// Returns true if `usage` has been explicitly set.
-  var hasUsage: Bool {return self._usage != nil}
+  public var hasUsage: Bool {return self._usage != nil}
   /// Clears the value of `usage`. Subsequent reads from it will return its default value.
-  mutating func clearUsage() {self._usage = nil}
+  public mutating func clearUsage() {self._usage = nil}
 
-  var hash: Data {
+  public var hash: Data {
     get {return _hash ?? SwiftProtobuf.Internal.emptyData}
     set {_hash = newValue}
   }
   /// Returns true if `hash` has been explicitly set.
-  var hasHash: Bool {return self._hash != nil}
+  public var hasHash: Bool {return self._hash != nil}
   /// Clears the value of `hash`. Subsequent reads from it will return its default value.
-  mutating func clearHash() {self._hash = nil}
+  public mutating func clearHash() {self._hash = nil}
 
-  var protoURL: String {
+  public var protoURL: String {
     get {return _protoURL ?? String()}
     set {_protoURL = newValue}
   }
   /// Returns true if `protoURL` has been explicitly set.
-  var hasProtoURL: Bool {return self._protoURL != nil}
+  public var hasProtoURL: Bool {return self._protoURL != nil}
   /// Clears the value of `protoURL`. Subsequent reads from it will return its default value.
-  mutating func clearProtoURL() {self._protoURL = nil}
+  public mutating func clearProtoURL() {self._protoURL = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   public var isInitialized: Bool {
     if self._region == nil {return false}
@@ -235,7 +235,7 @@ struct ContentHandle: SwiftProtobuf.Message {
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularFixed32Field(value: &self._region)
@@ -251,7 +251,7 @@ struct ContentHandle: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if let v = self._region {
       try visitor.visitSingularFixed32Field(value: v, fieldNumber: 1)
     }
@@ -276,7 +276,7 @@ struct ContentHandle: SwiftProtobuf.Message {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension ConnectResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "server_id"),
     2: .standard(proto: "client_id"),
     3: .standard(proto: "bind_result"),
@@ -314,7 +314,7 @@ extension ConnectResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtob
     return _storage
   }
 
-  func _protobuf_generated_isEqualTo(other: ConnectResponse) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: ConnectResponse) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -335,11 +335,11 @@ extension ConnectResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtob
 }
 
 extension ConnectionMeteringContentHandles: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "content_handle"),
   ]
 
-  func _protobuf_generated_isEqualTo(other: ConnectionMeteringContentHandles) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: ConnectionMeteringContentHandles) -> Bool {
     if self.contentHandle != other.contentHandle {return false}
     if unknownFields != other.unknownFields {return false}
     return true
@@ -347,14 +347,14 @@ extension ConnectionMeteringContentHandles: SwiftProtobuf._MessageImplementation
 }
 
 extension ContentHandle: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "region"),
     2: .same(proto: "usage"),
     3: .same(proto: "hash"),
     4: .standard(proto: "proto_url"),
   ]
 
-  func _protobuf_generated_isEqualTo(other: ContentHandle) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: ContentHandle) -> Bool {
     if self._region != other._region {return false}
     if self._usage != other._usage {return false}
     if self._hash != other._hash {return false}

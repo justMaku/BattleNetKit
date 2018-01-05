@@ -19,30 +19,30 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct ConnectRequest: SwiftProtobuf.Message {
-  static let protoMessageName: String = "ConnectRequest"
+public struct ConnectRequest: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "ConnectRequest"
 
-  var clientID: ProcessId {
+  public var clientID: ProcessId {
     get {return _storage._clientID ?? ProcessId()}
     set {_uniqueStorage()._clientID = newValue}
   }
   /// Returns true if `clientID` has been explicitly set.
-  var hasClientID: Bool {return _storage._clientID != nil}
+  public var hasClientID: Bool {return _storage._clientID != nil}
   /// Clears the value of `clientID`. Subsequent reads from it will return its default value.
-  mutating func clearClientID() {_storage._clientID = nil}
+  public mutating func clearClientID() {_storage._clientID = nil}
 
-  var bindRequest: BindRequest {
+  public var bindRequest: BindRequest {
     get {return _storage._bindRequest ?? BindRequest()}
     set {_uniqueStorage()._bindRequest = newValue}
   }
   /// Returns true if `bindRequest` has been explicitly set.
-  var hasBindRequest: Bool {return _storage._bindRequest != nil}
+  public var hasBindRequest: Bool {return _storage._bindRequest != nil}
   /// Clears the value of `bindRequest`. Subsequent reads from it will return its default value.
-  mutating func clearBindRequest() {_storage._bindRequest = nil}
+  public mutating func clearBindRequest() {_storage._bindRequest = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   public var isInitialized: Bool {
     return withExtendedLifetime(_storage) { (_storage: _StorageClass) in
@@ -56,7 +56,7 @@ struct ConnectRequest: SwiftProtobuf.Message {
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     _ = _uniqueStorage()
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
@@ -73,7 +73,7 @@ struct ConnectRequest: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       if let v = _storage._clientID {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
@@ -91,7 +91,7 @@ struct ConnectRequest: SwiftProtobuf.Message {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension ConnectRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "client_id"),
     2: .standard(proto: "bind_request"),
   ]
@@ -117,7 +117,7 @@ extension ConnectRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobu
     return _storage
   }
 
-  func _protobuf_generated_isEqualTo(other: ConnectRequest) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: ConnectRequest) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0

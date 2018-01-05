@@ -19,14 +19,14 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct ClientResponse: SwiftProtobuf.Message {
-  static let protoMessageName: String = "ClientResponse"
+public struct ClientResponse: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "ClientResponse"
 
-  var attribute: [Attribute] = []
+  public var attribute: [Attribute] = []
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   public var isInitialized: Bool {
     if !SwiftProtobuf.Internal.areAllInitialized(self.attribute) {return false}
@@ -37,7 +37,7 @@ struct ClientResponse: SwiftProtobuf.Message {
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeRepeatedMessageField(value: &self.attribute)
@@ -50,7 +50,7 @@ struct ClientResponse: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.attribute.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.attribute, fieldNumber: 1)
     }
@@ -61,11 +61,11 @@ struct ClientResponse: SwiftProtobuf.Message {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension ClientResponse: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "attribute"),
   ]
 
-  func _protobuf_generated_isEqualTo(other: ClientResponse) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: ClientResponse) -> Bool {
     if self.attribute != other.attribute {return false}
     if unknownFields != other.unknownFields {return false}
     return true

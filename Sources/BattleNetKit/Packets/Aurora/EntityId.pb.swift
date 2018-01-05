@@ -19,36 +19,36 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct EntityId: SwiftProtobuf.Message {
-  static let protoMessageName: String = "EntityId"
+public struct EntityId: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "EntityId"
 
-  var high: UInt64 {
+  public var high: UInt64 {
     get {return _high ?? 0}
     set {_high = newValue}
   }
   /// Returns true if `high` has been explicitly set.
-  var hasHigh: Bool {return self._high != nil}
+  public var hasHigh: Bool {return self._high != nil}
   /// Clears the value of `high`. Subsequent reads from it will return its default value.
-  mutating func clearHigh() {self._high = nil}
+  public mutating func clearHigh() {self._high = nil}
 
-  var low: UInt64 {
+  public var low: UInt64 {
     get {return _low ?? 0}
     set {_low = newValue}
   }
   /// Returns true if `low` has been explicitly set.
-  var hasLow: Bool {return self._low != nil}
+  public var hasLow: Bool {return self._low != nil}
   /// Clears the value of `low`. Subsequent reads from it will return its default value.
-  mutating func clearLow() {self._low = nil}
+  public mutating func clearLow() {self._low = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   /// Used by the decoding initializers in the SwiftProtobuf library, not generally
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularFixed64Field(value: &self._high)
@@ -62,7 +62,7 @@ struct EntityId: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if let v = self._high {
       try visitor.visitSingularFixed64Field(value: v, fieldNumber: 1)
     }
@@ -79,12 +79,12 @@ struct EntityId: SwiftProtobuf.Message {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension EntityId: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "high"),
     2: .same(proto: "low"),
   ]
 
-  func _protobuf_generated_isEqualTo(other: EntityId) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: EntityId) -> Bool {
     if self._high != other._high {return false}
     if self._low != other._low {return false}
     if unknownFields != other.unknownFields {return false}

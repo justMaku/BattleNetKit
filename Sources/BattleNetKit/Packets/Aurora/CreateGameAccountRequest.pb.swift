@@ -19,48 +19,48 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct CreateGameAccountRequest: SwiftProtobuf.Message {
-  static let protoMessageName: String = "CreateGameAccountRequest"
+public struct CreateGameAccountRequest: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "CreateGameAccountRequest"
 
-  var account: AccountId {
+  public var account: AccountId {
     get {return _storage._account ?? AccountId()}
     set {_uniqueStorage()._account = newValue}
   }
   /// Returns true if `account` has been explicitly set.
-  var hasAccount: Bool {return _storage._account != nil}
+  public var hasAccount: Bool {return _storage._account != nil}
   /// Clears the value of `account`. Subsequent reads from it will return its default value.
-  mutating func clearAccount() {_storage._account = nil}
+  public mutating func clearAccount() {_storage._account = nil}
 
-  var region: UInt32 {
+  public var region: UInt32 {
     get {return _storage._region ?? 0}
     set {_uniqueStorage()._region = newValue}
   }
   /// Returns true if `region` has been explicitly set.
-  var hasRegion: Bool {return _storage._region != nil}
+  public var hasRegion: Bool {return _storage._region != nil}
   /// Clears the value of `region`. Subsequent reads from it will return its default value.
-  mutating func clearRegion() {_storage._region = nil}
+  public mutating func clearRegion() {_storage._region = nil}
 
-  var program: UInt32 {
+  public var program: UInt32 {
     get {return _storage._program ?? 0}
     set {_uniqueStorage()._program = newValue}
   }
   /// Returns true if `program` has been explicitly set.
-  var hasProgram: Bool {return _storage._program != nil}
+  public var hasProgram: Bool {return _storage._program != nil}
   /// Clears the value of `program`. Subsequent reads from it will return its default value.
-  mutating func clearProgram() {_storage._program = nil}
+  public mutating func clearProgram() {_storage._program = nil}
 
-  var realmPermissions: UInt32 {
+  public var realmPermissions: UInt32 {
     get {return _storage._realmPermissions ?? 1}
     set {_uniqueStorage()._realmPermissions = newValue}
   }
   /// Returns true if `realmPermissions` has been explicitly set.
-  var hasRealmPermissions: Bool {return _storage._realmPermissions != nil}
+  public var hasRealmPermissions: Bool {return _storage._realmPermissions != nil}
   /// Clears the value of `realmPermissions`. Subsequent reads from it will return its default value.
-  mutating func clearRealmPermissions() {_storage._realmPermissions = nil}
+  public mutating func clearRealmPermissions() {_storage._realmPermissions = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   public var isInitialized: Bool {
     return withExtendedLifetime(_storage) { (_storage: _StorageClass) in
@@ -73,7 +73,7 @@ struct CreateGameAccountRequest: SwiftProtobuf.Message {
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     _ = _uniqueStorage()
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
@@ -92,7 +92,7 @@ struct CreateGameAccountRequest: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       if let v = _storage._account {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
@@ -116,7 +116,7 @@ struct CreateGameAccountRequest: SwiftProtobuf.Message {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension CreateGameAccountRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "account"),
     2: .same(proto: "region"),
     3: .same(proto: "program"),
@@ -148,7 +148,7 @@ extension CreateGameAccountRequest: SwiftProtobuf._MessageImplementationBase, Sw
     return _storage
   }
 
-  func _protobuf_generated_isEqualTo(other: CreateGameAccountRequest) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: CreateGameAccountRequest) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0

@@ -19,99 +19,99 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct Variant: SwiftProtobuf.Message {
-  static let protoMessageName: String = "Variant"
+public struct Variant: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "Variant"
 
-  var boolValue: Bool {
+  public var boolValue: Bool {
     get {return _storage._boolValue ?? false}
     set {_uniqueStorage()._boolValue = newValue}
   }
   /// Returns true if `boolValue` has been explicitly set.
-  var hasBoolValue: Bool {return _storage._boolValue != nil}
+  public var hasBoolValue: Bool {return _storage._boolValue != nil}
   /// Clears the value of `boolValue`. Subsequent reads from it will return its default value.
-  mutating func clearBoolValue() {_storage._boolValue = nil}
+  public mutating func clearBoolValue() {_storage._boolValue = nil}
 
-  var intValue: Int64 {
+  public var intValue: Int64 {
     get {return _storage._intValue ?? 0}
     set {_uniqueStorage()._intValue = newValue}
   }
   /// Returns true if `intValue` has been explicitly set.
-  var hasIntValue: Bool {return _storage._intValue != nil}
+  public var hasIntValue: Bool {return _storage._intValue != nil}
   /// Clears the value of `intValue`. Subsequent reads from it will return its default value.
-  mutating func clearIntValue() {_storage._intValue = nil}
+  public mutating func clearIntValue() {_storage._intValue = nil}
 
-  var floatValue: Double {
+  public var floatValue: Double {
     get {return _storage._floatValue ?? 0}
     set {_uniqueStorage()._floatValue = newValue}
   }
   /// Returns true if `floatValue` has been explicitly set.
-  var hasFloatValue: Bool {return _storage._floatValue != nil}
+  public var hasFloatValue: Bool {return _storage._floatValue != nil}
   /// Clears the value of `floatValue`. Subsequent reads from it will return its default value.
-  mutating func clearFloatValue() {_storage._floatValue = nil}
+  public mutating func clearFloatValue() {_storage._floatValue = nil}
 
-  var stringValue: String {
+  public var stringValue: String {
     get {return _storage._stringValue ?? String()}
     set {_uniqueStorage()._stringValue = newValue}
   }
   /// Returns true if `stringValue` has been explicitly set.
-  var hasStringValue: Bool {return _storage._stringValue != nil}
+  public var hasStringValue: Bool {return _storage._stringValue != nil}
   /// Clears the value of `stringValue`. Subsequent reads from it will return its default value.
-  mutating func clearStringValue() {_storage._stringValue = nil}
+  public mutating func clearStringValue() {_storage._stringValue = nil}
 
-  var blobValue: Data {
+  public var blobValue: Data {
     get {return _storage._blobValue ?? SwiftProtobuf.Internal.emptyData}
     set {_uniqueStorage()._blobValue = newValue}
   }
   /// Returns true if `blobValue` has been explicitly set.
-  var hasBlobValue: Bool {return _storage._blobValue != nil}
+  public var hasBlobValue: Bool {return _storage._blobValue != nil}
   /// Clears the value of `blobValue`. Subsequent reads from it will return its default value.
-  mutating func clearBlobValue() {_storage._blobValue = nil}
+  public mutating func clearBlobValue() {_storage._blobValue = nil}
 
-  var messageValue: Data {
+  public var messageValue: Data {
     get {return _storage._messageValue ?? SwiftProtobuf.Internal.emptyData}
     set {_uniqueStorage()._messageValue = newValue}
   }
   /// Returns true if `messageValue` has been explicitly set.
-  var hasMessageValue: Bool {return _storage._messageValue != nil}
+  public var hasMessageValue: Bool {return _storage._messageValue != nil}
   /// Clears the value of `messageValue`. Subsequent reads from it will return its default value.
-  mutating func clearMessageValue() {_storage._messageValue = nil}
+  public mutating func clearMessageValue() {_storage._messageValue = nil}
 
-  var fourccValue: String {
+  public var fourccValue: String {
     get {return _storage._fourccValue ?? String()}
     set {_uniqueStorage()._fourccValue = newValue}
   }
   /// Returns true if `fourccValue` has been explicitly set.
-  var hasFourccValue: Bool {return _storage._fourccValue != nil}
+  public var hasFourccValue: Bool {return _storage._fourccValue != nil}
   /// Clears the value of `fourccValue`. Subsequent reads from it will return its default value.
-  mutating func clearFourccValue() {_storage._fourccValue = nil}
+  public mutating func clearFourccValue() {_storage._fourccValue = nil}
 
-  var uintValue: UInt64 {
+  public var uintValue: UInt64 {
     get {return _storage._uintValue ?? 0}
     set {_uniqueStorage()._uintValue = newValue}
   }
   /// Returns true if `uintValue` has been explicitly set.
-  var hasUintValue: Bool {return _storage._uintValue != nil}
+  public var hasUintValue: Bool {return _storage._uintValue != nil}
   /// Clears the value of `uintValue`. Subsequent reads from it will return its default value.
-  mutating func clearUintValue() {_storage._uintValue = nil}
+  public mutating func clearUintValue() {_storage._uintValue = nil}
 
-  var entityidValue: EntityId {
+  public var entityidValue: EntityId {
     get {return _storage._entityidValue ?? EntityId()}
     set {_uniqueStorage()._entityidValue = newValue}
   }
   /// Returns true if `entityidValue` has been explicitly set.
-  var hasEntityidValue: Bool {return _storage._entityidValue != nil}
+  public var hasEntityidValue: Bool {return _storage._entityidValue != nil}
   /// Clears the value of `entityidValue`. Subsequent reads from it will return its default value.
-  mutating func clearEntityidValue() {_storage._entityidValue = nil}
+  public mutating func clearEntityidValue() {_storage._entityidValue = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   /// Used by the decoding initializers in the SwiftProtobuf library, not generally
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     _ = _uniqueStorage()
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
@@ -135,7 +135,7 @@ struct Variant: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       if let v = _storage._boolValue {
         try visitor.visitSingularBoolField(value: v, fieldNumber: 2)
@@ -174,7 +174,7 @@ struct Variant: SwiftProtobuf.Message {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension Variant: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     2: .standard(proto: "bool_value"),
     3: .standard(proto: "int_value"),
     4: .standard(proto: "float_value"),
@@ -221,7 +221,7 @@ extension Variant: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._Prot
     return _storage
   }
 
-  func _protobuf_generated_isEqualTo(other: Variant) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: Variant) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0

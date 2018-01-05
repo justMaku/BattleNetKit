@@ -19,45 +19,45 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct EchoRequest: SwiftProtobuf.Message {
-  static let protoMessageName: String = "EchoRequest"
+public struct EchoRequest: SwiftProtobuf.Message {
+  public static let protoMessageName: String = "EchoRequest"
 
-  var time: UInt64 {
+  public var time: UInt64 {
     get {return _time ?? 0}
     set {_time = newValue}
   }
   /// Returns true if `time` has been explicitly set.
-  var hasTime: Bool {return self._time != nil}
+  public var hasTime: Bool {return self._time != nil}
   /// Clears the value of `time`. Subsequent reads from it will return its default value.
-  mutating func clearTime() {self._time = nil}
+  public mutating func clearTime() {self._time = nil}
 
-  var networkOnly: Bool {
+  public var networkOnly: Bool {
     get {return _networkOnly ?? false}
     set {_networkOnly = newValue}
   }
   /// Returns true if `networkOnly` has been explicitly set.
-  var hasNetworkOnly: Bool {return self._networkOnly != nil}
+  public var hasNetworkOnly: Bool {return self._networkOnly != nil}
   /// Clears the value of `networkOnly`. Subsequent reads from it will return its default value.
-  mutating func clearNetworkOnly() {self._networkOnly = nil}
+  public mutating func clearNetworkOnly() {self._networkOnly = nil}
 
-  var payload: Data {
+  public var payload: Data {
     get {return _payload ?? SwiftProtobuf.Internal.emptyData}
     set {_payload = newValue}
   }
   /// Returns true if `payload` has been explicitly set.
-  var hasPayload: Bool {return self._payload != nil}
+  public var hasPayload: Bool {return self._payload != nil}
   /// Clears the value of `payload`. Subsequent reads from it will return its default value.
-  mutating func clearPayload() {self._payload = nil}
+  public mutating func clearPayload() {self._payload = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   /// Used by the decoding initializers in the SwiftProtobuf library, not generally
   /// used directly. `init(serializedData:)`, `init(jsonUTF8Data:)`, and other decoding
   /// initializers are defined in the SwiftProtobuf library. See the Message and
   /// Message+*Additions` files.
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularFixed64Field(value: &self._time)
@@ -72,7 +72,7 @@ struct EchoRequest: SwiftProtobuf.Message {
   /// used directly. `Message.serializedData()`, `Message.jsonUTF8Data()`, and
   /// other serializer methods are defined in the SwiftProtobuf library. See the
   /// `Message` and `Message+*Additions` files.
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if let v = self._time {
       try visitor.visitSingularFixed64Field(value: v, fieldNumber: 1)
     }
@@ -93,13 +93,13 @@ struct EchoRequest: SwiftProtobuf.Message {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension EchoRequest: SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "time"),
     2: .standard(proto: "network_only"),
     3: .same(proto: "payload"),
   ]
 
-  func _protobuf_generated_isEqualTo(other: EchoRequest) -> Bool {
+  public func _protobuf_generated_isEqualTo(other: EchoRequest) -> Bool {
     if self._time != other._time {return false}
     if self._networkOnly != other._networkOnly {return false}
     if self._payload != other._payload {return false}
