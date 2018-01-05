@@ -20,7 +20,7 @@ class GameUtilitiesService: ServiceType {
     }
     
     static func handles(_ type: MethodType) -> Bool {
-        return type(of: type) == Method.self
+        return Swift.type(of: type) == Method.self
     }
     
     enum Method: Int, MethodType {

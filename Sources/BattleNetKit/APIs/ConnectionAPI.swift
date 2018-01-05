@@ -260,7 +260,7 @@ extension ConnectionAPI {
     
     func service<Service: ServiceType>(of type: Service.Type) throws -> Service {
         let allServices = importedServices + exportedServices
-        guard let service = allServices.filter({ type(of: $0) == type }).first as? Service else {
+        guard let service = allServices.filter({ Swift.type(of: $0) == type }).first as? Service else {
             throw Error.serviceNotRegistered(type: type)
         }
         

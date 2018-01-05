@@ -21,7 +21,7 @@ class AuthenticationServerService: ServiceType {
     }
     
     static func handles(_ type: MethodType) -> Bool {
-        return type(of: type) == Method.self
+        return Swift.type(of: type) == Method.self
     }
     
     enum Method: Int, MethodType {
@@ -64,7 +64,7 @@ class AuthenticationClientService: ServiceType {
     }
     
     static func handles(_ type: MethodType) -> Bool {
-        return type(of: type) == Method.self
+        return Swift.type(of: type) == Method.self
     }
     
     enum Method: Int, MethodType {

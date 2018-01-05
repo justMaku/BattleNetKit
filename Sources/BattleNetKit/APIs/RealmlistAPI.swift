@@ -24,7 +24,6 @@ public class RealmlistAPI: API {
     func bind(to connectionAPI: ConnectionAPI) throws {}
     func register(with connectionAPI: ConnectionAPI) throws {}
     
-    
     public func requestRealmlist(for account: EntityId, completion: @escaping (Realmlist) throws -> Void) throws {
         var realmlist = Realmlist()
         
