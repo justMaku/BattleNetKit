@@ -9,6 +9,10 @@ import Foundation
 
 public class RealmlistAPI: API {
     
+    enum Error: Swift.Error {
+        case noRealmlistTicketReceived
+    }
+    
     let client: BattleNet
     
     required public init(client: BattleNet) {
@@ -18,7 +22,7 @@ public class RealmlistAPI: API {
     func bind(to connectionAPI: ConnectionAPI) throws {}
     func register(with connectionAPI: ConnectionAPI) throws {}
     
-    public func requestRealmlistTicket(gameAccount: EntityId, completion: ()) throws {
+    public func requestRealmlistTicket(gameAccount: EntityId, completion: @escaping (Data) -> Void) throws {
         Log.debug("Requesting realmlist ticket", domain: .realmlist)
         let secret = Data.init(count: 32)
         let identity = JSONRealmListTicketIdentity(entityID: gameAccount)
@@ -43,6 +47,12 @@ public class RealmlistAPI: API {
         
         try client.gamesUtilitiesAPI.send(request) { (response) in
             Log.debug("Received realmlist ticket", domain: .realmlist)
+            
+            guard let ticket = response.attribute["Param_RealmListTicket"]?.value.blobValue else {
+                throw Error.noRealmlistTicketReceived
+            }
+            
+            completion(ticket)
         }
     }
 }

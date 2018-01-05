@@ -16,7 +16,7 @@ public class AuthenticationAPI: API {
     let serverService: AuthenticationServerService = .init()
     let client: BattleNet
     
-    var gameAccounts: [EntityId] = []
+    private (set) public var gameAccounts: [EntityId] = []
     var bnetAccount: EntityId? = nil
     var sessionKey: Data? = nil
     

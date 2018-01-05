@@ -17,6 +17,14 @@ extension ClientRequest {
     }
 }
 
+extension Collection where Self.Element == Attribute {
+    subscript(index: String) -> Attribute? {
+        get {
+            return self.filter { $0.name == index }.first
+        }
+    }
+}
+
 extension EntityId {
     var region: Region {
         let region = (UInt32)((self.high & 0xFF00000000) >> 32)
