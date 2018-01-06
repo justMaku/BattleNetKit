@@ -12,5 +12,5 @@ enum Constants {
     public static let localeName = "enUS"
     public static let platformName = "And"
     public static let buildVariant = "darwin-arm-clang-debug"
-    public static let clientVersion = JamJSONGameVersion(versionMajor: 7, versionMinor: 3, versionRevision: 2, versionBuild: 25549)
+    public static let clientVersion = JamJSONGameVersion(versionMajor: 7, versionMinor: 3, versionRevision: 5, versionBuild: 25807)
 }
