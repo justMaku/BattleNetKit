@@ -25,7 +25,7 @@ public class RealmlistAPI: API {
     func register(with connectionAPI: ConnectionAPI) throws {}
     
     public func requestRealmlist(for account: EntityId, completion: @escaping (Realmlist) throws -> Void) throws {
-        var realmlist = Realmlist()
+        var realmBySubregion: [Subregion: [RealmlistRealmEntry]] = [:]
         
         let mainGroup = DispatchGroup()
         mainGroup.enter()
@@ -36,15 +36,15 @@ public class RealmlistAPI: API {
                 try subregions.forEach { subregion in
                     regionsGroup.enter()
 
-                    realmlist[subregion] = []
+                    realmBySubregion[subregion] = []
                     try self.requestRealmList(in: subregion, with: ticket) { (realms) in
                         let realmsGroup = DispatchGroup()
                         
                         try realms.forEach { realm in
                             realmsGroup.enter()
                             try self.requestRealmIpAddress(for: realm, in: subregion, with: ticket) { addresses in
-                                let entry = RealmlistEntry(realm: realm, addresses: addresses)
-                                realmlist[subregion]?.append(entry)
+                                let entry = RealmlistRealmEntry(realm: realm, addresses: addresses)
+                                realmBySubregion[subregion]?.append(entry)
                                 realmsGroup.leave()
                             }
                         }
@@ -62,6 +62,7 @@ public class RealmlistAPI: API {
         }
         
         mainGroup.notify(queue: .main) {
+            let realmlist = realmBySubregion.map(RealmlistSubregionEntry.init)
             try? completion(realmlist)
         }
     }

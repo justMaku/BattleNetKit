@@ -8,7 +8,9 @@
 import Foundation
 
 public struct Address: CustomStringConvertible, Codable {
-    public var description: String
+    public var description: String {
+        return self.address + ":" + String(self.port)
+    }
     
     let port: UInt16
     let address: String
@@ -16,6 +18,11 @@ public struct Address: CustomStringConvertible, Codable {
     init(jam: JamJSONRealmListServerIPAddress) {
         self.port = jam.port
         self.address = jam.ip
-        self.description = jam.ip + ":" + String(jam.port)
+    }
+    
+    public func encode(to encoder: Encoder) throws
+    {
+        var container = encoder.singleValueContainer()
+        try container.encode(description)
     }
 }

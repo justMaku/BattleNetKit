@@ -7,9 +7,31 @@
 
 import Foundation
 
-public typealias Realmlist = [Subregion: [RealmlistEntry]]
+public typealias Realmlist = [RealmlistSubregionEntry]
 
-public struct RealmlistEntry: Codable {
+public struct RealmlistSubregionEntry: Codable {
+    let subregion: Subregion
+    let realms: [RealmlistRealmEntry]
+    
+    init(subregion: Subregion, realms: [RealmlistRealmEntry]) {
+        self.subregion = subregion
+        self.realms = realms
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case subregion
+        case realms
+    }
+    
+    public func encode(to encoder: Encoder) throws
+    {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(subregion.description, forKey: .subregion)
+        try container.encode(realms, forKey: .realms)
+    }
+}
+
+public struct RealmlistRealmEntry: Codable {
     let realm: Realm
     let addresses: [Address]
 }

@@ -23,4 +23,10 @@ public struct Version: CustomStringConvertible, Codable {
     public var description: String {
         return "\(major).\(minor).\(patch)" + " (" + String(build) + ")"
     }
+    
+    public func encode(to encoder: Encoder) throws
+    {
+        var container = encoder.singleValueContainer()
+        try container.encode(description)
+    }
 }
