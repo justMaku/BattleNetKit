@@ -33,7 +33,7 @@ To find more information about Swift Package Manager, please visit Apple's [offi
 
 ### Generating SSO Token
 
-> ‼️ Never use your main account's token with BattleNetKit since BattleNetKit is not 100% 
+> ‼️ Never use your main account's token with BattleNetKit, you **will** get banned.
 
 To generate SSO token used to authenticate against Battle.net, you will need to visit [http://eu.battle.net/login/en/flow/wow-and.app?externalChallenge=login](http://eu.battle.net/login/en/flow/wow-and.app?externalChallenge=login). After logging in with your Battle.net credentials, you should be redirected to a localhost webpage with the SSO token in `ST` query parameter. It should look like this: 
 
