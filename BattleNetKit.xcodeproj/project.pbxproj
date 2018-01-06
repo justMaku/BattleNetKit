@@ -20,6 +20,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		2E44DEA12000579D0012C643 /* Subregion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E44DE99200057470012C643 /* Subregion.swift */; };
+		2E44DEA22000579D0012C643 /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E44DE9B2000575C0012C643 /* Version.swift */; };
+		2E44DEA32000579D0012C643 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E44DE9E200057760012C643 /* Address.swift */; };
 		OBJ_1001 /* BattleNetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "BattleNetKit::BattleNetKit::Product" /* BattleNetKit.framework */; };
 		OBJ_1002 /* Rainbow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Rainbow::Rainbow::Product" /* Rainbow.framework */; };
 		OBJ_1003 /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SwiftProtobuf::SwiftProtobuf::Product" /* SwiftProtobuf.framework */; };
@@ -1046,6 +1049,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2E44DE99200057470012C643 /* Subregion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subregion.swift; sourceTree = "<group>"; };
+		2E44DE9B2000575C0012C643 /* Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
+		2E44DE9E200057760012C643 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		"BattleNetKit::BattleNetKit::Product" /* BattleNetKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BattleNetKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"BattleNetKit::BattleNetKitSample::Product" /* BattleNetKitSample */ = {isa = PBXFileReference; lastKnownFileType = text; path = BattleNetKitSample; sourceTree = BUILT_PRODUCTS_DIR; };
 		"CLibreSSL::CLibreSSL::Product" /* CLibreSSL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CLibreSSL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2060,6 +2066,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E44DE98200057390012C643 /* Realmlist */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_23 /* Realm.swift */,
+				2E44DE99200057470012C643 /* Subregion.swift */,
+				2E44DE9B2000575C0012C643 /* Version.swift */,
+				2E44DE9E200057760012C643 /* Address.swift */,
+			);
+			path = Realmlist;
+			sourceTree = "<group>";
+		};
 		OBJ_176 /* Conformance */ = {
 			isa = PBXGroup;
 			children = (
@@ -2087,11 +2104,11 @@
 		OBJ_18 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				2E44DE98200057390012C643 /* Realmlist */,
 				OBJ_19 /* BattleNetError.swift */,
 				OBJ_20 /* FourCC.swift */,
 				OBJ_21 /* Message.swift */,
 				OBJ_22 /* Packet.swift */,
-				OBJ_23 /* Realm.swift */,
 				OBJ_24 /* Region.swift */,
 			);
 			path = Entities;
@@ -2914,7 +2931,7 @@
 			path = Aurora;
 			sourceTree = "<group>";
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -2926,7 +2943,6 @@
 				OBJ_83 /* Dependencies */,
 				OBJ_940 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_57 /* JAM */ = {
@@ -3542,7 +3558,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_940 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -3600,6 +3616,8 @@
 				OBJ_1055 /* ChallengeExternalRequest.pb.swift in Sources */,
 				OBJ_1056 /* ClientRequest.pb.swift in Sources */,
 				OBJ_1057 /* ClientResponse.pb.swift in Sources */,
+				2E44DEA12000579D0012C643 /* Subregion.swift in Sources */,
+				2E44DEA32000579D0012C643 /* Address.swift in Sources */,
 				OBJ_1058 /* ConnectRequest.pb.swift in Sources */,
 				OBJ_1059 /* ConnectResponse.pb.swift in Sources */,
 				OBJ_1060 /* CreateGameAccountRequest.pb.swift in Sources */,
@@ -3631,6 +3649,7 @@
 				OBJ_1086 /* AuthenticationClientService.swift in Sources */,
 				OBJ_1087 /* ChallengeNotifyService.swift in Sources */,
 				OBJ_1088 /* ConnectionService.swift in Sources */,
+				2E44DEA22000579D0012C643 /* Version.swift in Sources */,
 				OBJ_1089 /* GameUtilitiesService.swift in Sources */,
 				OBJ_1090 /* Service.swift in Sources */,
 				OBJ_1091 /* UnimplementedService.swift in Sources */,
