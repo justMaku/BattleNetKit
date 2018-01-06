@@ -5,6 +5,8 @@ let package = Package(
     name: "BattleNetKit",
     products: [
         .library(name: "BattleNetKit", targets: ["BattleNetKit"]),
+        .library(name: "BattleNetKit", type: .static, targets: ["BattleNetKit"]),
+        .library(name: "BattleNetKit", type: .dynamic, targets: ["BattleNetKit"]),
     ],
     dependencies: [
         .package(url: "https://github.com/vapor/tls", from: "0.8.0"),
