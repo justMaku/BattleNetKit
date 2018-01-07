@@ -9,11 +9,11 @@ import Foundation
 
 public struct JSONRealmListTicketIdentity: Codable {
     let gameAccountID: UInt64
-    let gameAccountRegion: Region
+    let gameAccountRegion: UInt32
     
     init(entityID: EntityId) throws {
         self.gameAccountID = entityID.low
-        self.gameAccountRegion = try Region(from: entityID)
+        self.gameAccountRegion = try Region(from: entityID).rawValue
     }
 }
 
