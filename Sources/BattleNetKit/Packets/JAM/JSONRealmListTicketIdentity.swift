@@ -11,9 +11,9 @@ public struct JSONRealmListTicketIdentity: Codable {
     let gameAccountID: UInt64
     let gameAccountRegion: Region
     
-    init(entityID: EntityId) {
+    init(entityID: EntityId) throws {
         self.gameAccountID = entityID.low
-        self.gameAccountRegion = entityID.region
+        self.gameAccountRegion = try Region(from: entityID)
     }
 }
 

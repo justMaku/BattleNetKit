@@ -70,7 +70,7 @@ public class RealmlistAPI: API {
     public func requestRealmlistTicket(gameAccount: EntityId, completion: @escaping (Data) throws -> Void) throws {
         Log.debug("Requesting realmlist ticket", domain: .realmlist)
         let secret = Data.init(count: 32)
-        let identity = JSONRealmListTicketIdentity(entityID: gameAccount)
+        let identity = try JSONRealmListTicketIdentity(entityID: gameAccount)
         let clientInfo = JSONRealmListTicketClientInformation(info: JamJSONRealmListTicketClientInformation(
             platform: Constants.platformName.fourCC(),
             currentTime: (Int32)(Date().timeIntervalSince1970),

@@ -7,7 +7,12 @@
 //
 
 public enum Region: UInt32, Codable {
-    case unknown = 0
+    
+    enum Error: Swift.Error {
+        case unknownName(name: String)
+        case unknownRegion(code: UInt32)
+    }
+    
     case us = 1
     case eu = 2
     case test = 98
@@ -21,7 +26,40 @@ public enum Region: UInt32, Codable {
         case .us: return "us"
         case .eu: return "eu"
         case .test: return "test"
-        case .unknown: return "unk"
+        }
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(self.name)
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let value = try container.decode(String.self)
+        try self.init(from: value)
+    }
+    
+    public init(from code: UInt32) throws {
+        guard let value = Region.init(rawValue: code) else {
+            throw Error.unknownRegion(code: code)
+        }
+        
+        self = value
+    }
+    
+    public init(from entity: EntityId) throws {
+        let code = (UInt32)((entity.high & 0xFF00000000) >> 32)
+        
+        try self.init(from: code)
+    }
+    
+    public init(from name: String) throws {
+        switch name {
+        case Region.eu.name: self = .eu
+        case Region.us.name: self = .us
+        case Region.test.name: self = .test
+        case _: throw Error.unknownName(name: name)
         }
     }
 }

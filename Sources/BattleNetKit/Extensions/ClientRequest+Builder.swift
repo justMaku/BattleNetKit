@@ -25,13 +25,6 @@ extension Collection where Self.Element == Attribute {
     }
 }
 
-extension EntityId {
-    var region: Region {
-        let region = (UInt32)((self.high & 0xFF00000000) >> 32)
-        return Region(rawValue: region) ?? .unknown
-    }
-}
-
 extension Attribute {
     var isCommand: Bool {
         return self.name.starts(with: "Command_")
