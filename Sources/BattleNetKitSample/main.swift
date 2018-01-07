@@ -8,24 +8,35 @@
 import Foundation
 import BattleNetKit
 
+func fail(_ error: String) throws -> Never {
+    struct Error: Codable {
+        let error: String
+    }
+    
+    let error = Error(error: error)
+    let encoder = JSONEncoder()
+    
+    let data = try encoder.encode(error)
+    print(data.string)
+    
+    exit(1)
+}
+
 // Setup Environment
 do {
     guard CommandLine.argc == 2 else {
-        Log.error("No token given")
-        exit(1)
+        try fail("no token given")
     }
     
-    // Log.enabled = fals // To disable logging.
+    // Log.enabled = false // To disable logging.
     
     let token = CommandLine.arguments[1]
     let dumper = try BattleNetRealmlistDumper(region: .test, token: token)
     try dumper.connect()
-    
-    
 } catch let error {
-    Log.error(error.localizedDescription)
-    exit(1)
+    try! fail(error.localizedDescription)
 }
 
 // Start RunLoop
-while (RunLoop.current.run(mode: .defaultRunLoopMode, before: .distantFuture)) {}
+RunLoop.current.run()
+
