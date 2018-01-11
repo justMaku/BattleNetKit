@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Result
 
 protocol ConnectionAPIDelegate {
     func connected(to: Region) throws
@@ -147,8 +148,8 @@ extension ConnectionAPI {
         
         connectRequest.bindRequest = bindRequest
         
-        try call(ConnectionService.Method.connect, message: connectRequest) { (packet) in
-            let response: ConnectResponse = try packet.extract()
+        try call(ConnectionService.Method.connect, message: connectRequest) { (result) in
+            let response: ConnectResponse = try result.dematerialize().extract()
             
             for (key, var service) in self.importedServices.enumerated() {
                 let id = response.bindResponse.importedServiceID[key]
@@ -211,7 +212,7 @@ extension ConnectionAPI: ConnectionDelegate {
         switch context {
         case .noReply: throw Error.responseToNonrespondingMessage(packet: packet)
         case .reply(_, let completionBlock, _):
-            try completionBlock(packet)
+            try completionBlock(Result(value: packet))
         }
     }
     

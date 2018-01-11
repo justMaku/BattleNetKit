@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import Result
 
 public class RealmlistAPI: API {
     
-    enum Error: Swift.Error {
+    public enum Error: Swift.Error {
         case noRealmlistTicketReceived
         case noRealmlistReceived
         case noServerAddressesRecevied
@@ -42,7 +43,8 @@ public class RealmlistAPI: API {
                         
                         try realms.forEach { realm in
                             realmsGroup.enter()
-                            try self.requestRealmIpAddress(for: realm, in: subregion, with: ticket) { addresses in
+                            try self.requestRealmIpAddress(for: realm, in: subregion, with: ticket) { result in
+                                let addresses = result.recover([])
                                 let entry = RealmlistRealmEntry(realm: realm, addresses: addresses)
                                 realmBySubregion[subregion]?.append(entry)
                                 realmsGroup.leave()
@@ -90,10 +92,10 @@ public class RealmlistAPI: API {
             try Attribute(parameter: "Identity", jam: identity)
         ])
         
-        try client.gamesUtilitiesAPI.send(request) { (response) in
+        try client.gamesUtilitiesAPI.send(request) { (result) in
             Log.debug("Received realmlist ticket", domain: .realmlist)
             
-            guard let ticket = response.attribute["Param_RealmListTicket"]?.value.blobValue else {
+            guard let ticket = try result.dematerialize().attribute["Param_RealmListTicket"]?.value.blobValue else {
                 throw Error.noRealmlistTicketReceived
             }
             
@@ -102,8 +104,9 @@ public class RealmlistAPI: API {
     }
     
     public func requestSubRegions(completion: @escaping ([Subregion]) throws -> Void) throws {
-        try self.client.gamesUtilitiesAPI.getAllValues(for: Attribute.init(command: "CharacterListRequest")) { (attributes) in
-            try completion(attributes.map(Subregion.init))
+        try self.client.gamesUtilitiesAPI.getAllValues(for: Attribute.init(command: "CharacterListRequest")) {
+            (result) in
+            try completion(result.dematerialize().map(Subregion.init))
         }
     }
     
@@ -113,8 +116,8 @@ public class RealmlistAPI: API {
             ]
         )
         
-        try self.client.gamesUtilitiesAPI.send(request) { (response) in
-            guard let realmlist = response.attribute["Param_RealmList"] else {
+        try self.client.gamesUtilitiesAPI.send(request) { (result) in
+            guard let realmlist = try result.dematerialize().attribute["Param_RealmList"] else {
                 throw Error.noRealmlistReceived
             }
             
@@ -124,7 +127,7 @@ public class RealmlistAPI: API {
         }
     }
 
-    public func requestRealmIpAddress(for realm: Realm, in subregion: Subregion, with ticket: Data, completion: @escaping ([Address]) throws -> Void) throws {
+    public func requestRealmIpAddress(for realm: Realm, in subregion: Subregion, with ticket: Data, completion: @escaping (Result<[Address], Error>) throws -> Void) throws {
         let request = try ClientRequest(command: "RealmJoinRequest", value: subregion.description, parameters: [
             Attribute(parameter: "RealmAddress", value: realm.identifier),
             Attribute(parameter: "RealmListTicket", value: ticket),
@@ -132,14 +135,17 @@ public class RealmlistAPI: API {
             ]
         )
         
-        try self.client.gamesUtilitiesAPI.send(request) { response in
-            guard let attribute = response.attribute["Param_ServerAddresses"] else {
-                throw Error.noServerAddressesRecevied
+        try self.client.gamesUtilitiesAPI.send(request) { result in
+            do {
+                guard let attribute = try result.dematerialize().attribute["Param_ServerAddresses"] else {
+                    throw Error.noRealmlistReceived
+                }
+                let jam = try attribute.value.jamValue(of: JSONRealmListServerIPAddresses.self)
+                let addresses = jam.families.flatMap { $0.addresses }.map(Address.init)
+                try completion(Result(value: addresses))
+            } catch let error {
+                try completion(Result(error: Error.noRealmlistReceived))
             }
-            
-            let jam = try attribute.value.jamValue(of: JSONRealmListServerIPAddresses.self)
-            let addresses = jam.families.flatMap { $0.addresses }.map(Address.init)
-            try completion(addresses)
         }
     }
 }

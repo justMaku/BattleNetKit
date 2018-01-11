@@ -8,6 +8,7 @@
 
 import Foundation
 import TLS
+import Result
 
 protocol ConnectionDelegate {
     func connection(_: Connection, didConnectToRegion: Region) throws
@@ -19,10 +20,12 @@ protocol ConnectionDelegate {
 
 class Connection {
     
-    enum Error: Swift.Error {
+    public enum Error: Swift.Error {
         case noContextForReply(header: Header)
         case invalidContextForReply(header: Header)
-        case unknownBattleNetStatus(error: UInt32)
+        case battleNetError(error: BattleNetError)
+        case emptyMessage
+        case noServiceProvider
     }
     
     enum Context {
@@ -30,7 +33,7 @@ class Connection {
         case reply(packet: Packet, completionBlock: CompletionBlock, responseType: Message.Type)
     }
     
-    typealias CompletionBlock = ((Packet) throws -> Void)
+    typealias CompletionBlock = (Result<Packet, Error>) throws -> Void
     
     static private let auroraPort: UInt16 = 1119;
     
@@ -161,10 +164,19 @@ class Connection {
         let header = try Header(serializedData: headerData)
         
         guard header.status == BattleNetError.ok.rawValue else {
-            guard let error = BattleNetError(rawValue: header.status) else {
-                throw Error.unknownBattleNetStatus(error: header.status)
+            let error = BattleNetError(rawValue: Int64(header.status)) ?? BattleNetError.unknown
+            
+            guard
+                header.serviceID == ReplyService.id,
+                let context = awaitingReply[header.token],
+                case let Context.reply(_, completionBlock, _) = context
+            else {
+                throw error
             }
-            throw error
+            
+            try completionBlock(Result(error: Error.battleNetError(error: error)))
+            
+            return nil
         }
         
         let messageBytes = try socket.receive(max: Int(header.size))
@@ -187,10 +199,11 @@ class Connection {
                 message = try reponseType.init(serializedData: messageData)
             }
         } else {
-            guard let service = try delegate?.service(exportedAs: header.serviceID) else {
-                return nil
+            guard let delegate = self.delegate else {
+                throw Error.noServiceProvider
             }
             
+            let service = try delegate.service(exportedAs: header.serviceID)
             let method = try type(of: service).method(with: header.methodID)
             let messageType = method.responseType
             

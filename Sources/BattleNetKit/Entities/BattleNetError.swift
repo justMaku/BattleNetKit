@@ -7,8 +7,9 @@
 
 import Foundation
 
-enum BattleNetError: UInt32, Error
+enum BattleNetError: Int64, Error
 {
+    case unknown = -1
     case ok = 0
     case `internal` = 1
     case timedOut = 2
