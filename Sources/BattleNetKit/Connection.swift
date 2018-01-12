@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Dispatch
+
 import TLS
 import Result
 

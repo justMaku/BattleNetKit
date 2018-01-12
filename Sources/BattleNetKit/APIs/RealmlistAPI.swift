@@ -7,6 +7,7 @@
 
 import Foundation
 import Result
+import Dispatch
 
 public class RealmlistAPI: API {
     
