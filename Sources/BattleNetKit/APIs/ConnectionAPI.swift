@@ -217,7 +217,6 @@ extension ConnectionAPI: ConnectionDelegate {
     }
     
     func handle(_ error: Swift.Error) throws {
-        Log.error(error.localizedDescription)
         try self.delegate?.failed(with: error)
     }
 }

@@ -43,4 +43,8 @@ class BattleNetRealmlistDumper: BattleNetDelegate {
             exit(0)
         }
     }
+    
+    func client(_ client: BattleNet, didEncounterError error: Swift.Error) {
+        Log.error(error.localizedDescription)
+    }
 }

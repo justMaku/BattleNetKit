@@ -11,6 +11,7 @@ import Foundation
 
 public protocol BattleNetDelegate {
     func client(_ client: BattleNet, didChangeState: BattleNet.State) throws
+    func client(_ client: BattleNet, didEncounterError: Error)
 }
 
 public class BattleNet {
@@ -86,7 +87,8 @@ extension BattleNet: ConnectionAPIDelegate {
         try self.update(state: .disconnected)
     }
     
-    func failed(with: Error) throws {
+    func failed(with error: Error) throws {
+        self.delegate?.client(self, didEncounterError: error)
         try self.update(state: .disconnected)
     }
 }
