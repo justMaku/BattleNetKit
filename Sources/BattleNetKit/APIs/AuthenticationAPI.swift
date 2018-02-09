@@ -14,6 +14,8 @@ protocol AuthenticationAPIDelegate {
 public class AuthenticationAPI: API {
     let clientService: AuthenticationClientService = .init()
     let serverService: AuthenticationServerService = .init()
+    let challengeService: ChallengeNotifyService = .init()
+    
     let client: BattleNet
     
     private (set) public var gameAccounts: [EntityId] = []
@@ -28,6 +30,8 @@ public class AuthenticationAPI: API {
     
     func bind(to connectionAPI: ConnectionAPI) throws {
         connectionAPI.bind(exportedService: clientService)
+        connectionAPI.bind(exportedService: challengeService)
+
         connectionAPI.bind(importedService: serverService)
     }
     
@@ -37,6 +41,7 @@ public class AuthenticationAPI: API {
         }
         
         connectionAPI.register(.init(service: clientServiceId, method: AuthenticationClientService.Method.logonComplete.id, closure: handleLogonComplete))
+        connectionAPI.register(.init(service: challengeService.id!, method: ChallengeNotifyService.Method.onExternalChallenge.id, closure: handleExternalChallenge))
     }
     
     func login(token: String) throws {
@@ -58,6 +63,11 @@ public class AuthenticationAPI: API {
         try client.connectionAPI.call(AuthenticationServerService.Method.logon, message: logonRequest)
     }
     
+    func handleExternalChallenge(packet: Packet) throws {
+        let response: ChallengeExternalRequest = try packet.extract()
+        let url = response.payload.string
+        Log.warning("External challange requested with url: \(url)", domain: .authentication)
+    }
     
     func handleLogonComplete(packet: Packet) throws {
         let response: LogonResult = try packet.extract()
