@@ -1,0 +1,162 @@
+syntax = "proto2";
+
+import "EntityId.proto";
+import "GameAccountHandle.proto";
+
+enum IdentityVerificationStatus {
+	IDENT_NO_DATA = 0;
+	IDENT_PENDING = 1;
+	IDENT_FAILED = 4;
+	IDENT_SUCCESS = 5;
+	IDENT_SUCC_MNL = 6;
+	IDENT_UNKNOWN = 7;
+}
+
+message GenerateWebCredentialsRequest {
+    optional fixed32 program = 1;
+}
+
+message GenerateWebCredentialsResponse {
+    optional bytes web_credentials = 1;
+}
+
+message GenerateSSOTokenRequest {
+    optional fixed32 program = 1;
+}
+
+message GenerateSSOTokenResponse {
+    optional bytes sso_id = 1;
+    optional bytes sso_secret = 2;
+}
+
+message GetAccountStateRequest {
+	optional EntityId entity_id = 1;
+	optional uint32 program = 2;
+	optional uint32 region = 3;
+	optional AccountFieldOptions options = 10;
+	optional AccountFieldTags tags = 11;
+}
+
+message GetAccountStateResponse {
+	optional AccountState state = 1;
+	optional AccountFieldTags tags = 2;
+}
+
+message AccountState {
+	optional AccountLevelInfo account_level_info = 1;
+	optional PrivacyInfo privacy_info = 2;
+	optional ParentalControlInfo parental_control_info = 3;
+	repeated GameLevelInfo game_level_info = 5;
+	repeated GameStatus game_status = 6;
+	repeated GameAccountList game_accounts = 7;
+}
+
+message AccountLevelInfo {
+	repeated AccountLicense licenses = 3;
+	optional fixed32 default_currency = 4;
+	optional string country = 5;
+	optional uint32 preferred_region = 6;
+	optional string full_name = 7;
+	optional string battle_tag = 8;
+	optional bool muted = 9;
+	optional bool manual_review = 10;
+	optional bool account_paid_any = 11;
+	optional IdentityVerificationStatus identity_check_status = 12;
+	optional string email = 13;
+	optional bool headless_account = 14;
+}
+
+
+message AccountFieldTags {
+	optional fixed32 account_level_info_tag = 2;
+	optional fixed32 privacy_info_tag = 3;
+	optional fixed32 parental_control_info_tag = 4;
+	repeated ProgramTag game_level_info_tags = 7;
+	repeated ProgramTag game_status_tags = 9;
+	repeated RegionTag game_account_tags = 11;
+}
+
+message AccountFieldOptions {
+	optional bool all_fields = 1;
+	optional bool field_account_level_info = 2;
+	optional bool field_privacy_info = 3;
+	optional bool field_parental_control_info = 4;
+	optional bool field_game_level_info = 6;
+	optional bool field_game_status = 7;
+	optional bool field_game_accounts = 8;
+}
+
+message ProgramTag {
+	optional fixed32 program = 1;
+	optional fixed32 tag = 2;
+}
+
+message RegionTag {
+	optional fixed32 region = 1;
+	optional fixed32 tag = 2;
+}
+
+message AccountLicense {
+	required uint32 id = 1;
+	optional uint64 expires = 2;
+}
+
+message PrivacyInfo {
+	enum GameInfoPrivacy {
+		PRIVACY_ME = 0;
+		PRIVACY_FRIENDS = 1;
+		PRIVACY_EVERYONE = 2;
+	}
+	optional bool is_using_rid = 3;
+	optional bool is_visible_for_view_friends = 4;
+	optional bool is_hidden_from_friend_finder = 5;
+	optional PrivacyInfo.GameInfoPrivacy game_info_privacy = 6 [default = PRIVACY_FRIENDS];
+}
+
+message ParentalControlInfo {
+	optional string timezone = 3;
+	optional uint32 minutes_per_day = 4;
+	optional uint32 minutes_per_week = 5;
+	optional bool can_receive_voice = 6;
+	optional bool can_send_voice = 7;
+	repeated bool play_schedule = 8;
+}
+
+message GameLevelInfo {
+	optional bool is_trial = 4;
+	optional bool is_lifetime = 5;
+	optional bool is_restricted = 6;
+	optional bool is_beta = 7;
+	optional string name = 8;
+	optional fixed32 program = 9;
+	repeated AccountLicense licenses = 10;
+	optional uint32 realm_permissions = 11;
+}
+
+message GameTimeInfo {
+	optional bool is_unlimited_play_time = 3;
+	optional uint64 play_time_expires = 5;
+	optional bool is_subscription = 6;
+	optional bool is_recurring_subscription = 7;
+}
+
+message GameTimeRemainingInfo {
+	optional uint32 minutes_remaining = 1;
+	optional uint32 parental_daily_minutes_remaining = 2;
+	optional uint32 parental_weekly_minutes_remaining = 3;
+	optional uint32 seconds_remaining_until_kick = 4;
+}
+
+message GameStatus {
+	optional bool is_suspended = 4;
+	optional bool is_banned = 5;
+	optional uint64 suspension_expires = 6;
+	optional fixed32 program = 7;
+	optional bool is_locked = 8;
+	optional bool is_bam_unlockable = 9;
+}
+
+message GameAccountList {
+	optional uint32 region = 3;
+	repeated GameAccountHandle handle = 4;
+}

@@ -1,0 +1,7 @@
+syntax = "proto2";
+
+import "AccountState.proto";
+
+message GetLicensesResponse {
+	repeated AccountLicense licenses = 1;
+}

@@ -1,0 +1,12 @@
+syntax = "proto2";
+
+import "EntityId.proto";
+
+message GetLicensesRequest {
+	optional EntityId target_id = 1;
+	optional bool fetch_account_licenses = 2;
+	optional bool fetch_game_account_licenses = 3;
+	optional bool fetch_dynamic_account_licenses = 4;
+	optional fixed32 program = 5;
+	optional bool exclude_unknown_program = 6 [default = false];
+}
