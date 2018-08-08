@@ -26,21 +26,29 @@ class AuthenticationServerService: ServiceType {
     
     enum Method: Int, MethodType {
         case logon = 1
+        case generateSSOToken = 5
+        case generateWebCredentials = 8
         
         var name: String {
             switch self {
             case .logon: return "Logon"
+            case .generateWebCredentials: return "GenerateWebCredentials"
+            case .generateSSOToken: return "GenerateTempCookie"
             }
         }
         
         var requestType: Message.Type {
             switch self {
+            case .generateWebCredentials: return GenerateWebCredentialsRequest.self
+            case .generateSSOToken: return GenerateSSOTokenRequest.self
             case .logon: return LogonRequest.self
             }
         }
         
         var responseType: Message.Type {
             switch self {
+            case .generateWebCredentials: return GenerateWebCredentialsResponse.self
+            case .generateSSOToken: return GenerateSSOTokenResponse.self
             default: fatalError()
             }
         }

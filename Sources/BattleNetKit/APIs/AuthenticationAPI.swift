@@ -15,6 +15,8 @@ public class AuthenticationAPI: API {
     let clientService: AuthenticationClientService = .init()
     let serverService: AuthenticationServerService = .init()
     let challengeService: ChallengeNotifyService = .init()
+    let accountService: AccountService = .init()
+    let accountNotify: AccountNotifyService = .init()
     
     let client: BattleNet
     
@@ -30,9 +32,12 @@ public class AuthenticationAPI: API {
     
     func bind(to connectionAPI: ConnectionAPI) throws {
         connectionAPI.bind(exportedService: clientService)
-        connectionAPI.bind(exportedService: challengeService)
-
         connectionAPI.bind(importedService: serverService)
+
+        connectionAPI.bind(exportedService: challengeService)
+        connectionAPI.bind(exportedService: accountNotify)
+        
+        connectionAPI.bind(importedService: accountService)
     }
     
     func register(with connectionAPI: ConnectionAPI) throws {
@@ -79,5 +84,41 @@ public class AuthenticationAPI: API {
         Log.debug("Authentication complete", domain: .authentication)
         
         try self.delegate?.authenticated(as: response.battleTag)
+    }
+    
+    public func generateSSOToken(for program: String) throws {
+        var request = GenerateSSOTokenRequest()
+        request.program = program.fourCC()
+        
+        
+        try client.connectionAPI.call(AuthenticationServerService.Method.generateSSOToken, message: request) { (result) in
+            let response = try result.dematerialize().extract() as GenerateSSOTokenResponse
+            let id = response.ssoID.string
+            let secret = response.ssoSecret.string
+        }
+    }
+    
+    public func generateWebCredentials(for program: String) throws {
+        var request = GenerateWebCredentialsRequest()
+        request.program = program.fourCC()
+        
+        try client.connectionAPI.call(AuthenticationServerService.Method.generateWebCredentials, message: request) { (result) in
+            let response = try result.dematerialize().extract() as GenerateWebCredentialsResponse
+            let id = response.webCredentials.string
+        }
+    }
+
+    public func getAccountState() throws {
+        var request = GetAccountStateRequest()
+        request.entityID = self.bnetAccount!
+
+        var accountFieldOptions = AccountFieldOptions()
+        accountFieldOptions.allFields = true
+        
+        request.options = accountFieldOptions
+
+        try client.connectionAPI.call(AccountService.Method.getAccountState, message: request) { (result) in
+            let response = try result.dematerialize().extract() as GetAccountStateResponse
+        }
     }
 }
