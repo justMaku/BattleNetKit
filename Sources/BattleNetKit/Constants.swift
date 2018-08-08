@@ -12,5 +12,5 @@ enum Constants {
     public static let localeName = "enUS"
     public static let platformName = "Win"
     public static let buildVariant = ""
-    public static let clientVersion = JamJSONGameVersion(versionMajor: 7, versionMinor: 3, versionRevision: 5, versionBuild: 25826)
+    public static let clientVersion = JamJSONGameVersion(versionMajor: 8, versionMinor: 0, versionRevision: 1, versionBuild: 27219)
 }
