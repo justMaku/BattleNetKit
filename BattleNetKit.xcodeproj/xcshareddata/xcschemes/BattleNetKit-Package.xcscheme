@@ -14,9 +14,93 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BattleNetKit::BattleNetKitSample"
-               BuildableName = "BattleNetKitSample"
-               BlueprintName = "BattleNetKitSample"
+               BlueprintIdentifier = "CLibreSSL::CLibreSSL"
+               BuildableName = "CLibreSSL.framework"
+               BlueprintName = "CLibreSSL"
+               ReferencedContainer = "container:BattleNetKit.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "TLS::TLS"
+               BuildableName = "TLS.framework"
+               BlueprintName = "TLS"
+               ReferencedContainer = "container:BattleNetKit.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "SwiftProtobuf::SwiftProtobuf"
+               BuildableName = "SwiftProtobuf.framework"
+               BlueprintName = "SwiftProtobuf"
+               ReferencedContainer = "container:BattleNetKit.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CryptoSwift::CryptoSwift"
+               BuildableName = "CryptoSwift.framework"
+               BlueprintName = "CryptoSwift"
+               ReferencedContainer = "container:BattleNetKit.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Rainbow::Rainbow"
+               BuildableName = "Rainbow.framework"
+               BlueprintName = "Rainbow"
+               ReferencedContainer = "container:BattleNetKit.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Socks::Socks"
+               BuildableName = "Socks.framework"
+               BlueprintName = "Socks"
+               ReferencedContainer = "container:BattleNetKit.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Core::libc"
+               BuildableName = "libc.framework"
+               BlueprintName = "libc"
                ReferencedContainer = "container:BattleNetKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -56,65 +140,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Rainbow::Rainbow"
-               BuildableName = "Rainbow.framework"
-               BlueprintName = "Rainbow"
-               ReferencedContainer = "container:BattleNetKit.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "SwiftProtobuf::SwiftProtobuf"
-               BuildableName = "SwiftProtobuf.framework"
-               BlueprintName = "SwiftProtobuf"
-               ReferencedContainer = "container:BattleNetKit.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "TLS::TLS"
-               BuildableName = "TLS.framework"
-               BlueprintName = "TLS"
-               ReferencedContainer = "container:BattleNetKit.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Socks::Socks"
-               BuildableName = "Socks.framework"
-               BlueprintName = "Socks"
-               ReferencedContainer = "container:BattleNetKit.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "Socks::SocksCore"
                BuildableName = "SocksCore.framework"
                BlueprintName = "SocksCore"
+               ReferencedContainer = "container:BattleNetKit.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BattleNetKit::BattleNetKitSample"
+               BuildableName = "BattleNetKitSample"
+               BlueprintName = "BattleNetKitSample"
                ReferencedContainer = "container:BattleNetKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -132,41 +174,12 @@
                ReferencedContainer = "container:BattleNetKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Core::libc"
-               BuildableName = "libc.framework"
-               BlueprintName = "libc"
-               ReferencedContainer = "container:BattleNetKit.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CLibreSSL::CLibreSSL"
-               BuildableName = "CLibreSSL.framework"
-               BlueprintName = "CLibreSSL"
-               ReferencedContainer = "container:BattleNetKit.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
@@ -177,7 +190,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -187,9 +199,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BattleNetKit::BattleNetKitSample"
-            BuildableName = "BattleNetKitSample"
-            BlueprintName = "BattleNetKitSample"
+            BlueprintIdentifier = "CLibreSSL::CLibreSSL"
+            BuildableName = "CLibreSSL.framework"
+            BlueprintName = "CLibreSSL"
             ReferencedContainer = "container:BattleNetKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

@@ -13,7 +13,8 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-protobuf", from: "1.0.2"),
         .package(url: "https://github.com/onevcat/Rainbow", from: "3.0.0"),
         .package(url: "https://github.com/IBM-Swift/CZlib", from: "0.1.2"),
-        .package(url: "https://github.com/antitypical/Result.git", from: "3.2.4")
+        .package(url: "https://github.com/antitypical/Result.git", from: "3.2.4"),
+        .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "0.11.0")
     ],
     targets: [
         .target(
@@ -29,6 +30,7 @@ let package = Package(
         .target(
             name: "BattleNetKitSample",
             dependencies: [
+                "CryptoSwift",
                 "BattleNetKit"
             ]
         )

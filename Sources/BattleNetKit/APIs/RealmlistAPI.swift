@@ -17,6 +17,12 @@ public class RealmlistAPI: API {
         case noServerAddressesRecevied
     }
     
+    public struct RealmJoinInfo {
+        public let addresses: [Address]
+        public let joinTicket: Data
+        public let joinSecret: Data
+    }
+    
     let client: BattleNet
     
     required public init(client: BattleNet) {
@@ -44,9 +50,9 @@ public class RealmlistAPI: API {
                         
                         try realms.forEach { realm in
                             realmsGroup.enter()
-                            try self.requestRealmIpAddress(for: realm, in: subregion, with: ticket) { result in
-                                let addresses = result.recover([])
-                                let entry = RealmlistRealmEntry(realm: realm, addresses: addresses)
+                            try self.requestRealmJoin(for: realm, in: subregion, with: ticket) { result in
+                                let response = try result.dematerialize()
+                                let entry = RealmlistRealmEntry(realm: realm, addresses: response.addresses)
                                 realmBySubregion[subregion]?.append(entry)
                                 realmsGroup.leave()
                             }
@@ -70,9 +76,12 @@ public class RealmlistAPI: API {
         }
     }
     
-    public func requestRealmlistTicket(gameAccount: EntityId, completion: @escaping (Data) throws -> Void) throws {
+    public func requestRealmlistTicket(
+        gameAccount: EntityId,
+        clientSecret: [UInt8] = [UInt8].init(repeating: 0, count: 32),
+        completion: @escaping (Data) throws -> Void
+    ) throws {
         Log.debug("Requesting realmlist ticket", domain: .realmlist)
-        let secret = Data.init(count: 32)
         let identity = try JSONRealmListTicketIdentity(entityID: gameAccount)
         let clientInfo = JSONRealmListTicketClientInformation(info: JamJSONRealmListTicketClientInformation(
             platform: Constants.platformName.fourCC(),
@@ -82,7 +91,7 @@ public class RealmlistAPI: API {
             versionDataBuild: Constants.clientVersion.versionBuild,
             audioLocale: Constants.localeName.fourCC(),
             version: Constants.clientVersion,
-            secret: secret.bytes,
+            secret: clientSecret,
             type: Constants.clientTypeName.fourCC(),
             textLocale: Constants.localeName.fourCC()
             )
@@ -112,7 +121,7 @@ public class RealmlistAPI: API {
     }
     
     public func requestRealmList(in subregion: Subregion, with ticket: Data, completion: @escaping ([Realm]) throws -> Void) throws {
-        let request = try ClientRequest(command: "CharacterListRequest", value: subregion.description, parameters: [
+        let request = try ClientRequest(command: "RealmListRequest", value: subregion.description, parameters: [
                 Attribute(parameter: "RealmListTicket", value: ticket)
             ]
         )
@@ -127,10 +136,10 @@ public class RealmlistAPI: API {
             try completion(realms)
         }
     }
-
-    public func requestRealmIpAddress(for realm: Realm, in subregion: Subregion, with ticket: Data, completion: @escaping (Result<[Address], Error>) throws -> Void) throws {
+    
+    public func requestRealmJoin(for realm: Realm, in subregion: Subregion, with ticket: Data, completion: @escaping (Result<RealmJoinInfo, Error>) throws -> Void) throws {
         let request = try ClientRequest(command: "RealmJoinRequest", value: subregion.description, parameters: [
-            Attribute(parameter: "RealmAddress", value: realm.identifier),
+            Attribute(parameter: "RealmAddress", value: UInt64(realm.identifier)), // Has to be UInt64
             Attribute(parameter: "RealmListTicket", value: ticket),
             Attribute(parameter: "BnetSessionKey", value: self.client.authenticationAPI.sessionKey ?? Data())
             ]
@@ -138,12 +147,19 @@ public class RealmlistAPI: API {
         
         try self.client.gamesUtilitiesAPI.send(request) { result in
             do {
-                guard let attribute = try result.dematerialize().attribute["Param_ServerAddresses"] else {
+                var response = try result.dematerialize()
+                
+                guard let attribute = response.attribute["Param_ServerAddresses"] else {
                     throw Error.noRealmlistReceived
                 }
                 let jam = try attribute.value.jamValue(of: JSONRealmListServerIPAddresses.self)
                 let addresses = jam.families.flatMap { $0.addresses }.map(Address.init)
-                try completion(Result(value: addresses))
+                
+                let joinInfo = RealmJoinInfo(addresses: addresses,
+                                             joinTicket: response.attribute["Param_RealmJoinTicket"]!.value.blobValue,
+                                             joinSecret: response.attribute["Param_JoinSecret"]!.value.blobValue)
+                
+                try completion(Result(value: joinInfo))
             } catch let error {
                 try completion(Result(error: Error.noRealmlistReceived))
             }

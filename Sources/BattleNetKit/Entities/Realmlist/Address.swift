@@ -12,8 +12,8 @@ public struct Address: CustomStringConvertible, Codable {
         return self.address + ":" + String(self.port)
     }
     
-    let port: UInt16
-    let address: String
+    public let port: UInt16
+    public let address: String
     
     init(jam: JamJSONRealmListServerIPAddress) {
         self.port = jam.port

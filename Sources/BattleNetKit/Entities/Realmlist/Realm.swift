@@ -37,14 +37,26 @@ public struct RealmlistRealmEntry: Codable {
 }
 
 public struct Realm: Hashable, Equatable, Codable {
-    let name: String
-    let supportedVersion: Version
-    let identifier: UInt64
+    public let name: String
+    public let supportedVersion: Version
+    public let identifier: UInt32
     
     init(jam: JamJSONRealmEntry) {
         self.name = jam.name
         self.supportedVersion = Version(jam: jam.version)
-        self.identifier = UInt64(jam.wowRealmAddress)
+        self.identifier = jam.wowRealmAddress
+    }
+    
+    public var region: UInt32 {
+        return UInt32(identifier >> 3 & 0x00_00_00_FF)
+    }
+    
+    public var group: UInt32 {
+        return UInt32(identifier >> 2 & 0x00_00_00_FF)
+    }
+    
+    public var id: UInt32 {
+        return UInt32(identifier & 0x00_00_FF_FF)
     }
     
     public var hashValue: Int {

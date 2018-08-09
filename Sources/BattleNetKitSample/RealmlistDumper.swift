@@ -7,6 +7,7 @@
 
 import Foundation
 import BattleNetKit
+import CryptoSwift
 
 class BattleNetRealmlistDumper: BattleNetDelegate {
     
@@ -34,17 +35,36 @@ class BattleNetRealmlistDumper: BattleNetDelegate {
                 return
         }
         
-        try self.client.realmlistAPI.requestRealmlist(for: account) { realmlist in
-            let encoder = JSONEncoder()
-            
-            let json = try encoder.encode(realmlist)
-            
-            print(json.string)
-            exit(0)
+        let realmlistAPI = self.client.realmlistAPI!
+        
+        var secret = AES.randomIV(32)
+        
+        try realmlistAPI.requestRealmlistTicket(gameAccount: account, clientSecret: secret) { ticket in
+            try realmlistAPI.requestSubRegions() { regions in
+                guard let region = regions.first else {
+                    return
+                }
+                
+                try realmlistAPI.requestRealmList(in: region, with: ticket) { realms in
+                    guard let realm = realms.first else {
+                        return
+                    }
+                    
+                    try realmlistAPI.requestRealmJoin(for: realm, in: region, with: ticket) { result in
+                        let info = try result.dematerialize()
+                        let client = try WoWClient(realm: realm, joinInfo: info, secret: secret)
+                        
+                        try client.connect()
+                        try client.run()
+                    }
+                }
+            }
         }
     }
     
     func client(_ client: BattleNet, didEncounterError error: Swift.Error) {
         Log.error(error.localizedDescription)
     }
+    
+    
 }
