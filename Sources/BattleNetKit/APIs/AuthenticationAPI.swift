@@ -52,7 +52,7 @@ public class AuthenticationAPI: API {
     func login(token: String) throws {
         Log.debug("Attempting authentication", domain: .authentication)
         var logonRequest = LogonRequest()
-        logonRequest.program = Constants.clientTypeName
+        logonRequest.program = Constants.auroraClientName
         logonRequest.locale = Constants.localeName
         logonRequest.platform = Constants.platformName
         logonRequest.version = "0"

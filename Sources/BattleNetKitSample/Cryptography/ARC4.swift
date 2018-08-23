@@ -21,7 +21,7 @@ public class RC4 {
         
         for i in 0...0xFF {
             j = self.box[i].addingReportingOverflow(key[i % key.count]).partialValue.addingReportingOverflow(j).partialValue
-            var t = self.box[i]
+            let t = self.box[i]
             self.box[Int(i)] = self.box[Int(j)]
             self.box[Int(j)] = t
         }
@@ -43,11 +43,17 @@ public class RC4 {
         
         self.i = i
         self.j = j
-        var index = self.box[Int(i)].addingReportingOverflow(self.box[Int(j)]).partialValue
+        let index = self.box[Int(i)].addingReportingOverflow(self.box[Int(j)]).partialValue
         return self.box[Int(index)]
     }
     
-    public func decrypt(data: [UInt8]) -> [UInt8] {
+    public func drop(_ count: Int) {
+        for _ in 0..<count {
+            _ = self.next()
+        }
+    }
+
+    public func update(data: [UInt8]) -> [UInt8] {
         var result: [UInt8] = []
         
         for byte in data {

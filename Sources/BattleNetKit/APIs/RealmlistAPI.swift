@@ -92,8 +92,11 @@ public class RealmlistAPI: API {
             audioLocale: Constants.localeName.fourCC(),
             version: Constants.clientVersion,
             secret: clientSecret,
-            type: Constants.clientTypeName.fourCC(),
-            textLocale: Constants.localeName.fourCC()
+            type: Constants.gameClientName.fourCC(),
+            textLocale: Constants.localeName.fourCC(),
+            platformType: Constants.platformName.fourCC(),
+            systemArch: Constants.systemArchitecture.fourCC(),
+            clientArch: Constants.clientArchitecture.fourCC()
             )
         )
         
@@ -153,7 +156,7 @@ public class RealmlistAPI: API {
                     throw Error.noRealmlistReceived
                 }
                 let jam = try attribute.value.jamValue(of: JSONRealmListServerIPAddresses.self)
-                let addresses = jam.families.flatMap { $0.addresses }.map(Address.init)
+                let addresses = jam.families.filter { $0.family == 1 }.flatMap { $0.addresses }.map(Address.init)
                 
                 let joinInfo = RealmJoinInfo(addresses: addresses,
                                              joinTicket: response.attribute["Param_RealmJoinTicket"]!.value.blobValue,
