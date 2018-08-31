@@ -18,7 +18,4 @@ struct JamJSONRealmListTicketClientInformation: Codable {
     let secret: [UInt8]
     let type: UInt32
     let textLocale: UInt32
-    let platformType: UInt32
-    let systemArch: UInt32
-    let clientArch: UInt32
 }

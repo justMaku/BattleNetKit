@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum PacketGroup {
+    
+}
+
 protocol Packet: CustomStringConvertible {
     static var opcode: Opcode { get }
 }

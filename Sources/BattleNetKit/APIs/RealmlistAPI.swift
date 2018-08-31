@@ -93,10 +93,7 @@ public class RealmlistAPI: API {
             version: Constants.clientVersion,
             secret: clientSecret,
             type: Constants.gameClientName.fourCC(),
-            textLocale: Constants.localeName.fourCC(),
-            platformType: Constants.platformName.fourCC(),
-            systemArch: Constants.systemArchitecture.fourCC(),
-            clientArch: Constants.clientArchitecture.fourCC()
+            textLocale: Constants.localeName.fourCC()
             )
         )
         

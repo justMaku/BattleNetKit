@@ -27,6 +27,8 @@ struct CompressedPacket: ServerPacket {
                 throw WoWClient.Error.unknownOpcode(opcode: underlyingRawOpcode)
         }
         
+        try Data(compressedPayload).write(to: .init(fileURLWithPath: "/Users/maku/Desktop/malformed.bin"))
+        
         let underlyingPacketPayload = uncompressedPayload[2..<uncompressedPayload.count].array
         let packet = try implementation.parse(payload: underlyingPacketPayload)
         

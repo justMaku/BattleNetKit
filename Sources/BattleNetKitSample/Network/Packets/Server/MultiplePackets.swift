@@ -27,6 +27,12 @@ struct MultiplePackets: ServerPacket {
                 position += 2
                 
                 if length <= 0 || length > payload.count - position {
+                    Log.error("Packet \(rawOpcode) has malformed size: \(length)")
+                    
+                    if rawOpcode == 0x4C {
+                        let data = try Data(payload).write(to: .init(fileURLWithPath: "/Users/maku/Desktop/malformed.bin"))
+                    }
+                    
                     throw WoWClient.Error.malformedPacket(opcode: MultiplePackets.opcode.rawValue, payload: payload)
                 }
                 
@@ -36,7 +42,7 @@ struct MultiplePackets: ServerPacket {
                 guard
                     let opcode = Opcode.init(rawValue: rawOpcode),
                     let implementation = opcode.implementation as? ServerPacket.Type
-                    else {
+                else {
                         throw WoWClient.Error.unknownOpcode(opcode: rawOpcode)
                 }
                 

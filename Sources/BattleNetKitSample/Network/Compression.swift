@@ -12,16 +12,9 @@ class Compression {
     
     static let `default` = Compression.init()
     
-    enum Error: Swift.Error {
-        case zlibError(underlyingError: Int32)
-        case corruptedData
-    }
-    
+    private var dictionary = CompressionDictionary()
     private var stream = z_stream()
-    private var dictionary = [UInt8].init(repeating: 0, count: 0x8000)
     
-    let bufferSize = 16 * 1024
-
     init() {
         var result = inflateInit2_(&stream, -15, ZLIB_VERSION, Int32(MemoryLayout<z_stream>.size))
         
@@ -29,7 +22,7 @@ class Compression {
             fatalError()
         }
         
-        result = inflateSetDictionary(&stream, &dictionary, 0x8000)
+        result = inflateSetDictionary(&stream, &dictionary.buffer, UInt32(dictionary.buffer.count))
     }
     
     public func inflate(data: [UInt8], expectedSize: UInt32) -> [UInt8] {

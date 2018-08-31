@@ -33,6 +33,7 @@
 		2E6C8C78212E2BF200D73759 /* MultiplePackets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6C8C77212E2BF200D73759 /* MultiplePackets.swift */; };
 		2E6C8C7A212E561800D73759 /* EnumCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6C8C79212E561800D73759 /* EnumCharacters.swift */; };
 		2E6C8C7C212EA48D00D73759 /* HotfixRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6C8C7B212EA48D00D73759 /* HotfixRequest.swift */; };
+		2E6C8C7F212EAB7B00D73759 /* AvailableHotfixes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6C8C7D212EAB3300D73759 /* AvailableHotfixes.swift */; };
 		2E96E4EC212D87BE00C848FD /* AuthSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E96E4EA212D879800C848FD /* AuthSession.swift */; };
 		2EBD8F21212D8C78005B8892 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E96E4ED212D893F00C848FD /* AuthResponse.swift */; };
 		2EBD8F23212D94C2005B8892 /* EnableEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBD8F22212D94C2005B8892 /* EnableEncryption.swift */; };
@@ -1185,6 +1186,7 @@
 		2E6C8C77212E2BF200D73759 /* MultiplePackets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplePackets.swift; sourceTree = "<group>"; };
 		2E6C8C79212E561800D73759 /* EnumCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumCharacters.swift; sourceTree = "<group>"; };
 		2E6C8C7B212EA48D00D73759 /* HotfixRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotfixRequest.swift; sourceTree = "<group>"; };
+		2E6C8C7D212EAB3300D73759 /* AvailableHotfixes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableHotfixes.swift; sourceTree = "<group>"; };
 		2E96E4EA212D879800C848FD /* AuthSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthSession.swift; sourceTree = "<group>"; };
 		2E96E4ED212D893F00C848FD /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
 		2EBD8F22212D94C2005B8892 /* EnableEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableEncryption.swift; sourceTree = "<group>"; };
@@ -2357,6 +2359,7 @@
 				2EBD8F22212D94C2005B8892 /* EnableEncryption.swift */,
 				2E6C8C75212E2BE900D73759 /* CompressedPacket.swift */,
 				2E6C8C77212E2BF200D73759 /* MultiplePackets.swift */,
+				2E6C8C7D212EAB3300D73759 /* AvailableHotfixes.swift */,
 			);
 			path = Server;
 			sourceTree = "<group>";
@@ -4222,6 +4225,7 @@
 				OBJ_1153 /* WoWClient.swift in Sources */,
 				OBJ_1154 /* main.swift in Sources */,
 				2E6C8C76212E2BE900D73759 /* CompressedPacket.swift in Sources */,
+				2E6C8C7F212EAB7B00D73759 /* AvailableHotfixes.swift in Sources */,
 				2E6C8C78212E2BF200D73759 /* MultiplePackets.swift in Sources */,
 				2EC78FBA211DEAB1007E59AD /* AuthChallenge.swift in Sources */,
 			);

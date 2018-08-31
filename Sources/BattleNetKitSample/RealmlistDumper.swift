@@ -9,9 +9,11 @@ import Foundation
 import BattleNetKit
 import CryptoSwift
 
-class BattleNetRealmlistDumper: BattleNetDelegate {
+class RealmlistClient: BattleNetDelegate {
     
     enum Error: Swift.Error {
+        case noRegion
+        case noRealm
         case noTicket
     }
     
@@ -30,25 +32,25 @@ class BattleNetRealmlistDumper: BattleNetDelegate {
     func client(_ client: BattleNet, didChangeState state: BattleNet.State) throws {
         guard
             state == .connected,
-            let account = self.client.authenticationAPI.gameAccounts.first
-            else {
-                return
+            let account = self.client.authenticationAPI.gameAccounts.last
+        else {
+            return
         }
         
         let realmlistAPI = self.client.realmlistAPI!
-        
-        var secret = AES.randomIV(32)
+        let secret = AES.randomIV(32)
         
         try realmlistAPI.requestRealmlistTicket(gameAccount: account, clientSecret: secret) { ticket in
+            
             try realmlistAPI.requestSubRegions() { regions in
                 guard let region = regions.first else {
                     return
                 }
                 
                 try realmlistAPI.requestRealmList(in: region, with: ticket) { realms in
-                    guard let realm = realms.first else {
-                        return
-                    }
+                    
+                    let random = arc4random_uniform(UInt32(realms.count - 1))
+                    let realm = realms[0]
                     
                     try realmlistAPI.requestRealmJoin(for: realm, in: region, with: ticket) { result in
                         let info = try result.dematerialize()
@@ -65,6 +67,4 @@ class BattleNetRealmlistDumper: BattleNetDelegate {
     func client(_ client: BattleNet, didEncounterError error: Swift.Error) {
         Log.error(error.localizedDescription)
     }
-    
-    
 }

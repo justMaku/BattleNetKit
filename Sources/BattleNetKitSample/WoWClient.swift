@@ -132,6 +132,10 @@ class WoWClient {
             try self.handle(packet: packet.underlyingPacket)
         case let packet as MultiplePackets:
             try packet.underlyingPackets.forEach(self.handle)
+        case let hotfixes as AvailableHotfixes:
+            hotfixes.hotfixes.forEach {
+                Log.debug("Received hotfix information for row \($0.row) in table \(String(format:"0x%04X", $0.table))")
+            }
         default:
             Log.warning("No handler defined for message type: \(type(of: packet))")
         }
@@ -164,8 +168,6 @@ class WoWClient {
             try self.socket.close()
             return
         }
-        
-//        try self.send(packet: HotfixRequest(hotfixes: [21561, 907, 1354]))
     }
     
     private func handleEnableEncryption(request: EnableEncryption) throws {

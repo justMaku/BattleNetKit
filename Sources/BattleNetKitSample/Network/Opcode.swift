@@ -17,6 +17,7 @@ enum Opcode: UInt16 {
     case SMSG_COMPRESSED_PACKET = 0x3052
     case CMSG_ENUM_CHARACTERS = 0x35E8
     case CMSG_HOTFIX_REQUEST = 0x35E5
+    case SMSG_AVAILABLE_HOTFIXES = 0x25A1
     
     public var bytes: [UInt8] { return self.rawValue.bytes }
     
@@ -31,6 +32,7 @@ enum Opcode: UInt16 {
         case .SMSG_COMPRESSED_PACKET: return CompressedPacket.self
         case .CMSG_ENUM_CHARACTERS: return EnumCharacters.self
         case .CMSG_HOTFIX_REQUEST: return HotfixRequest.self
+        case .SMSG_AVAILABLE_HOTFIXES: return AvailableHotfixes.self
         }
     }
 }
