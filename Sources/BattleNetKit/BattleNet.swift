@@ -39,6 +39,7 @@ public class BattleNet {
     
     fileprivate let token: String
     fileprivate var apis: [API] = []
+    
     private (set) var state: State = .disconnected
     
     public init(region: Region, token: String) throws {

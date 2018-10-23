@@ -55,8 +55,8 @@ public class AuthenticationAPI: API {
         logonRequest.program = Constants.auroraClientName
         logonRequest.locale = Constants.localeName
         logonRequest.platform = Constants.platformName
-        logonRequest.version = "0"
-        logonRequest.applicationVersion = 1
+        logonRequest.version = Constants.auroraClientVersion
+        logonRequest.applicationVersion = Int32(Constants.clientVersion.versionBuild)
         logonRequest.publicComputer = false
         logonRequest.allowLogonQueueNotifications = true
         logonRequest.webClientVerification = true

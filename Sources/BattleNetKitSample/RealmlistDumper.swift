@@ -10,18 +10,13 @@ import BattleNetKit
 import CryptoSwift
 
 class RealmlistClient: BattleNetDelegate {
-    
-    enum Error: Swift.Error {
-        case noRegion
-        case noRealm
-        case noTicket
-    }
-    
     private let client: BattleNet
     private var ticket: Data? = nil
+    private var environment: RealmlistAPI.Environment
     
-    init(region: Region, token: String) throws {
+    init(region: Region, token: String, environment: RealmlistAPI.Environment) throws {
         self.client = try BattleNet(region: region, token: token)
+        self.environment = environment
         self.client.delegate = self
     }
     
@@ -37,34 +32,21 @@ class RealmlistClient: BattleNetDelegate {
             return
         }
         
-        let realmlistAPI = self.client.realmlistAPI!
-        let secret = AES.randomIV(32)
-        
-        try realmlistAPI.requestRealmlistTicket(gameAccount: account, clientSecret: secret) { ticket in
+        try? dumpRealmist(client: client, account: account)
+    }
+    
+    private func dumpRealmist(client: BattleNet, account: EntityId) throws {
+        try client.realmlistAPI.requestRealmlist(for: account, environment: self.environment) { realmlist in
+            let encoder = JSONEncoder()
             
-            try realmlistAPI.requestSubRegions() { regions in
-                guard let region = regions.first else {
-                    return
-                }
-                
-                try realmlistAPI.requestRealmList(in: region, with: ticket) { realms in
-                    
-                    let random = arc4random_uniform(UInt32(realms.count - 1))
-                    let realm = realms[0]
-                    
-                    try realmlistAPI.requestRealmJoin(for: realm, in: region, with: ticket) { result in
-                        let info = try result.dematerialize()
-                        let client = try WoWClient(realm: realm, joinInfo: info, secret: secret)
-                        
-                        try client.connect()
-                        try client.run()
-                    }
-                }
-            }
+            let json = try encoder.encode(realmlist)
+            
+            print(json.string)
+            exit(0)
         }
     }
     
     func client(_ client: BattleNet, didEncounterError error: Swift.Error) {
-        Log.error(error.localizedDescription)
+        try! fail(error)
     }
 }

@@ -26,6 +26,7 @@ class Connection {
         case noContextForReply(header: Header)
         case invalidContextForReply(header: Header)
         case battleNetError(error: BattleNetError)
+        case unknownBattleNetError(error: UInt32)
         case emptyMessage
         case noServiceProvider
     }
@@ -166,8 +167,16 @@ class Connection {
         let header = try Header(serializedData: headerData)
         
         guard header.status == BattleNetError.ok.rawValue else {
-            let error = BattleNetError(rawValue: Int64(header.status)) ?? BattleNetError.unknown
+            let error: Error
             
+            if let battleNetError = BattleNetError(rawValue: Int64(header.status)) {
+                error = .battleNetError(error: battleNetError)
+            } else {
+                error = Error.unknownBattleNetError(error: header.status)
+            }
+            
+            Log.error("Received error response: \(String(reflecting: error))", domain: .aurora)
+                
             guard
                 header.serviceID == ReplyService.id,
                 let context = awaitingReply[header.token],
@@ -176,7 +185,7 @@ class Connection {
                 throw error
             }
             
-            try completionBlock(Result(error: Error.battleNetError(error: error)))
+            try completionBlock(Result(error: error))
             
             return nil
         }

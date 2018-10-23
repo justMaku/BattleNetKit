@@ -8,10 +8,10 @@
 import Foundation
 
 extension ClientRequest {
-    init(command: String, value: Variantable? = nil, parameters: [Attribute]) throws {
+    init(command: String, value: Variantable? = nil, version: Attribute.Version = .live, parameters: [Attribute]) throws {
         self.init()
         
-        let commandAttribute = try Attribute(command: command, value: value)
+        let commandAttribute = try Attribute(command: command, value: value, version: version)
         self.attribute = [commandAttribute]
         self.attribute.append(contentsOf: parameters)
     }
@@ -26,6 +26,11 @@ extension Collection where Self.Element == Attribute {
 }
 
 extension Attribute {
+    enum Version: String {
+        case live = "b9"
+        case classic = "classic1"
+    }
+    
     var isCommand: Bool {
         return self.name.starts(with: "Command_")
     }
@@ -34,10 +39,10 @@ extension Attribute {
         return self.name.starts(with: "Param_")
     }
     
-    init(command: String, value: Variantable? = nil) throws {
+    init(command: String, value: Variantable? = nil, version: Version = .live) throws {
         self.init()
         
-        self.name = "Command_\(command)_v1_b9"
+        self.name = "Command_\(command)_v1_\(version.rawValue)"
         
         if let value = value {
             self.value = try Variant(value)

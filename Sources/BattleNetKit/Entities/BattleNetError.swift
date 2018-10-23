@@ -9,611 +9,658 @@ import Foundation
 
 enum BattleNetError: Int64, Error
 {
-    case unknown = -1
-    case ok = 0
-    case `internal` = 1
-    case timedOut = 2
-    case denied = 3
-    case notExists = 4
-    case notStarted = 5
-    case inProgress = 6
-    case invalidArgs = 7
-    case invalidSubscriber = 8
-    case waitingForDependency = 9
-    case noAuth = 10
-    case parentalControlRestriction = 11
-    case noGameAccount = 12
-    case notImplemented = 13
-    case objectRemoved = 14
-    case invalidEntityId = 15
-    case invalidEntityAccountId = 16
-    case invalidEntityGameAccountId = 17
-    case invalidAgentId = 19
-    case invalidTargetId
-    case moduleNotLoaded
-    case moduleNoEntryPoint
-    case moduleSignatureIncorrect
-    case moduleCreateFailed
-    case noProgram
-    case apiNotBound
-    case apiNotReady
-    case badVersion
-    case attributeTooManyAttributesSet
-    case attributeMaxSizeExceeded
-    case attributeQuotaExceeded
-    case serverPoolServerDisappeared
-    case serverIsPrivate
-    case disabled
-    case moduleNotFound = 36
-    case serverBusy
-    case noBattletag
-    case incompleteProfanityFilters
-    case invalidRegion
-    case existsAlready
-    case invalidServerThumbprint
-    case phoneLock
-    case squelched
-    case targetOffline
-    case badServer
-    case noCookie
-    case expiredCookie
-    case tokenNotFound
-    case gameAccountNoTime
-    case gameAccountNoPlan
-    case gameAccountBanned
-    case gameAccountSuspended
-    case gameAccountAlreadySelected
-    case gameAccountCancelled
-    case sessionDuplicate = 60
-    case sessionDisconnected
-    case sessionDataChanged
-    case sessionUpdateFailed
-    case sessionNotFound
-    case adminKick = 70
-    case unplannedMaintenance
-    case plannedMaintenance
-    case serviceFailureAccount
-    case serviceFailureSession
-    case serviceFailureAuth
-    case serviceFailureRisk
-    case badProgram
-    case badLocale
-    case badPlatform
-    case localeRestrictedLa = 81
-    case localeRestrictedR
-    case localeRestrictedKo
-    case localeRestrictedTw
-    case localeRestricted
-    case accountNeedsMaintenance
-    case moduleApiError
-    case moduleBadCacheHandle
-    case moduleAlreadyLoaded
-    case networkBlacklisted
-    case okDeprecated = 100
-    case logonModuleRequired = 500
-    case logonModuleNotConfigured
-    case logonModuleTimeout
-    case logonAgreementRequired = 510
-    case logonAgreementNotConfigured
-    case logonInvalidServerProof = 520
-    case logonWebVerifyTimeout
-    case challengeSmsTooSoon = 600
-    case challengeSmsThrottled
-    case challengeSmsTempOutage
-    case challengeNoChallenge
-    case challengeNotPicked
-    case challengeAlreadyPicked
-    case challengeInProgress
-    case rpcWriteFailed = 3000
-    case rpcServiceNotBound
-    case rpcTooManyRequests
-    case rpcPeerUnknown
-    case rpcPeerUnavailable
-    case rpcPeerDisconnected
-    case rpcRequestTimedOut
-    case rpcConnectionTimedOut
-    case rpcMalformedResponse
-    case rpcAccessDenied
-    case rpcInvalidService
-    case rpcInvalidMethod
-    case rpcInvalidObject
-    case rpcMalformedRequest
-    case rpcQuotaExceeded
-    case rpcNotImplemented
-    case rpcServerError
-    case rpcShutdown
-    case rpcDisconnect
-    case rpcDisconnectIdle
-    case rpcProtocolError
-    case rpcNotReady
-    case rpcForwardFailed
-    case rpcEncryptionFailed
-    case rpcInvalidAddress
-    case rpcMethodDisabled
-    case rpcShardNotFound
-    case presenceInvalidFieldId = 4000
-    case presenceNoValidSubscribers
-    case presenceAlreadySubscribed
-    case presenceConsumerNotFound
-    case presenceConsumerIsNull
-    case presenceTemporaryOutage
-    case friendsTooManySentInvitations = 5001
-    case friendsTooManyReceivedInvitations
-    case friendsFriendshipAlreadyExists
-    case friendsFriendshipDoesNotExist
-    case friendsInvitationAlreadyExists
-    case friendsInvalidInvitation
-    case friendsAlreadySubscribed
-    case friendsAccountBlocked = 5009
-    case friendsNotSubscribed
-    case friendsInvalidRoleId
-    case friendsDisabledRoleId
-    case friendsNoteMaxSizeExceeded
-    case friendsUpdateFriendStateFailed
-    case friendsInviteeAtMaxFriends
-    case friendsInviterAtMaxFriends
-    case whisperUndeliverable = 7000
-    case whisperMaxSizeExceeded
-    case userManagerAlreadyBlocked = 8000
-    case userManagerNotBlocked
-    case userManagerCannotBlockSelf
-    case userManagerAlreadyRegistered
-    case userManagerNotRegistered
-    case userManagerTooManyBlockedEntities
-    case userManagerTooManyIds = 8007
-    case userManagerBlockRecordUnavailable = 8015
-    case userManagerBlockEntityFailed
-    case userManagerUnblockEntityFailed
-    case userManagerCannotBlockFriend = 8019
-    case channelFull = 10000
-    case channelNoChannel
-    case channelNotMember
-    case channelAlreadyMember
-    case channelNoSuchMember
-    case channelInvalidChannelId = 10006
-    case channelNoSuchInvitation = 10008
-    case channelTooManyInvitations
-    case channelInvitationAlreadyExists
-    case channelInvalidChannelSize
-    case channelInvalidRoleId
-    case channelRoleNotAssignable
-    case channelInsufficientPrivileges
-    case channelInsufficientPrivacyLevel
-    case channelInvalidPrivacyLevel
-    case channelTooManyChannelsJoined
-    case channelInvitationAlreadySubscribed
-    case channelInvalidChannelDelegate
-    case channelSlotAlreadyReserved
-    case channelSlotNotReserved
-    case channelNoReservedSlotsAvailable
-    case channelInvalidRoleSet
-    case channelRequireFriendValidation
-    case channelMemberOffline
-    case channelReceivedTooManyInvitations
-    case channelInvitationInvalidGameAccountSelected
-    case channelUnreachable
-    case channelInvitationNotSubscribed
-    case channelInvalidMessageSize
-    case channelMaxMessageSizeExceeded
-    case channelConfigNotFound
-    case channelInvalidChannelType
-    case localStorageFileOpenError = 11000
-    case localStorageFileCreateError
-    case localStorageFileReadError
-    case localStorageFileWriteError
-    case localStorageFileDeleteError
-    case localStorageFileCopyError
-    case localStorageFileDecompressError
-    case localStorageFileHashMismatch
-    case localStorageFileUsageMismatch
-    case localStorageDatabaseInitError
-    case localStorageDatabaseNeedsRebuild
-    case localStorageDatabaseInsertError
-    case localStorageDatabaseLookupError
-    case localStorageDatabaseUpdateError
-    case localStorageDatabaseDeleteError
-    case localStorageDatabaseShrinkError
-    case localStorageCacheCrawlError
-    case localStorageDatabaseIndexTriggerError
-    case localStorageDatabaseRebuildInProgress
-    case localStorageOkButNotInCache
-    case localStorageFileRenameError
-    case localStorageDatabaseRebuildInterrupted
-    case localStorageDatabaseNotInitialized
-    case localStorageDirectoryCreateError
-    case localStorageFilekeyNotFound
-    case accountMissingConfig = 18000
-    case accountDataNotFound
-    case accountAlreadySubscribed
-    case accountNotSubscribed
-    case accountFailedToParseTimezoneData
-    case accountLoadFailed
-    case accountLoadCancelled
-    case accountDatabaseInvalidateFailed
-    case accountCacheInvalidateFailed
-    case accountSubscriptionPending
-    case accountUnknownRegion
-    case accountDataFailedToParse
-    case databaseBindingCountMismatch = 19000
-    case databaseBindingParseFail
-    case databaseResultsetColumnsMismatch
-    case databaseDeadlock
-    case databaseDuplicateKey
-    case databaseCannotConnect
-    case databaseStatementFailed
-    case databaseTransactionNotStarted
-    case databaseTransactionNotEnded
-    case databaseTransactionLeak
-    case databaseTransactionStateBad
-    case databaseServerGone
-    case databaseBindingNotNullable = 19100
-    case databaseBindingInvalidInteger
-    case databaseBindingInvalidFloat
-    case databaseBindingInvalidTemporal
-    case databaseBindingInvalidProtobuf
-    case partyInvalidPartyId = 20000
-    case partyAlreadyInParty
-    case partyNotInParty
-    case partyInvitationUndeliverable
-    case partyInvitationAlreadyExists
-    case partyTooManyPartyInvitations
-    case partyTooManyReceivedInvitations
-    case partyNoSuchType
-    case gamesNoSuchFactory = 22000
-    case gamesNoSuchGame
-    case gamesNoSuchRequest
-    case gamesNoSuchPartyMember
-    case resourcesOffline = 23000
-    case gameServerCreateGameRefused = 24000
-    case gameServerAddPlayersRefused
-    case gameServerRemovePlayersRefused
-    case gameServerFinishGameRefused
-    case gameServerNoSuchGame
-    case gameServerNoSuchPlayer
-    case gameServerCreateGameRefusedTransient = 24050
-    case gameServerAddPlayersRefusedTransient
-    case gameServerRemovePlayersRefusedTransient
-    case gameServerFinishGameRefusedTransient
-    case gameServerCreateGameRefusedBusy = 24100
-    case gameServerAddPlayersRefusedBusy
-    case gameServerRemovePlayersRefusedBusy
-    case gameServerFinishGameRefusedBusy
-    case gameServerNoServer = 24200
-    case gameMasterInvalidFactory = 25000
-    case gameMasterInvalidGame
-    case gameMasterGameFull
-    case gameMasterRegisterFailed
-    case gameMasterNoGameServer
-    case gameMasterNoUtilityServer
-    case gameMasterNoGameVersion
-    case gameMasterGameJoinFailed
-    case gameMasterAlreadyRegistered
-    case gameMasterNoFactory
-    case gameMasterMultipleGameVersions
-    case gameMasterInvalidPlayer
-    case gameMasterInvalidGameRequest
-    case gameMasterInsufficientPrivileges
-    case gameMasterAlreadyInGame
-    case gameMasterInvalidGameServerResponse
-    case gameMasterGameAccountLookupFailed
-    case gameMasterGameEntryCancelled
-    case gameMasterGameEntryAbortedClientDropped
-    case gameMasterGameEntryAbortedByService
-    case gameMasterNoAvailableCapacity
-    case gameMasterInvalidTeamid
-    case notificationInvalidClientId = 26000
-    case notificationDuplicateName
-    case notificationNameNotFound
-    case notificationInvalidServer
-    case notificationQuotaExceeded
-    case notificationInvalidNotificationType
-    case achievementsNothingToUpdate = 28000
-    case achievementsInvalidParams
-    case achievementsNotRegistered
-    case achievementsNotReady
-    case achievementsFailedToParseStaticData
-    case achievementsUnknownId
-    case achievementsMissingSnapshot
-    case achievementsAlreadyRegistered
-    case achievementsTooManyRegistrations
-    case achievementsAlreadyInProgress
-    case achievementsTemporaryOutage
-    case achievementsInvalidProgramid
-    case achievementsMissingRecord
-    case achievementsRegistrationPending
-    case achievementsEntityIdNotFound
-    case achievementsAchievementIdNotFound
-    case achievementsCriteriaIdNotFound
-    case achievementsStaticDataMismatch
-    case achievementsWrongThread
-    case achievementsCallbackIsNull
-    case achievementsAutoRegisterPending
-    case achievementsNotInitialized
-    case achievementsAchievementIdAlreadyExists
-    case achievementsFailedToDownloadStaticData
-    case searchInvalidRange = 29002
-    case searchDisabled
-    case searchUniverseNotLicensed
-    case searchUniverseDisabledLicense
-    case searchTooManyResults
-    case searchRefusedBusy
-    case exchangeObjectProviderValidateOrderBookRefusedTransient = 30002
-    case exchangeObjectProviderAuthorizeRefusedTransient
-    case exchangeObjectProviderSettleRefusedTransient
-    case exchangeObjectProviderCancelRefusedTransient
-    case exchangeObjectProviderGetObjectStatisticsRefusedTransient
-    case exchangeObjectProviderGetPaymentMethodsRefusedTransient
-    case exchange = 31000
-    case exchangeAlreadyExists
-    case exchangeOrderBookCreationFailed
-    case exchangeOrderBookNotFound
-    case exchangeObjectNotValid
-    case exchangeAccountNotValid
-    case exchangeOrderBookClosed
-    case exchangeCannotBidOnOwnOffer
-    case exchangeInvalidToken
-    case exchangeSubscriptionFailed
-    case exchangeAlreadySubscribed
-    case exchangeNotSubscribed
-    case exchangeSourceInvalid
-    case exchangeTypeInvalid
-    case exchangeNoObjectProviders = 31015
-    case exchangePartitionIdInvalid
-    case exchangeSpecialistInvalid
-    case exchangeCurrencyInvalid
-    case exchangeDurationInvalid
-    case exchangeStartDelayInvalid
-    case exchangeStartingPriceInvalid
-    case exchangeReservedPriceInvalid
-    case exchangeTradeNowPriceInvalid
-    case exchangeDisabled
-    case exchangeSpecialistDisabled
-    case exchangeOrderactionDisabled
-    case exchangeOrdertypeDisabled
-    case exchangeSourceDisabled
-    case exchangeOfferNotFound
-    case exchangeBidNotFound
-    case exchangeOrderBookIdMismatched
-    case exchangeCancelReasonInvalid
-    case exchangeObjectTypeInvalid
-    case exchangeTooManyResults
-    case exchangeDisabledLicense
-    case exchangeCurrencyNotLicensed
-    case exchangeCurrencyMismatched
-    case exchangeProgramInvalid
-    case exchangeAmountInvalid
-    case exchangeOrderInvalid
-    case exchangeCurrentPriceInvalid
-    case exchangeMaximumPriceInvalid
-    case exchangeCurrencyDisabled
-    case exchangeAmountInvalidTicksize = 31045
-    case exchangeNotclosedOfferLimitReached
-    case exchangeCurrencyRmtRestricted
-    case exchangeOrderWithClaimableLimitReached
-    case exchangeStartingPriceMinUnitPriceInvalid
-    case exchangeStartingPriceMaxUnitPriceInvalid
-    case exchangeStartingPriceMinTotalPriceInvalid
-    case exchangeStartingPriceMaxTotalPriceInvalid
-    case exchangeReservedPriceMinUnitPriceInvalid
-    case exchangeReservedPriceMaxUnitPriceInvalid
-    case exchangeReservedPriceMinTotalPriceInvalid
-    case exchangeReservedPriceMaxTotalPriceInvalid
-    case exchangeTradeNowPriceMinUnitPriceInvalid
-    case exchangeTradeNowPriceMaxUnitPriceInvalid
-    case exchangeTradeNowPriceMinTotalPriceInvalid
-    case exchangeTradeNowPriceMaxTotalPriceInvalid
-    case exchangeCurrentPriceMinUnitPriceInvalid
-    case exchangeCurrentPriceMaxUnitPriceInvalid
-    case exchangeCurrentPriceMinTotalPriceInvalid
-    case exchangeCurrentPriceMaxTotalPriceInvalid
-    case exchangeMaximumPriceMinUnitPriceInvalid
-    case exchangeMaximumPriceMaxUnitPriceInvalid
-    case exchangeMaximumPriceMinTotalPriceInvalid
-    case exchangeMaximumPriceMaxTotalPriceInvalid
-    case exchangeInvalidFillOrKillBid
-    case exchangeRequestInprocess
-    case exchangeBidAuthorizeInprogress
-    case exchangeOfferAuthorizeInprogress
-    case exchangePartitionBusy
-    case exchangeSubscribeRequestRefusedBusy
-    case exchangeBusy
-    case exchangeAccessNotGranted
-    case exchangeStatusInvalid
-    case exchangeNotificationTypeInvalid
-    case exchangeDatabase = 32000
-    case exchangeDatabaseMaintenance
-    case exchangeDatabaseUsercancel
-    case exchangeDatabaseOutbid
-    case exchangeDatabaseInsufficientamount
-    case exchangeDatabaseTotalpricetoolow
-    case exchangeDatabaseCloseforfillorkill
-    case exchangeDatabaseUnknownspecialist = 32100
-    case exchangeDatabaseDatanotfound
-    case exchangeDatabaseDuplicatedata
-    case exchangeDatabaseAlreadycanceled
-    case exchangeDatabaseOrderstillactive
-    case exchangeDatabaseAuthorizationfailed
-    case exchangeDatabaseAlreadycompleted
-    case exchangeDatabaseEndtimenotpassed
-    case exchangeDatabaseTradenowpricereached
-    case exchangeDatabaseInsufficientmaxunitprice
-    case exchangeDatabaseNotenoughunitprice
-    case exchangeDatabaseZeroamount
-    case exchangeDatabaseSettleamountmismatch
-    case exchangeDatabaseStarttimenotpassed
-    case exchangeDatabaseLessthanreserveprice
-    case exchangeDatabaseNotauthorized
-    case exchangeDatabaseNotimplemented
-    case exchangeDatabaseLessthanoutbidprice
-    case exchangeDatabaseRecordnotfound
-    case exchangeDatabaseParentsettlefailed
-    case exchangeDatabaseInvalidoperation
-    case exchangeDatabaseRiskpending
-    case exchangeDatabaseRefundnotfound
-    case exchangeDatabaseSettlepending
-    case exchangeDatabaseRiskfailed
-    case exchangeDatabaseOrderbooknotfound = 32200
-    case exchangeDatabaseOrderbookclosefailed
-    case exchangeDatabaseOrderbookinvalidid
-    case exchangeDatabaseOrderbookclosed
-    case exchangeDatabaseOrderbookdupactive
-    case exchangeDatabaseOffernotfound = 32300
-    case exchangeDatabaseOffercanceled
-    case exchangeDatabaseOfferclosed
-    case exchangeDatabaseOffernotactivated
-    case exchangeDatabaseOfferauthnotfound
-    case exchangeDatabaseOfferauthinprocess
-    case exchangeDatabaseOffercancelnotfound
-    case exchangeDatabaseOffersettlenotfound
-    case exchangeDatabaseOfferexpired
-    case exchangeDatabaseOfferalreadyexists
-    case exchangeDatabaseOfferbadowner
-    case exchangeDatabaseBidnotfound = 32400
-    case exchangeDatabaseBidalreadyexists
-    case exchangeDatabaseBidfromsameaccount
-    case exchangeDatabaseBidauthnotfound
-    case exchangeDatabaseBidcancelnotfound
-    case exchangeDatabaseBidsettlenotfound
-    case exchangeDatabaseBidclosed
-    case exchangeDatabaseBidcanceled
-    case exchangeDatabaseBidexpired
-    case exchangeDatabaseBidauthinprocess
-    case exchangeDatabaseBidbadowner
-    case exchangeDatabaseFeecouponnegative = 32500
-    case exchangeDatabaseFeeinactive
-    case exchangeDatabaseFeeeventnotfound
-    case exchangeDatabaseFeeeventtoomany
-    case exchangeDatabaseCouponnotfound
-    case exchangeDatabaseCouponbooknotfound
-    case exchangeDatabaseOrderinvalidaddress = 32550
-    case exchangeDatabaseCscancelstart = 32600
-    case exchangeDatabaseCscancelend = 32699
-    case exchangeDatabaseExceptionNotspecified = 33000
-    case exchangeDatabaseExceptionNotenoughdefinitions
-    case exchangeDatabaseExceptionBadpartitionid = 33010
-    case exchangeDatabaseExceptionBadorderbookid
-    case exchangeDatabaseExceptionBadprogress
-    case exchangeDatabaseExceptionBadsettleamount
-    case exchangeDatabaseExceptionBadofferid = 33100
-    case exchangeDatabaseExceptionBadofferamount
-    case exchangeDatabaseExceptionBadofferpricing
-    case exchangeDatabaseExceptionBadoffertiming
-    case exchangeDatabaseExceptionBadoffermoneyaccount
-    case exchangeDatabaseExceptionBadofferitemaccount
-    case exchangeDatabaseExceptionBadoffersettleamount
-    case exchangeDatabaseExceptionBadoffersettleprice
-    case exchangeDatabaseExceptionBadbidid = 33200
-    case exchangeDatabaseExceptionBadbidamount
-    case exchangeDatabaseExceptionBadbidpricing
-    case exchangeDatabaseExceptionBadbidtiming
-    case exchangeDatabaseExceptionBadbidmoneyaccount
-    case exchangeDatabaseExceptionBadbiditemaccount
-    case exchangeDatabaseExceptionBadbidsettleamount
-    case exchangeDatabaseExceptionBadbidsettleprice
-    case exchangeDatabaseExceptionBadbiddingbnetid
-    case exchangeDatabaseExceptionBadfeecalculationtype
-    case exchangeDatabaseExceptionBadfeecouponcount
-    case gameUtilityServerVariableRequestRefused = 34001
-    case gameUtilityServerWrongNumberOfVariablesReturned
-    case gameUtilityServerClientRequestRefused
-    case gameUtilityServerPresenceChannelCreatedRefused
-    case gameUtilityServerVariableRequestRefusedTransient = 34050
-    case gameUtilityServerClientRequestRefusedTransient
-    case gameUtilityServerPresenceChannelCreatedRefusedTransient
-    case gameUtilityServerServerRequestRefusedTransient
-    case gameUtilityServerVariableRequestRefusedBusy = 34100
-    case gameUtilityServerClientRequestRefusedBusy
-    case gameUtilityServerPresenceChannelCreatedRefusedBusy
-    case gameUtilityServerServerRequestRefusedBusy
-    case gameUtilityServerNoServer = 34200
-    case gameChannelInvalidGameId = 35000
-    case exchangePayment = 36000
-    case exchangePaymentBridgeTimeout
-    case exchangePaymentCorruptAuthHandle
-    case exchangePaymentInvalidRequest
-    case exchangePaymentCashOutNotAllowed
-    case exchangePaymentInvalidTransactionDirection
-    case exchangePaymentInsufficientFunds
-    case exchangePaymentDecryptFailed
-    case exchangePaymentLimitedByMaxCapAmount
-    case exchangePaymentBridgeDisconnectedFromPaymentProvider
-    case exchangePaymentCouldntConnect
-    case exchangePaymentAuthExpired
-    case exchangePaymentPaypalTxNotFound
-    case exchangePaymentPaypalUnexpectedStatus
-    case exchangePaymentBridgeInternalDeprecated
-    case exchangePaymentPaypalMasspayUnknownState
-    case exchangePaymentPaypalMasspayShouldRetry
-    case exchangePaymentGcUnexpectedStatus
-    case exchangePaymentOrderIdRunningOut
-    case exchangePaymentAccountSourceMismatch
-    case exchangePaymentResultOffsetInUse
-    case exchangePaymentWalletNotFound
-    case exchangePaymentCurrencyNotFound
-    case exchangePaymentMalformedResponse = 36024
-    case exchangePaymentCvvNotPresent
-    case exchangePaymentAvsCheckFailed
-    case exchangePaymentCvvCheckFailed
-    case exchangePaymentZipCodeTooShort
-    case exchangePaymentZipCodeTooLong
-    case exchangePaymentZipCodeRepeatingDigitsNotAllowed
-    case exchangePaymentZipCodeInvalid
-    case exchangePaymentAuthenticatorCapViolation
-    case exchangePaymentSoftCapViolation
-    case exchangePaymentUnknownAccount
-    case exchangePaymentPaypalMasspayResetInProcessFailed
-    case exchangePaymentUnsupportedPaymentMethod
-    case exchangePaymentUnknownError
-    case exchangePaymentShuttingDown
-    case exchangePaymentMissingSmsSignup
-    case exchangePaymentEbalanceInternal
-    case exchangePaymentRequestTimedOutInProvider
-    case exchangePaymentRequestUnknownState
-    case exchangePaymentAccountCompromised
-    case exchangePaymentReportFailed
-    case exchangePaymentInvaidProviderId
-    case exchangePaymentDatabase = 37000
-    case exchangePaymentDatabaseThisErrorCodeIsDeprecated
-    case exchangePaymentDatabaseBadProgressCount
-    case exchangePaymentDatabaseNoDataFound
-    case exchangePaymentDatabaseAlreadyCompleted
-    case exchangePaymentDatabaseDuplicatedData
-    case exchangePaymentDatabaseInvalidOperationType
-    case exchangePaymentDatabaseNoSettleForRefund
-    case exchangePaymentDatabaseRefundExceedsSettle
-    case exchangePaymentDatabaseAlreadySuccess
-    case exchangePaymentDatabaseAlreadyInProcess
-    case exchangePaymentDatabaseInvalidFundAmount
-    case exchangePaymentDatabasePartialFilled
-    case exchangePaymentDatabaseInvalidProviderId = 37100
-    case exchangePaymentDatabaseExceptionAssertConditionFailed = 38000
-    case exchangePaymentDatabaseExceptionBadProviderRequestId
-    case exchangePaymentDatabaseExceptionBadAuthorization
-    case exchangePaymentDatabaseExceptionBadSettle
-    case exchangePaymentDatabaseExceptionBadProgressCount
-    case exchangePaymentDatabaseExceptionBadTotalProgressCount
-    case exchangePaymentDatabaseExceptionNative = 38100
-    case exchangePaymentDatabaseExceptionNotSpecified
-    case exchangeSearchInputNoObjectProviders = 40000
-    case exchangeSearchInputDuplicateStatisticsKey
-    case identityInsufficientData = 41000
-    case identityTooManyResults
-    case identityBadId
-    case identityNoAccountBlob
-    case riskChallengeAction = 42000
-    case riskDelayAction
-    case riskThrottleAction
-    case riskAccountLocked
-    case riskCsDenied
-    case portDisabled = 43000
-    case portExchangeReasonInvalid = 43100
-    case reportUnavailable = 45000
-    case reportTooLarge
-    case reportUnknownType
-    case reportAttributeInvalid
-    case reportAttributeQuotaExceeded
-    case reportUnconfirmed
-    case reportNotConnected
-    case reportRejected
-    case reportTooManyRequest
+    case ok = 0x00000000
+    case `internal` = 0x00000001
+    case timedOut = 0x00000002
+    case denied = 0x00000003
+    case notExists = 0x00000004
+    case notStarted = 0x00000005
+    case inProgress = 0x00000006
+    case invalidArgs = 0x00000007
+    case invalidSubscriber = 0x00000008
+    case waitingForDependency = 0x00000009
+    case noAuth = 0x0000000a
+    case parentalControlRestriction = 0x0000000b
+    case noGameAccount = 0x0000000c
+    case notImplemented = 0x0000000d
+    case objectRemoved = 0x0000000e
+    case invalidEntityId = 0x0000000f
+    case invalidEntityAccountId = 0x00000010
+    case invalidEntityGameAccountId = 0x00000011
+    case invalidAgentId = 0x00000013
+    case invalidTargetId = 0x00000014
+    case moduleNotLoaded = 0x00000015
+    case moduleNoEntryPoint = 0x00000016
+    case moduleSignatureIncorrect = 0x00000017
+    case moduleCreateFailed = 0x00000018
+    case noProgram = 0x00000019
+    case apiNotReady = 0x0000001b
+    case badVersion = 0x0000001c
+    case attributeTooManyAttributesSet = 0x0000001d
+    case attributeMaxSizeExceeded = 0x0000001e
+    case attributeQuotaExceeded = 0x0000001f
+    case serverPoolServerDisappeared = 0x00000020
+    case serverIsPrivate = 0x00000021
+    case disabled = 0x00000022
+    case moduleNotFound = 0x00000024
+    case serverBusy = 0x00000025
+    case noBattletag = 0x00000026
+    case incompleteProfanityFilters = 0x00000027
+    case invalidRegion = 0x00000028
+    case existsAlready = 0x00000029
+    case invalidServerThumbprint = 0x0000002a
+    case phoneLock = 0x0000002b
+    case squelched = 0x0000002c
+    case targetOffline = 0x0000002d
+    case badServer = 0x0000002e
+    case noCookie = 0x0000002f
+    case expiredCookie = 0x00000030
+    case tokenNotFound = 0x00000031
+    case gameAccountNoTime = 0x00000032
+    case gameAccountNoPlan = 0x00000033
+    case gameAccountBanned = 0x00000034
+    case gameAccountSuspended = 0x00000035
+    case gameAccountAlreadySelected = 0x00000036
+    case gameAccountCancelled = 0x00000037
+    case gameAccountCreationDisabled = 0x00000038
+    case gameAccountLocked = 0x00000039
+    case gameAccountPhoneLock = 0x0000003a
+    case gameAccountBillingLock = 0x0000003b
+    case sessionDuplicate = 0x0000003c
+    case sessionDisconnected = 0x0000003d
+    case sessionDataChanged = 0x0000003e
+    case sessionUpdateFailed = 0x0000003f
+    case sessionNotFound = 0x00000040
+    case sessionFreePlayNotSupported = 0x00000041
+    case sessionSubscriptionAdded = 0x00000042
+    case sessionConsumptionTimeAdded = 0x00000043
+    case adminKick = 0x00000046
+    case unplannedMaintenance = 0x00000047
+    case plannedMaintenance = 0x00000048
+    case serviceFailureAccount = 0x00000049
+    case serviceFailureSession = 0x0000004a
+    case serviceFailureAuth = 0x0000004b
+    case serviceFailureRisk = 0x0000004c
+    case badProgram = 0x0000004d
+    case badLocale = 0x0000004e
+    case badPlatform = 0x0000004f
+    case localeRestrictedLa = 0x00000051
+    case localeRestrictedRu = 0x00000052
+    case localeRestrictedKo = 0x00000053
+    case localeRestrictedTw = 0x00000054
+    case localeRestricted = 0x00000055
+    case accountNeedsMaintenance = 0x00000056
+    case moduleApiError = 0x00000057
+    case moduleBadCacheHandle = 0x00000058
+    case moduleAlreadyLoaded = 0x00000059
+    case networkBlacklisted = 0x0000005a
+    case eventProcessorSlow = 0x0000005b
+    case serverShuttingDown = 0x0000005c
+    case networkNotPrivileged = 0x0000005d
+    case tooManyOutstandingRequests = 0x0000005e
+    case noAccountRegistered = 0x0000005f
+    case battlenetAccountBanned = 0x00000060
+    case okDeprecated = 0x00000064
+    case serverInModeZombie = 0x00000065
+    case agentIsBlockingTarget = 0x00000066
+    case targetIsBlockingAgent = 0x00000067
+    case serviceUnavailable = 0x00000068
+    case logonModuleRequired = 0x000001f4
+    case logonModuleNotConfigured = 0x000001f5
+    case logonModuleTimeout = 0x000001f6
+    case logonAgreementRequired = 0x000001fe
+    case logonAgreementNotConfigured = 0x000001ff
+    case challengeSmsTooSoon = 0x00000258
+    case challengeSmsThrottled = 0x00000259
+    case challengeSmsTempOutage = 0x0000025a
+    case challengeNoChallenge = 0x0000025b
+    case challengeNotPicked = 0x0000025c
+    case challengeAlreadyPicked = 0x0000025d
+    case challengeInProgress = 0x0000025e
+    case configFormatInvalid = 0x000002bc
+    case configNotFound = 0x000002bd
+    case configRetrieveFailed = 0x000002be
+    case configDumpFailed = 0x000002bf
+    case networkModuleBusy = 0x000003e8
+    case networkModuleCantResolveAddress = 0x000003e9
+    case networkModuleConnectionRefused = 0x000003ea
+    case networkModuleInterrupted = 0x000003eb
+    case networkModuleConnectionAborted = 0x000003ec
+    case networkModuleConnectionReset = 0x000003ed
+    case networkModuleBadAddress = 0x000003ee
+    case networkModuleNotReady = 0x000003ef
+    case networkModuleAlreadyConnected = 0x000003f0
+    case networkModuleCantCreateSocket = 0x000003f1
+    case networkModuleNetworkUnreachable = 0x000003f2
+    case networkModuleSocketPermissionDenied = 0x000003f3
+    case networkModuleNotInitialized = 0x000003f4
+    case networkModuleNoSslCertificateForPeer = 0x000003f5
+    case networkModuleNoSslCommonNameForCertificate = 0x000003f6
+    case networkModuleSslCommonNameDoesNotMatchRemoteEndpoint = 0x000003f7
+    case networkModuleSocketClosed = 0x000003f8
+    case networkModuleSslPeerIsNotRegisteredInCertbundle = 0x000003f9
+    case networkModuleSslCertBundleReadError = 0x000003fb
+    case networkModuleNoCertBundle = 0x000003fc
+    case networkModuleFailedToDownloadCertBundle = 0x000003fd
+    case networkModuleNotReadyToRead = 0x000003fe
+    case networkModuleSslCertChainValidationFailed = 0x000003ff
+    case networkModuleSslCertHandlerWasNotProvided = 0x00000400
+    case networkModuleNetworkDown = 0x00000401
+    case networkModuleOpensslX509Ok = 0x000004b0
+    case networkModuleOpensslX509UnableToGetIssuerCert = 0x000004b1
+    case networkModuleOpensslX509UnableToGetCrl = 0x000004b2
+    case networkModuleOpensslX509UnableToDecryptCertSignature = 0x000004b3
+    case networkModuleOpensslX509UnableToDecryptCrlSignature = 0x000004b4
+    case networkModuleOpensslX509UnableToDecodeIssuerPublicKey = 0x000004b5
+    case networkModuleOpensslX509CertSignatureFailure = 0x000004b6
+    case networkModuleOpensslX509CrlSignatureFailure = 0x000004b7
+    case networkModuleOpensslX509CertNotYetValid = 0x000004b8
+    case networkModuleOpensslX509CertHasExpired = 0x000004b9
+    case networkModuleOpensslX509CrlNotYetValid = 0x000004ba
+    case networkModuleOpensslX509CrlHasExpired = 0x000004bb
+    case networkModuleOpensslX509ErrorInCertNotBeforeField = 0x000004bc
+    case networkModuleOpensslX509ErrorInCertNotAfterField = 0x000004bd
+    case networkModuleOpensslX509ErrorInCrlLastUpdateField = 0x000004be
+    case networkModuleOpensslX509ErrorInCrlNextUpdateField = 0x000004bf
+    case networkModuleOpensslX509OutOfMem = 0x000004c0
+    case networkModuleOpensslX509DepthZeroSelfSignedCert = 0x000004c1
+    case networkModuleOpensslX509SelfSignedCertInChain = 0x000004c2
+    case networkModuleOpensslX509UnableToGetIssuerCertLocally = 0x000004c3
+    case networkModuleOpensslX509UnableToVerifyLeafSignature = 0x000004c4
+    case networkModuleOpensslX509CertChainTooLong = 0x000004c5
+    case networkModuleOpensslX509CertRevoked = 0x000004c6
+    case networkModuleOpensslX509InvalidCa = 0x000004c7
+    case networkModuleOpensslX509PathLengthExceeded = 0x000004c8
+    case networkModuleOpensslX509InvalidPurpose = 0x000004c9
+    case networkModuleOpensslX509CertUntrusted = 0x000004ca
+    case networkModuleOpensslX509CertRejected = 0x000004cb
+    case networkModuleOpensslX509SubjectIssuerMismatch = 0x000004cc
+    case networkModuleOpensslX509AkidSkidMismatch = 0x000004cd
+    case networkModuleOpensslX509AkidIssuerSerialMismatch = 0x000004ce
+    case networkModuleOpensslX509KeyusageNoCertsign = 0x000004cf
+    case networkModuleOpensslX509ApplicationVerification = 0x000004d0
+    case networkModuleSchannelCannotFindOsVersion = 0x00000514
+    case networkModuleSchannelOsNotSupported = 0x00000515
+    case networkModuleSchannelLoadlibraryFail = 0x00000516
+    case networkModuleSchannelCannotFindInterface = 0x00000517
+    case networkModuleSchannelInitFail = 0x00000518
+    case networkModuleSchannelFunctionCallFail = 0x00000519
+    case networkModuleSchannelHandshakeFailure = 0x0000051a
+    case networkModuleSchannelX509UnableToGetIssuerCert = 0x00000546
+    case networkModuleSchannelX509TimeInvalid = 0x00000547
+    case networkModuleSchannelX509SignatureInvalid = 0x00000548
+    case networkModuleSchannelX509UnableToVerifyLeafSignature = 0x00000549
+    case networkModuleSchannelX509SelfSignedLeafCertificate = 0x0000054a
+    case networkModuleSchannelX509UnhandledError = 0x0000054b
+    case networkModuleSchannelX509SelfSignedCertInChain = 0x0000054c
+    case websocketHandshake = 0x00000578
+    case networkModuleDurangoUnknown = 0x000005dc
+    case networkModuleDurangoMalformedHostName = 0x000005dd
+    case networkModuleDurangoInvalidConnectionResponse = 0x000005de
+    case networkModuleDurangoInvalidCaCert = 0x000005df
+    case networkModuleDarwinsslFunctionCallFail = 0x00000640
+    case networkModuleDarwinsslX509NeverTrust = 0x00000672
+    case networkModuleDarwinsslX509RecoverableTrustFailure = 0x00000673
+    case networkModuleDarwinsslX509FatalTrustFailure = 0x00000674
+    case networkModuleDarwinsslX509OtherError = 0x00000675
+    case networkModuleDarwinsslX509UnknownError = 0x00000676
+    case sdkMessageHandlerNotFound = 0x0000076c
+    case sdkTassadarClientInvalidInput = 0x00000776
+    case sdkTassadarServerError = 0x00000777
+    case sdkTassadarServerMaintenance = 0x00000778
+    case rpcWriteFailed = 0x00000bb8
+    case rpcServiceNotBound = 0x00000bb9
+    case rpcTooManyRequests = 0x00000bba
+    case rpcPeerUnknown = 0x00000bbb
+    case rpcPeerUnavailable = 0x00000bbc
+    case rpcPeerDisconnected = 0x00000bbd
+    case rpcRequestTimedOut = 0x00000bbe
+    case rpcConnectionTimedOut = 0x00000bbf
+    case rpcMalformedResponse = 0x00000bc0
+    case rpcAccessDenied = 0x00000bc1
+    case rpcInvalidService = 0x00000bc2
+    case rpcInvalidMethod = 0x00000bc3
+    case rpcInvalidObject = 0x00000bc4
+    case rpcMalformedRequest = 0x00000bc5
+    case rpcQuotaExceeded = 0x00000bc6
+    case rpcNotImplemented = 0x00000bc7
+    case rpcServerError = 0x00000bc8
+    case rpcShutdown = 0x00000bc9
+    case rpcDisconnect = 0x00000bca
+    case rpcDisconnectIdle = 0x00000bcb
+    case rpcProtocolError = 0x00000bcc
+    case rpcNotReady = 0x00000bcd
+    case rpcForwardFailed = 0x00000bce
+    case rpcEncryptionFailed = 0x00000bcf
+    case rpcInvalidAddress = 0x00000bd0
+    case rpcMethodDisabled = 0x00000bd1
+    case rpcShardNotFound = 0x00000bd2
+    case rpcInvalidConnectionId = 0x00000bd3
+    case rpcNotConnected = 0x00000bd4
+    case rpcInvalidConnectionState = 0x00000bd5
+    case rpcServiceAlreadyRegistered = 0x00000bd6
+    case presenceAlreadySubscribed = 0x00000fa2
+    case presenceTooManySubscriptions = 0x00000fa6
+    case presenceNoRecord = 0x00000fab
+    case friendsTooManySentInvitations = 0x00001389
+    case friendsTooManyReceivedInvitations = 0x0000138a
+    case friendsFriendshipAlreadyExists = 0x0000138b
+    case friendsFriendshipDoesNotExist = 0x0000138c
+    case friendsInvitationAlreadyExists = 0x0000138d
+    case friendsInvalidInvitation = 0x0000138e
+    case friendsAlreadySubscribed = 0x0000138f
+    case friendsAccountBlocked = 0x00001391
+    case friendsNotSubscribed = 0x00001392
+    case friendsInvalidRoleId = 0x00001393
+    case friendsDisabledRoleId = 0x00001394
+    case friendsNoteMaxSizeExceeded = 0x00001395
+    case friendsUpdateFriendStateFailed = 0x00001396
+    case friendsInviteeAtMaxFriends = 0x00001397
+    case friendsInviterAtMaxFriends = 0x00001398
+    case friendsInviterIsBlockedByInvitee = 0x00001399
+    case friendsInviterAtMaxSentInvitations = 0x0000139a
+    case platformStorageFileWriteDenied = 0x00001770
+    case whisperUndeliverable = 0x00001b58
+    case whisperMaxSizeExceeded = 0x00001b59
+    case whisperAlreadyRegistered = 0x00001b5a
+    case whisperDropped = 0x00001b5b
+    case whisperQuotaExceeded = 0x00001b5c
+    case userManagerAlreadyBlocked = 0x00001f40
+    case userManagerNotBlocked = 0x00001f41
+    case userManagerCannotBlockSelf = 0x00001f42
+    case userManagerAlreadyRegistered = 0x00001f43
+    case userManagerNotRegistered = 0x00001f44
+    case userManagerTooManyBlockedEntities = 0x00001f45
+    case userManagerTooManyIds = 0x00001f47
+    case userManagerBlockRecordUnavailable = 0x00001f4f
+    case userManagerBlockEntityFailed = 0x00001f50
+    case userManagerUnblockEntityFailed = 0x00001f51
+    case userManagerCannotBlockFriend = 0x00001f53
+    case socialNetworkOauthException = 0x00002328
+    case socialNetworkInvalidSnsId = 0x00002329
+    case socialNetworkCantSendToProvider = 0x0000232a
+    case socialNetworkDisabled = 0x0000232b
+    case socialNetworkMissingRequestParam = 0x0000232c
+    case socialNetworkNoAccountData = 0x0000232d
+    case socialNetworkNoToken = 0x0000232e
+    case socialNetworkMissingDataFromProvider = 0x0000232f
+    case socialNetworkResponseNotParsable = 0x00002330
+    case socialNetworkTokenPermissionDenied = 0x00002331
+    case socialNetworkDenialFromProvider = 0x00002332
+    case channelFull = 0x00002710
+    case channelNoChannel = 0x00002711
+    case channelNotMember = 0x00002712
+    case channelAlreadyMember = 0x00002713
+    case channelNoSuchMember = 0x00002714
+    case channelNoSuchInvitation = 0x00002718
+    case channelTooManyInvitations = 0x00002719
+    case channelInvitationAlreadyExists = 0x0000271a
+    case channelInvalidRoleId = 0x0000271c
+    case channelRoleNotAssignable = 0x0000271d
+    case channelInsufficientPrivileges = 0x0000271e
+    case channelInsufficientPrivacyLevel = 0x0000271f
+    case channelInvalidPrivacyLevel = 0x00002720
+    case channelTooManyChannelsJoined = 0x00002721
+    case channelInvalidChannelDelegate = 0x00002723
+    case channelSlotAlreadyReserved = 0x00002724
+    case channelNoReservedSlotsAvailable = 0x00002726
+    case channelInvalidRoleSet = 0x00002727
+    case channelReceivedTooManyInvitations = 0x0000272a
+    case channelInvitationInvalidGameAccountSelected = 0x0000272b
+    case channelInvitationNotSubscribed = 0x0000272d
+    case channelInvalidChannelType = 0x00002731
+    case clubFull = 0x00002af8
+    case clubNoClub = 0x00002af9
+    case clubNotMember = 0x00002afa
+    case clubAlreadyMember = 0x00002afb
+    case clubNoSuchMember = 0x00002afc
+    case clubNoSuchInvitation = 0x00002b00
+    case clubInvitationAlreadyExists = 0x00002b02
+    case clubInvalidRoleId = 0x00002b04
+    case clubInsufficientPrivileges = 0x00002b06
+    case clubInsufficientPrivacyLevel = 0x00002b07
+    case clubInvalidPrivacyLevel = 0x00002b08
+    case clubTooManyClubsJoined = 0x00002b09
+    case clubInvalidRoleSet = 0x00002b0f
+    case clubNotSubscribed = 0x00002b15
+    case clubAlreadySubscribed = 0x00002b16
+    case clubInvalidClubType = 0x00002b19
+    case clubVoiceFull = 0x00002b1a
+    case clubMemberSubscriptionsAtMax = 0x00002b1b
+    case clubSuggestionAlreadyExists = 0x00002b20
+    case clubSuggestionCountAtMax = 0x00002b21
+    case clubNoSuchSuggestion = 0x00002b22
+    case clubStreamNoStream = 0x00002b5c
+    case clubStreamInvalidName = 0x00002b5d
+    case clubStreamCountAtMin = 0x00002b5e
+    case clubStreamCountAtMax = 0x00002b5f
+    case clubStreamInvalidVoiceLevel = 0x00002b60
+    case clubStreamNoSuchMessage = 0x00002b61
+    case clubInvalidAvatar = 0x00002b75
+    case clubMemberHasRequiredRole = 0x00002b76
+    case clubInvalidRoleChangeRequest = 0x00002b77
+    case clubSentInvitationCountAtMax = 0x00002b8e
+    case clubReceivedInvitationCountAtMax = 0x00002b8f
+    case clubTargetIsBanned = 0x00002b90
+    case clubNoSuchBannedTarget = 0x00002b91
+    case clubBanAlreadyExists = 0x00002b92
+    case clubBanCountAtMax = 0x00002b93
+    case clubTicketCountAtMax = 0x00002ba2
+    case clubTicketNoSuchTicket = 0x00002ba3
+    case clubTicketHasConsumedAllowedRedeemCount = 0x00002ba4
+    case registryCreateKeyError = 0x00002ee0
+    case registryOpenKeyError = 0x00002ee1
+    case registryReadError = 0x00002ee2
+    case registryWriteError = 0x00002ee3
+    case registryTypeError = 0x00002ee4
+    case registryDeleteError = 0x00002ee5
+    case registryEncryptError = 0x00002ee6
+    case registryDecryptError = 0x00002ee7
+    case registryKeySizeError = 0x00002ee8
+    case registryValueSizeError = 0x00002ee9
+    case registryNotFound = 0x00002eeb
+    case registryMalformedString = 0x00002eec
+    case httpCouldntResolve = 0x000036b0
+    case httpCouldntConnect = 0x000036b1
+    case httpTimeout = 0x000036b2
+    case httpFailed = 0x000036b3
+    case httpMalformedUrl = 0x000036b4
+    case httpDownloadAborted = 0x000036b5
+    case httpCouldntWriteFile = 0x000036b6
+    case httpTooManyRedirects = 0x000036b7
+    case httpCouldntOpenFile = 0x000036b8
+    case httpCouldntCreateFile = 0x000036b9
+    case httpCouldntReadFile = 0x000036ba
+    case httpCouldntRenameFile = 0x000036bb
+    case httpCouldntCreateDirectory = 0x000036bc
+    case httpCurlIsNotReady = 0x000036bd
+    case httpCancelled = 0x000036be
+    case httpFileNotFound = 0x00003844
+    case asterionGeneralRuntime = 0x00003a98
+    case asterionShardNotFound = 0x00003a9a
+    case asterionInvalidParameter = 0x00003a9b
+    case asterionAccountNotFound = 0x00003a9c
+    case asterionDeductRecordDuplicated = 0x00003a9f
+    case asterionDeductRecordMinimumGametime = 0x00003aa0
+    case asterionDeductRecordInvalidStopTime = 0x00003aa1
+    case accountMissingConfig = 0x00004650
+    case accountDataNotFound = 0x00004651
+    case accountAlreadySubscribed = 0x00004652
+    case accountNotSubscribed = 0x00004653
+    case accountFailedToParseTimezoneData = 0x00004654
+    case accountLoadFailed = 0x00004655
+    case accountLoadCancelled = 0x00004656
+    case accountDatabaseInvalidateFailed = 0x00004657
+    case accountCacheInvalidateFailed = 0x00004658
+    case accountSubscriptionPending = 0x00004659
+    case accountUnknownRegion = 0x0000465a
+    case accountDataFailedToParse = 0x0000465b
+    case accountUnderage = 0x0000465c
+    case accountIdentityCheckPending = 0x0000465d
+    case accountIdentityUnverified = 0x0000465e
+    case databaseBindingCountMismatch = 0x00004a38
+    case databaseBindingParseFail = 0x00004a39
+    case databaseResultsetColumnsMismatch = 0x00004a3a
+    case databaseDeadlock = 0x00004a3b
+    case databaseDuplicateKey = 0x00004a3c
+    case databaseCannotConnect = 0x00004a3d
+    case databaseStatementFailed = 0x00004a3e
+    case databaseTransactionNotStarted = 0x00004a3f
+    case databaseTransactionNotEnded = 0x00004a40
+    case databaseTransactionLeak = 0x00004a41
+    case databaseTransactionStateBad = 0x00004a42
+    case databaseServerGone = 0x00004a43
+    case databaseQueryTimeout = 0x00004a44
+    case databaseNoResultReturned = 0x00004a45
+    case databaseBindingNotNullable = 0x00004a9c
+    case databaseBindingInvalidInteger = 0x00004a9d
+    case databaseBindingInvalidFloat = 0x00004a9e
+    case databaseBindingInvalidTemporal = 0x00004a9f
+    case databaseBindingInvalidProtobuf = 0x00004aa0
+    case gamesNoSuchFactory = 0x000055f0
+    case gamesNoSuchGame = 0x000055f1
+    case gamesNoSuchRequest = 0x000055f2
+    case gamesNoSuchPartyMember = 0x000055f3
+    case resourcesOffline = 0x000059d8
+    case gameServerCreateGameRefused = 0x00005dc0
+    case gameServerAddPlayersRefused = 0x00005dc1
+    case gameServerRemovePlayersRefused = 0x00005dc2
+    case gameServerFinishGameRefused = 0x00005dc3
+    case gameServerNoSuchGame = 0x00005dc4
+    case gameServerNoSuchPlayer = 0x00005dc5
+    case gameServerCreateGameRefusedTransient = 0x00005df2
+    case gameServerAddPlayersRefusedTransient = 0x00005df3
+    case gameServerRemovePlayersRefusedTransient = 0x00005df4
+    case gameServerFinishGameRefusedTransient = 0x00005df5
+    case gameServerCreateGameRefusedBusy = 0x00005e24
+    case gameServerAddPlayersRefusedBusy = 0x00005e25
+    case gameServerRemovePlayersRefusedBusy = 0x00005e26
+    case gameServerFinishGameRefusedBusy = 0x00005e27
+    case gameMasterInvalidFactory = 0x000061a8
+    case gameMasterInvalidGame = 0x000061a9
+    case gameMasterGameFull = 0x000061aa
+    case gameMasterRegisterFailed = 0x000061ab
+    case gameMasterNoGameServer = 0x000061ac
+    case gameMasterNoUtilityServer = 0x000061ad
+    case gameMasterNoGameVersion = 0x000061ae
+    case gameMasterGameJoinFailed = 0x000061af
+    case gameMasterAlreadyRegistered = 0x000061b0
+    case gameMasterNoFactory = 0x000061b1
+    case gameMasterMultipleGameVersions = 0x000061b2
+    case gameMasterInvalidPlayer = 0x000061b3
+    case gameMasterInvalidGameRequest = 0x000061b4
+    case gameMasterInsufficientPrivileges = 0x000061b5
+    case gameMasterAlreadyInGame = 0x000061b6
+    case gameMasterInvalidGameServerResponse = 0x000061b7
+    case gameMasterGameAccountLookupFailed = 0x000061b8
+    case gameMasterGameEntryCancelled = 0x000061b9
+    case gameMasterGameEntryAbortedClientDropped = 0x000061ba
+    case gameMasterGameEntryAbortedByService = 0x000061bb
+    case gameMasterNoAvailableCapacity = 0x000061bc
+    case gameMasterInvalidTeamId = 0x000061bd
+    case gameMasterCreationInProgress = 0x000061be
+    case notificationInvalidClientId = 0x00006590
+    case notificationDuplicateName = 0x00006591
+    case notificationNameNotFound = 0x00006592
+    case notificationInvalidServer = 0x00006593
+    case notificationQuotaExceeded = 0x00006594
+    case notificationInvalidNotificationType = 0x00006595
+    case notificationUndeliverable = 0x00006596
+    case notificationUndeliverableTemporary = 0x00006597
+    case achievementsNothingToUpdate = 0x00006d60
+    case achievementsInvalidParams = 0x00006d61
+    case achievementsNotRegistered = 0x00006d62
+    case achievementsNotReady = 0x00006d63
+    case achievementsFailedToParseStaticData = 0x00006d64
+    case achievementsUnknownId = 0x00006d65
+    case achievementsMissingSnapshot = 0x00006d66
+    case achievementsAlreadyRegistered = 0x00006d67
+    case achievementsTooManyRegistrations = 0x00006d68
+    case achievementsAlreadyInProgress = 0x00006d69
+    case achievementsTemporaryOutage = 0x00006d6a
+    case achievementsInvalidProgramid = 0x00006d6b
+    case achievementsMissingRecord = 0x00006d6c
+    case achievementsRegistrationPending = 0x00006d6d
+    case achievementsEntityIdNotFound = 0x00006d6e
+    case achievementsAchievementIdNotFound = 0x00006d6f
+    case achievementsCriteriaIdNotFound = 0x00006d70
+    case achievementsStaticDataMismatch = 0x00006d71
+    case achievementsWrongThread = 0x00006d72
+    case achievementsCallbackIsNull = 0x00006d73
+    case achievementsAutoRegisterPending = 0x00006d74
+    case achievementsNotInitialized = 0x00006d75
+    case achievementsAchievementIdAlreadyExists = 0x00006d76
+    case achievementsFailedToDownloadStaticData = 0x00006d77
+    case achievementsStaticDataNotFound = 0x00006d78
+    case matchmakingMatchmakerNotFound = 0x00007530
+    case matchmaking_30001 = 0x00007531
+    case matchmakingGameserverNotFound = 0x00007532
+    case matchmaking_30003 = 0x00007533
+    case matchmakingMatchmakerAlreadyRegistered = 0x00007534
+    case matchmakingGameserverAlreadyRegistered = 0x00007535
+    case matchmakingRequestIdNotFound = 0x00007536
+    case matchmakingInsufficientPartyPrivileges = 0x00007537
+    case matchmakingEventQueueFull = 0x00007538
+    case matchmakingCancelNotAllowed = 0x00007539
+    case matchmakingPlayerNotConnected = 0x0000753a
+    case matchmakingEventCanceled = 0x0000753b
+    case matchmakingGameserverFull = 0x0000753c
+    case matchmakingInvalidResponse = 0x0000753d
+    case matchmakingServerAlreadyInGame = 0x00007918
+    case matchmakingServerInvalidGame = 0x00007919
+    case matchmakingServerInvalidPlayer = 0x0000791a
+    case matchmakingServerGameFull = 0x0000791b
+    case matchmakingServerUnknownRequestId = 0x0000791c
+    case gameUtilityServerVariableRequestRefused = 0x000084d1
+    case gameUtilityServerWrongNumberOfVariablesReturned = 0x000084d2
+    case gameUtilityServerClientRequestRefused = 0x000084d3
+    case gameUtilityServerPresenceChannelCreatedRefused = 0x000084d4
+    case gameUtilityServerVariableRequestRefusedTransient = 0x00008502
+    case gameUtilityServerClientRequestRefusedTransient = 0x00008503
+    case gameUtilityServerPresenceChannelCreatedRefusedTransient = 0x00008504
+    case gameUtilityServerServerRequestRefusedTransient = 0x00008505
+    case gameUtilityServerVariableRequestRefusedBusy = 0x00008534
+    case gameUtilityServerClientRequestRefusedBusy = 0x00008535
+    case gameUtilityServerPresenceChannelCreatedRefusedBusy = 0x00008536
+    case gameUtilityServerServerRequestRefusedBusy = 0x00008537
+    case gameUtilityServerNoServer = 0x00008598
+    case sessionCreateFailed = 0x00009c40
+    case sessionTickFailed = 0x00009c41
+    case sessionGameAccountBadStatus = 0x00009c42
+    case sessionSponsorNotFound = 0x00009c43
+    case sessionAdminKick = 0x00009c44
+    case sessionInvalidSponsor = 0x00009c45
+    case sessionKick = 0x00009c46
+    case sessionBenefactorNotFound = 0x00009c47
+    case sessionAbandoned = 0x00009c48
+    case sessionStorageInsertFailed = 0x00009ca4
+    case sessionStorageDeleteFailed = 0x00009ca5
+    case sessionStorageUpdateFailed = 0x00009ca6
+    case sessionStorageSelectFailed = 0x00009ca7
+    case sessionStorageUpdateDeductPendingFailed = 0x00009ca8
+    case riskThrottleAction = 0x0000a412
+    case riskAccountLocked = 0x0000a413
+    case riskDisconnectAccount = 0x0000a415
+    case riskCheckSkipped = 0x0000a416
+    case reportUnavailable = 0x0000afc8
+    case reportUnknownType = 0x0000afca
+    case reportAttributeQuotaExceeded = 0x0000afcc
+    case reportUnconfirmed = 0x0000afcd
+    case memcachedClientNoError = 0x00010000
+    case memcachedClientKeyNotFound = 0x00010001
+    case memcachedKeyExists = 0x00010002
+    case memcachedValueToLarge = 0x00010003
+    case memcachedInvalidArgs = 0x00010004
+    case memcachedItemNotStored = 0x00010005
+    case memcachedNonNumericValue = 0x00010006
+    case memcachedWrongServer = 0x00010007
+    case memcachedAuthenticationError = 0x00010008
+    case memcachedAuthenticationContinue = 0x00010009
+    case memcachedUnknownCommand = 0x0001000a
+    case memcachedOutOfMemory = 0x0001000b
+    case memcachedNotSupported = 0x0001000c
+    case memcachedInternalError = 0x0001000d
+    case memcachedTemporaryFailure = 0x0001000e
+    case memcachedClientAlreadyConnected = 0x000186a0
+    case memcachedClientBadConfig = 0x000186a1
+    case memcachedClientNotConnected = 0x000186a2
+    case memcachedClientTimeout = 0x000186a3
+    case memcachedClientAborted = 0x000186a4
+    case utilServerFailedToSerialize = 0x80000064
+    case utilServerDisconnectedFromBattlenet = 0x80000065
+    case utilServerTimedOut = 0x80000066
+    case utilServerNoMeteringData = 0x80000067
+    case utilServerFailPermissionCheck = 0x80000068
+    case utilServerUnknownRealm = 0x80000069
+    case utilServerMissingSessionKey = 0x8000006a
+    case utilServerMissingVirtualRealm = 0x8000006b
+    case utilServerInvalidSessionKey = 0x8000006c
+    case utilServerMissingRealmList = 0x8000006d
+    case utilServerInvalidIdentityArgs = 0x8000006e
+    case utilServerSessionObjectMissing = 0x8000006f
+    case utilServerInvalidBnetSession = 0x80000070
+    case utilServerInvalidVirtualRealm = 0x80000071
+    case utilServerInvalidClientAddress = 0x80000072
+    case utilServerFailedToSerializeResponse = 0x80000073
+    case utilServerUnknownRequest = 0x80000074
+    case utilServerUnableToGenerateJoinTicket = 0x80000075
+    case utilServerUnableToGenerateRealmListTicket = 0x80000076
+    case utilServerAccountDenied = 0x80000077
+    case utilServerInvalidWowAccount = 0x80000078
+    case utilServerUnableToStoreSession = 0x80000079
+    case utilServerSessionAlreadyCreated = 0x8000007a
+    case utilServerUnableToGetWowAccount = 0x8000007b
+    case utilServerUnableToCreateVoiceChannelUniqueName = 0x8000007c
+    case utilServerVoiceDisabled = 0x8000007d
+    case utilServerLegacyMobileUnsupported = 0x8000007e
+    case userServerFailedToSerialize = 0x800000c8
+    case userServerDisconnectedFromUtil = 0x800000c9
+    case userServerSessionDuplicate = 0x800000ca
+    case userServerFailedToDisableBilling = 0x800000cb
+    case userServerPlayerDisconnected = 0x800000cc
+    case userServerFailedToParseAccountState = 0x800000cd
+    case userServerAccountLoadCancelled = 0x800000ce
+    case userServerBadPlatform = 0x800000cf
+    case userServerBadVirtualRealm = 0x800000d0
+    case userServerLocaleRestricted = 0x800000d1
+    case userServerMissingPropass = 0x800000d2
+    case userServerBadWowAccount = 0x800000d3
+    case userServerBadBnetAccount = 0x800000d4
+    case userServerFailedToParseGameAccountState = 0x800000d5
+    case userServerFailedToParseGameTimeRemaining = 0x800000d6
+    case userServerFailedToParseGameSessionInfo = 0x800000d7
+    case userServerAccountStatePoorlyFormed = 0x800000d8
+    case userServerGameAccountStatePoorlyFormed = 0x800000d9
+    case userServerGameTimeRemainingPoorlyFormed = 0x800000da
+    case userServerGameSessionInfoPoorlyFormed = 0x800000db
+    case userServerBadSessionTrackerState = 0x800000dc
+    case userServerFailedToParseCaisInfo = 0x800000dd
+    case userServerGameSessionDisconnected = 0x800000de
+    case userServerVersionMismatch = 0x800000df
+    case userServerAccountSuspended = 0x800000e0
+    case userServerNotPermittedOnRealm = 0x800000e1
+    case userServerLoginFailedConnect = 0x800000e2
+    case userServerLoginTicketNotInitialized = 0x800000e3
+    case userServerMobileTrialNotAllowed = 0x800000e4
+    case userServerMobileConsumptionTimeNotAllowed = 0x800000e5
+    case userServerMobileLoginDisabled = 0x800000e6
+    case userServerMobileFailedClientCreate = 0x800000e7
+    case userServerMobileWorldLoginFailed = 0x800000e8
+    case userServerMobileCharacterStillInWorld = 0x800000e9
+    case userServerInvalidArgs = 0x800000ea
+    case userServerGameAsterionStatePoorlyFormed = 0x800000eb
+    case userServerRequiresSubscription = 0x800000ec
+    case userServerVoiceChatFailure = 0x800000ed
+    case userServerUserRouterTransfer = 0x800000ee
+    case wowServicesTimedOut = 0x8000012c
+    case wowServicesInvalidRealmListTicket = 0x8000012d
+    case wowServicesInvalidJoinTicket = 0x8000012e
+    case wowServicesInvalidServerAddresses = 0x8000012f
+    case wowServicesInvalidSecretBlob = 0x80000130
+    case wowServicesNoRealmJoinIpFound = 0x80000131
+    case wowServicesDeniedRealmListTicket = 0x80000132
+    case wowServicesMissingGameAccount = 0x80000133
+    case wowServicesLogonInvalidAuthToken = 0x80000134
+    case wowServicesNoAvailableRealms = 0x80000135
+    case wowServicesFailedToParseDispatch = 0x80000136
+    case wowServicesMissingMeteringFile = 0x80000137
+    case wowServicesLoginInvalidContentType = 0x80000138
+    case wowServicesLoginUnableToDecode = 0x80000139
+    case wowServicesLoginPostError = 0x8000013a
+    case wowServicesAuthenticatorParseFailed = 0x8000013b
+    case wowServicesLegalParseFailed = 0x8000013c
+    case wowServicesLoginAuthenticationParseFailed = 0x8000013d
+    case wowSerivcesUserMustAcceptLegal = 0x8000013e
+    case wowServicesDisconnected = 0x8000013f
+    case wowServicesNoHandlerForDispatch = 0x80000140
+    case wowServicesPreDispatchHandlerFailed = 0x80000141
+    case wowServicesCriticalStreamingError = 0x80000142
+    case wowServicesWorldLoadError = 0x80000143
+    case wowServicesLoginFailed = 0x80000144
+    case wowServicesLoginFailedOnChallenge = 0x80000145
+    case wowServicesNoPrepaidTime = 0x80000146
+    case wowServicesSubscriptionExpired = 0x80000147
+    case wowServicesCantConnect = 0x80000148
+    case wowServicesNoFrontOrBackConnection = 0x80000149
+    case wowServicesBadBasicLoginInfo = 0x8000014a
 }

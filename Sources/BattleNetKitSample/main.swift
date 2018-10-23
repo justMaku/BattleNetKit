@@ -8,12 +8,12 @@
 import Foundation
 import BattleNetKit
 
-func fail(_ error: String) throws -> Never {
+func fail(_ error: Swift.Error) throws -> Never {
     struct Error: Codable {
         let error: String
     }
     
-    let error = Error(error: error)
+    let error = Error(error: String(reflecting: error))
     let encoder = JSONEncoder()
     
     let data = try encoder.encode(error)
@@ -22,19 +22,35 @@ func fail(_ error: String) throws -> Never {
     exit(1)
 }
 
-// Setup Environment
+enum DumperError: Swift.Error {
+    case wrongArgs
+    case unknownRegion(region: String)
+    case unknownEnvironment(environment: String)
+}
+
+Log.enabled = false
+
 do {
-    guard CommandLine.argc == 2 else {
-        try fail("no token given")
+    guard CommandLine.argc == 4 else {
+        try fail(DumperError.wrongArgs)
+    }
+
+    let token = CommandLine.arguments[1]
+    let regionString = CommandLine.arguments[2]
+    let environmentString = CommandLine.arguments[3]
+    
+    guard let region = try? Region(from: regionString) else {
+        throw DumperError.unknownRegion(region: regionString)
     }
     
-    // Log.enabled = false // To disable logging.
-    
-    let token = CommandLine.arguments[1]
-    let dumper = try BattleNetRealmlistDumper(region: .test, token: token)
+    guard let environment = RealmlistAPI.Environment.init(rawValue: environmentString) else {
+        throw DumperError.unknownEnvironment(environment: environmentString)
+    }
+
+    let dumper = try RealmlistClient(region: .us, token: token, environment: environment)
     try dumper.connect()
 } catch let error {
-    try! fail(error.localizedDescription)
+    try! fail(error)
 }
 
 // Start RunLoop
