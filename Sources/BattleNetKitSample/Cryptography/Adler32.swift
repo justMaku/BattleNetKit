@@ -40,7 +40,7 @@ public class Adler32 {
     ///
     /// - parameter string: the string to calculate the CRC for
     /// - returns: 32 Bit CRC sum
-    public class func crc(string string: String) -> UInt32 {
+    public class func crc(string: String) -> UInt32 {
         let data = [UInt8](string.utf8)
         return self.crc(data: data)
     }
@@ -49,7 +49,7 @@ public class Adler32 {
     ///
     /// - parameter data: data to calcuclate the CRC for
     /// - returns: 32 Bit CRC sum
-    public class func crc(data data: [UInt8]) -> UInt32 {
+    public class func crc(data: [UInt8]) -> UInt32 {
         let instance = Adler32()
         instance.addData(data: data)
         return instance.crc

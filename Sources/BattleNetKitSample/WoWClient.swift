@@ -128,8 +128,6 @@ class WoWClient {
             try self.handleAuthResponse(response: response)
         case let request as EnableEncryption:
             try self.handleEnableEncryption(request: request)
-        case let packet as CompressedPacket:
-            try self.handle(packet: packet.underlyingPacket)
         case let packet as MultiplePackets:
             try packet.underlyingPackets.forEach(self.handle)
         case let hotfixes as AvailableHotfixes:

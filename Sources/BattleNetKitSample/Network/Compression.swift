@@ -12,7 +12,7 @@ class Compression {
     
     static let `default` = Compression.init()
     
-    private var dictionary = CompressionDictionary()
+    //private var dictionary = CompressionDictionary()
     private var stream = z_stream()
     
     init() {
@@ -22,7 +22,7 @@ class Compression {
             fatalError()
         }
         
-        result = inflateSetDictionary(&stream, &dictionary.buffer, UInt32(dictionary.buffer.count))
+        //result = inflateSetDictionary(&stream, &dictionary.buffer, UInt32(dictionary.buffer.count))
     }
     
     public func inflate(data: [UInt8], expectedSize: UInt32) -> [UInt8] {

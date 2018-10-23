@@ -1,4 +1,4 @@
 module CLibreSSL {
-    umbrella header "/Users/maku/Documents/Projects/Open Source/BattleNetKit/.build/checkouts/clibressl.git-4924093653370840509/Sources/CLibreSSL/include/CLibreSSL.h"
+    umbrella header "/Users/maku/Documents/Projects/Open Source/BattleNetKit/.build/checkouts/clibressl.git--199387269883337573/Sources/CLibreSSL/include/CLibreSSL.h"
     export *
 }

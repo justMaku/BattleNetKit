@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
         "state": {
           "branch": null,
-          "revision": "3f6869c469abf3e2ebefe3b6baef4bfac3aac305",
-          "version": "0.11.0"
+          "revision": "874280173e082cdd7ac6602be235914efe3f4dbc",
+          "version": "0.13.0"
         }
       },
       {
@@ -69,8 +69,8 @@
         "repositoryURL": "https://github.com/apple/swift-protobuf",
         "state": {
           "branch": null,
-          "revision": "a31212e1dfaccfb738b111ea705d27cd51cc0507",
-          "version": "1.1.0"
+          "revision": "86c579d280d629416c7bd9d32a5dfacab8e0b0b4",
+          "version": "1.2.0"
         }
       },
       {
