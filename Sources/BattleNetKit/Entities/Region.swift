@@ -15,6 +15,7 @@ public enum Region: UInt32, Codable {
     
     case us = 1
     case eu = 2
+    case kr = 3
     case test = 98
 
     var host: String {
@@ -25,6 +26,7 @@ public enum Region: UInt32, Codable {
         switch self {
         case .us: return "us"
         case .eu: return "eu"
+        case .kr: return "kr"
         case .test: return "test"
         }
     }
@@ -57,6 +59,7 @@ public enum Region: UInt32, Codable {
     public init(from name: String) throws {
         switch name {
         case Region.eu.name: self = .eu
+        case Region.kr.name: self = .kr
         case Region.us.name: self = .us
         case Region.test.name: self = .test
         case _: throw Error.unknownName(name: name)
