@@ -28,7 +28,7 @@ extension Collection where Self.Element == Attribute {
 extension Attribute {
     enum Version: String {
         case live = "b9"
-        case classic = "classic1"
+        case classic = "c1"
     }
     
     var isCommand: Bool {
