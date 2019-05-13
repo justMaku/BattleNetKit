@@ -1,0 +1,31 @@
+import "aurora/account_types.proto";
+import "aurora/attribute_types.proto";
+import "aurora/entity_types.proto";
+import "aurora/rpc_types.proto";
+
+package blizzard.protocol.notification.v1;
+
+message Target {
+	optional .blizzard.protocol.account.v1.Identity identity = 1;
+	optional string type = 2;
+}
+
+message Subscription {
+	repeated .blizzard.protocol.notification.v1.Target target = 1;
+	optional .blizzard.protocol.account.v1.Identity subscriber = 2;
+	optional bool delivery_required = 3 [default = false];
+}
+
+message Notification {
+	optional .blizzard.protocol.EntityId sender_id = 1;
+	required .blizzard.protocol.EntityId target_id = 2;
+	required string type = 3;
+	repeated .blizzard.protocol.Attribute attribute = 4;
+	optional .blizzard.protocol.EntityId sender_account_id = 5;
+	optional .blizzard.protocol.EntityId target_account_id = 6;
+	optional string sender_battle_tag = 7;
+	optional string target_battle_tag = 8;
+	optional .blizzard.protocol.ProcessId peer = 9;
+	optional .blizzard.protocol.account.v1.Identity forwarding_identity = 10;
+}
+

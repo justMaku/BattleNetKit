@@ -1,0 +1,7 @@
+.DS_Store
+.build
+.swiftpm
+*.orig
+Tools/service_generator/__pycache__/method_options_pb2.cpython-37.pyc
+Tools/service_generator/__pycache__/routing_pb2.cpython-37.pyc
+Tools/service_generator/__pycache__/service_options_pb2.cpython-37.pyc

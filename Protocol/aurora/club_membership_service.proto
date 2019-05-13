@@ -1,0 +1,82 @@
+import "aurora/club_types.proto";
+import "aurora/club_stream.proto";
+
+package blizzard.protocol.club.v1.membership;
+
+option cc_generic_services = false;
+
+message SubscribeRequest {
+	optional .blizzard.protocol.account.v1.AccountId agent_id = 1;
+	optional .blizzard.protocol.club.v1.ClubMembershipSubscribeOptions options = 2;
+}
+
+message SubscribeResponse {
+	optional .blizzard.protocol.club.v1.ClubMembershipState state = 1;
+}
+
+message UnsubscribeRequest {
+	optional .blizzard.protocol.account.v1.AccountId agent_id = 1;
+}
+
+message GetStateRequest {
+	optional .blizzard.protocol.account.v1.AccountId agent_id = 1;
+	optional .blizzard.protocol.club.v1.ClubMembershipGetStateOptions options = 2;
+}
+
+message GetStateResponse {
+	optional .blizzard.protocol.club.v1.ClubMembershipState state = 1;
+}
+
+message UpdateClubSharedSettingsRequest {
+	optional .blizzard.protocol.account.v1.AccountId agent_id = 1;
+	optional .blizzard.protocol.club.v1.ClubSharedSettingsOptions options = 2;
+}
+
+message GetStreamMentionsRequest {
+	optional .blizzard.protocol.account.v1.AccountId agent_id = 1;
+	optional .blizzard.protocol.GetEventOptions options = 2;
+	optional bool fetch_messages = 3;
+}
+
+message GetStreamMentionsResponse {
+	repeated .blizzard.protocol.club.v1.StreamMention mention = 1;
+	optional uint64 continuation = 2;
+}
+
+message RemoveStreamMentionsRequest {
+	optional .blizzard.protocol.account.v1.AccountId agent_id = 1;
+	repeated .blizzard.protocol.TimeSeriesId mention_id = 2;
+}
+
+message AdvanceStreamMentionViewTimeRequest {
+	optional .blizzard.protocol.account.v1.AccountId agent_id = 1;
+}
+
+service ClubMembershipService {
+	option (service_options).descriptor_name = "bnet.protocol.club.v1.ClubMembershipService";
+	option (service_options).shard_name = "club_membership";
+	option (sdk_service_options).outbound = true;
+	option (sdk_service_options).use_client_id = true;
+	rpc Subscribe (.blizzard.protocol.club.v1.membership.SubscribeRequest) returns (.blizzard.protocol.club.v1.membership.SubscribeResponse) {
+		option (method_options).id = 1;
+	}
+	rpc Unsubscribe (.blizzard.protocol.club.v1.membership.UnsubscribeRequest) returns (.blizzard.protocol.NoData) {
+		option (method_options).id = 2;
+	}
+	rpc GetState (.blizzard.protocol.club.v1.membership.GetStateRequest) returns (.blizzard.protocol.club.v1.membership.GetStateResponse) {
+		option (method_options).id = 3;
+	}
+	rpc UpdateClubSharedSettings (.blizzard.protocol.club.v1.membership.UpdateClubSharedSettingsRequest) returns (.blizzard.protocol.NoData) {
+		option (method_options).id = 4;
+	}
+	rpc GetStreamMentions (.blizzard.protocol.club.v1.membership.GetStreamMentionsRequest) returns (.blizzard.protocol.club.v1.membership.GetStreamMentionsResponse) {
+		option (method_options).id = 5;
+	}
+	rpc RemoveStreamMentions (.blizzard.protocol.club.v1.membership.RemoveStreamMentionsRequest) returns (.blizzard.protocol.NoData) {
+		option (method_options).id = 6;
+	}
+	rpc AdvanceStreamMentionViewTime (.blizzard.protocol.club.v1.membership.AdvanceStreamMentionViewTimeRequest) returns (.blizzard.protocol.NoData) {
+		option (method_options).id = 7;
+	}
+}
+

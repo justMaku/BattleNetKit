@@ -1,0 +1,11 @@
+import "aurora/rpc_types.proto";
+
+package blizzard.protocol.channel.v1;
+
+message ChannelId {
+	option (message_options).custom_select_shard = true;
+	optional uint32 type = 1;
+	optional .blizzard.protocol.ProcessId host = 2;
+	optional fixed32 id = 3;
+}
+

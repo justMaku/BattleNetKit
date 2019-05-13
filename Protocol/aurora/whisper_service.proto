@@ -1,0 +1,87 @@
+import "aurora/whisper_types.proto";
+import "aurora/rpc_types.proto";
+import "aurora/account_types.proto";
+import "aurora/event_view_types.proto";
+import "aurora/message_types.proto";
+
+package blizzard.protocol.whisper.v1;
+
+option cc_generic_services = false;
+
+message SubscribeRequest {
+	optional .blizzard.protocol.account.v1.AccountId agent_id = 1 [(field_options).shard_key = true, (field_options).client_instance_key = true];
+}
+
+message SubscribeResponse {
+	repeated .blizzard.protocol.whisper.v1.WhisperView view = 1;
+}
+
+message UnsubscribeRequest {
+	optional .blizzard.protocol.account.v1.AccountId agent_id = 1 [(field_options).shard_key = true, (field_options).client_instance_key = true];
+}
+
+message SendWhisperRequest {
+	optional .blizzard.protocol.account.v1.AccountId agent_id = 1 [(field_options).shard_key = true, (field_options).client_instance_key = true];
+	optional .blizzard.protocol.whisper.v1.SendOptions whisper = 2;
+}
+
+message SendWhisperResponse {
+	optional .blizzard.protocol.whisper.v1.Whisper whisper = 1;
+}
+
+message SetTypingIndicatorRequest {
+	optional .blizzard.protocol.account.v1.AccountId agent_id = 1 [(field_options).shard_key = true, (field_options).client_instance_key = true];
+	optional .blizzard.protocol.account.v1.AccountId target_id = 2;
+	optional .blizzard.protocol.TypingIndicator action = 3 [default = TYPING_START];
+}
+
+message AdvanceViewTimeRequest {
+	optional .blizzard.protocol.account.v1.AccountId agent_id = 1 [(field_options).shard_key = true, (field_options).client_instance_key = true];
+	optional .blizzard.protocol.account.v1.AccountId target_id = 2;
+}
+
+message AdvanceClearTimeRequest {
+	optional .blizzard.protocol.account.v1.AccountId agent_id = 1 [(field_options).shard_key = true, (field_options).client_instance_key = true];
+	optional .blizzard.protocol.account.v1.AccountId target_id = 2;
+}
+
+message GetWhisperMessagesRequest {
+	optional .blizzard.protocol.account.v1.AccountId agent_id = 1 [(field_options).shard_key = true, (field_options).client_instance_key = true];
+	optional .blizzard.protocol.account.v1.AccountId target_id = 2;
+	optional .blizzard.protocol.GetEventOptions options = 3;
+}
+
+message GetWhisperMessagesResponse {
+	repeated .blizzard.protocol.whisper.v1.Whisper whisper = 1;
+	optional uint64 continuation = 2;
+}
+
+service WhisperService {
+	option (service_options).descriptor_name = "bnet.protocol.whisper.WhisperService";
+	option (service_options).shard_name = "whisper";
+	option (service_options).resolve_client_instance = true;
+	option (sdk_service_options).outbound = true;
+	option (sdk_service_options).use_client_id = true;
+	rpc Subscribe (.blizzard.protocol.whisper.v1.SubscribeRequest) returns (.blizzard.protocol.whisper.v1.SubscribeResponse) {
+		option (method_options).id = 1;
+	}
+	rpc Unsubscribe (.blizzard.protocol.whisper.v1.UnsubscribeRequest) returns (.blizzard.protocol.NoData) {
+		option (method_options).id = 2;
+	}
+	rpc SendWhisper (.blizzard.protocol.whisper.v1.SendWhisperRequest) returns (.blizzard.protocol.whisper.v1.SendWhisperResponse) {
+		option (method_options).id = 3;
+	}
+	rpc SetTypingIndicator (.blizzard.protocol.whisper.v1.SetTypingIndicatorRequest) returns (.blizzard.protocol.NoData) {
+		option (method_options).id = 4;
+	}
+	rpc AdvanceViewTime (.blizzard.protocol.whisper.v1.AdvanceViewTimeRequest) returns (.blizzard.protocol.NoData) {
+		option (method_options).id = 5;
+	}
+	rpc GetWhisperMessages (.blizzard.protocol.whisper.v1.GetWhisperMessagesRequest) returns (.blizzard.protocol.whisper.v1.GetWhisperMessagesResponse) {
+		option (method_options).id = 6;
+	}
+	rpc AdvanceClearTime (.blizzard.protocol.whisper.v1.AdvanceClearTimeRequest) returns (.blizzard.protocol.NoData) {
+		option (method_options).id = 7;
+	}
+}
+

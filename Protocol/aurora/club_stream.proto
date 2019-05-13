@@ -1,0 +1,126 @@
+import "aurora/club_enum.proto";
+import "aurora/club_member.proto";
+import "aurora/api/client/v2/attribute_types.proto";
+import "aurora/embed_types.proto";
+import "aurora/event_view_types.proto";
+import "aurora/message_types.proto";
+import "aurora/ets_types.proto";
+
+package blizzard.protocol.club.v1;
+
+message StreamPosition {
+	repeated uint64 stream_id = 1 [packed = true];
+}
+
+message StreamAccess {
+	repeated uint32 role = 1 [packed = true];
+}
+
+message CreateStreamOptions {
+	repeated .blizzard.protocol.v2.Attribute attribute = 1;
+	optional string name = 2;
+	optional string subject = 3;
+	optional .blizzard.protocol.club.v1.StreamAccess access = 4;
+	optional .blizzard.protocol.club.v1.StreamVoiceLevel voice_level = 5 [default = VOICE_LEVEL_DISABLED];
+}
+
+message Stream {
+	optional uint64 club_id = 1;
+	optional uint64 id = 2;
+	repeated .blizzard.protocol.v2.Attribute attribute = 3;
+	optional string name = 4;
+	optional string subject = 5;
+	optional .blizzard.protocol.club.v1.StreamAccess access = 6;
+	optional .blizzard.protocol.club.v1.StreamVoiceLevel voice_level = 7 [default = VOICE_LEVEL_DISABLED];
+	optional uint64 creation_time = 8;
+}
+
+message MentionContent {
+	optional bool all = 1;
+	optional bool here = 2;
+	repeated .blizzard.protocol.club.v1.MemberId member_id = 3;
+	repeated uint32 role = 4 [packed = true];
+}
+
+message CreateMessageOptions {
+	optional string content = 2;
+	optional .blizzard.protocol.club.v1.MentionContent mention = 3;
+}
+
+message ClubStreamMessageContainer {
+	repeated .blizzard.protocol.club.v1.StreamMessage message = 1;
+}
+
+message ContentChain {
+	optional string content = 5;
+	repeated .blizzard.protocol.EmbedInfo embed = 6;
+	optional .blizzard.protocol.club.v1.MentionContent mention = 7;
+	optional uint64 edit_time = 8;
+}
+
+message StreamMessage {
+	optional .blizzard.protocol.MessageId id = 3;
+	optional .blizzard.protocol.club.v1.MemberDescription author = 4;
+	repeated .blizzard.protocol.club.v1.ContentChain content_chain = 6;
+	optional .blizzard.protocol.club.v1.MemberDescription destroyer = 15;
+	optional bool destroyed = 16;
+	optional uint64 destroy_time = 17;
+}
+
+message StreamMention {
+	optional uint64 club_id = 1;
+	optional uint64 stream_id = 2;
+	optional .blizzard.protocol.MessageId message_id = 3;
+	optional .blizzard.protocol.club.v1.MemberDescription author = 4;
+	optional bool destroyed = 5;
+	optional .blizzard.protocol.TimeSeriesId mention_id = 6;
+	optional .blizzard.protocol.club.v1.MemberId member_id = 7;
+	optional .blizzard.protocol.club.v1.StreamMessage message = 8;
+}
+
+message StreamView {
+	optional uint64 club_id = 1;
+	optional uint64 stream_id = 2;
+	optional .blizzard.protocol.ViewMarker marker = 3;
+}
+
+message StreamAdvanceViewTime {
+	optional uint64 stream_id = 1;
+	optional uint64 view_time = 2;
+}
+
+message StreamEventTime {
+	optional uint64 stream_id = 1;
+	optional uint64 event_time = 2;
+}
+
+message StreamMentionView {
+	optional uint64 club_id = 1;
+	optional uint64 stream_id = 2;
+	optional .blizzard.protocol.ViewMarker marker = 3;
+}
+
+message StreamStateOptions {
+	repeated .blizzard.protocol.v2.Attribute attribute = 1;
+	optional string name = 2;
+	optional string subject = 3;
+	optional .blizzard.protocol.club.v1.StreamAccess access = 4;
+	optional .blizzard.protocol.club.v1.StreamVoiceLevel voice_level = 5 [default = VOICE_LEVEL_DISABLED];
+}
+
+message StreamStateAssignment {
+	optional uint64 stream_id = 1;
+	repeated .blizzard.protocol.v2.Attribute attribute = 2;
+	optional string name = 3;
+	optional string subject = 4;
+	optional .blizzard.protocol.club.v1.StreamAccess access = 5;
+	optional bool stream_subscription_removed = 6;
+	optional .blizzard.protocol.club.v1.StreamVoiceLevel voice_level = 7 [default = VOICE_LEVEL_DISABLED];
+}
+
+message StreamTypingIndicator {
+	optional .blizzard.protocol.club.v1.MemberId author_id = 1;
+	optional .blizzard.protocol.TypingIndicator indicator = 2 [default = TYPING_START];
+	optional uint64 epoch = 3;
+}
+

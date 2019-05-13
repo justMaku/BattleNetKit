@@ -1,0 +1,19 @@
+import "aurora/entity_types.proto";
+import "aurora/attribute_types.proto";
+
+package blizzard.protocol.user_manager.v1;
+
+message RecentPlayer {
+	required .blizzard.protocol.EntityId entity_id = 1;
+	optional string program = 2;
+	optional fixed64 timestamp_played = 3;
+	repeated .blizzard.protocol.Attribute attributes = 4;
+	optional fixed32 id = 5 [default = 0];
+	optional fixed32 counter = 6 [default = 0];
+}
+
+message BlockedPlayer {
+	required .blizzard.protocol.EntityId account_id = 1;
+	optional string name = 2;
+}
+

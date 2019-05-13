@@ -1,0 +1,196 @@
+import "aurora/attribute_types.proto";
+import "aurora/entity_types.proto";
+import "aurora/friends_types.proto";
+import "aurora/invitation_types.proto";
+import "aurora/rpc_types.proto";
+
+package blizzard.protocol.friends.v1;
+
+option cc_generic_services = false;
+option java_package = "bnet.protocol.friends.v1";
+option java_outer_classname = "FriendsServiceProto";
+option java_generic_services = true;
+
+message SubscribeRequest {
+	optional .blizzard.protocol.EntityId agent_id = 1 [(field_options).client_instance_key = true];
+	required uint64 object_id = 2;
+	optional .blizzard.protocol.ObjectAddress forward = 3 [deprecated = true];
+}
+
+message UnsubscribeRequest {
+	optional .blizzard.protocol.EntityId agent_id = 1 [(field_options).client_instance_key = true];
+	optional uint64 object_id = 2;
+	optional .blizzard.protocol.ObjectAddress forward = 3 [deprecated = true];
+}
+
+message SendInvitationRequest {
+	optional .blizzard.protocol.Identity agent_identity = 1 [(field_options).client_instance_key = true];
+	required .blizzard.protocol.EntityId target_id = 2;
+	required .blizzard.protocol.InvitationParams params = 3;
+}
+
+message RevokeInvitationRequest {
+	optional .blizzard.protocol.EntityId agent_id = 1 [(field_options).client_instance_key = true];
+	optional fixed64 invitation_id = 2;
+}
+
+message AcceptInvitationRequest {
+	optional .blizzard.protocol.EntityId agent_id = 1 [(field_options).client_instance_key = true];
+	required fixed64 invitation_id = 3;
+	optional .blizzard.protocol.friends.v1.AcceptInvitationOptions options = 4;
+}
+
+message DeclineInvitationRequest {
+	optional .blizzard.protocol.EntityId agent_id = 1 [(field_options).client_instance_key = true];
+	required fixed64 invitation_id = 3;
+}
+
+message IgnoreInvitationRequest {
+	optional .blizzard.protocol.EntityId agent_id = 1 [(field_options).client_instance_key = true];
+	required fixed64 invitation_id = 3;
+	optional fixed32 program = 4;
+}
+
+message RemoveFriendRequest {
+	optional .blizzard.protocol.EntityId agent_id = 1 [(field_options).client_instance_key = true];
+	required .blizzard.protocol.EntityId target_id = 2;
+}
+
+message RevokeAllInvitationsRequest {
+	optional .blizzard.protocol.EntityId agent_id = 2;
+}
+
+message ViewFriendsRequest {
+	optional .blizzard.protocol.EntityId agent_id = 1 [(field_options).client_instance_key = true];
+	required .blizzard.protocol.EntityId target_id = 2;
+}
+
+message ViewFriendsResponse {
+	repeated .blizzard.protocol.friends.v1.FriendOfFriend friends = 1;
+}
+
+message UpdateFriendStateRequest {
+	optional .blizzard.protocol.EntityId agent_id = 1 [(field_options).client_instance_key = true];
+	required .blizzard.protocol.EntityId target_id = 2;
+	repeated .blizzard.protocol.Attribute attribute = 3;
+}
+
+message GetFriendListRequest {
+	optional .blizzard.protocol.EntityId agent_id = 2;
+}
+
+message GetFriendListResponse {
+	repeated .blizzard.protocol.friends.v1.Friend friends = 1;
+}
+
+message CreateFriendshipRequest {
+	optional .blizzard.protocol.EntityId agent_id = 1;
+	optional .blizzard.protocol.EntityId target_id = 2;
+	repeated uint32 role = 3 [packed = true];
+}
+
+message FriendNotification {
+	required .blizzard.protocol.friends.v1.Friend target = 1;
+	optional .blizzard.protocol.EntityId account_id = 5;
+	optional .blizzard.protocol.ObjectAddress forward = 6 [deprecated = true];
+}
+
+message UpdateFriendStateNotification {
+	required .blizzard.protocol.friends.v1.Friend changed_friend = 1;
+	optional .blizzard.protocol.EntityId account_id = 5;
+	optional .blizzard.protocol.ObjectAddress forward = 6 [deprecated = true];
+}
+
+message InvitationNotification {
+	required .blizzard.protocol.friends.v1.ReceivedInvitation invitation = 1;
+	optional uint32 reason = 3 [default = 0];
+	optional .blizzard.protocol.EntityId account_id = 5;
+	optional .blizzard.protocol.ObjectAddress forward = 6 [deprecated = true];
+}
+
+message SentInvitationAddedNotification {
+	optional .blizzard.protocol.EntityId account_id = 1;
+	optional .blizzard.protocol.friends.v1.SentInvitation invitation = 2;
+	optional .blizzard.protocol.ObjectAddress forward = 3 [deprecated = true];
+}
+
+message SentInvitationRemovedNotification {
+	optional .blizzard.protocol.EntityId account_id = 1;
+	optional fixed64 invitation_id = 2;
+	optional uint32 reason = 3;
+	optional .blizzard.protocol.ObjectAddress forward = 4 [deprecated = true];
+}
+
+service FriendsService {
+	option (service_options).descriptor_name = "bnet.protocol.friends.FriendsService";
+	option (service_options).shard_name = "friends";
+	option (service_options).resolve_client_instance = true;
+	option (sdk_service_options).outbound = true;
+	rpc Subscribe (.blizzard.protocol.friends.v1.SubscribeRequest) returns (.blizzard.protocol.friends.v1.SubscribeResponse) {
+		option (method_options).id = 1;
+	}
+	rpc SendInvitation (.blizzard.protocol.friends.v1.SendInvitationRequest) returns (.blizzard.protocol.NoData) {
+		option (method_options).id = 2;
+	}
+	rpc AcceptInvitation (.blizzard.protocol.friends.v1.AcceptInvitationRequest) returns (.blizzard.protocol.NoData) {
+		option (method_options).id = 3;
+	}
+	rpc RevokeInvitation (.blizzard.protocol.friends.v1.RevokeInvitationRequest) returns (.blizzard.protocol.NoData) {
+		option (method_options).id = 4;
+	}
+	rpc DeclineInvitation (.blizzard.protocol.friends.v1.DeclineInvitationRequest) returns (.blizzard.protocol.NoData) {
+		option deprecated = true;
+		option (method_options).id = 5;
+	}
+	rpc IgnoreInvitation (.blizzard.protocol.friends.v1.IgnoreInvitationRequest) returns (.blizzard.protocol.NoData) {
+		option (method_options).id = 6;
+	}
+	rpc RemoveFriend (.blizzard.protocol.friends.v1.RemoveFriendRequest) returns (.blizzard.protocol.NoData) {
+		option (method_options).id = 8;
+	}
+	rpc ViewFriends (.blizzard.protocol.friends.v1.ViewFriendsRequest) returns (.blizzard.protocol.friends.v1.ViewFriendsResponse) {
+		option (method_options).id = 9;
+	}
+	rpc UpdateFriendState (.blizzard.protocol.friends.v1.UpdateFriendStateRequest) returns (.blizzard.protocol.NoData) {
+		option (method_options).id = 10;
+	}
+	rpc Unsubscribe (.blizzard.protocol.friends.v1.UnsubscribeRequest) returns (.blizzard.protocol.NoData) {
+		option (method_options).id = 11;
+	}
+	rpc RevokeAllInvitations (.blizzard.protocol.friends.v1.RevokeAllInvitationsRequest) returns (.blizzard.protocol.NoData) {
+		option (method_options).id = 12;
+	}
+	rpc GetFriendList (.blizzard.protocol.friends.v1.GetFriendListRequest) returns (.blizzard.protocol.friends.v1.GetFriendListResponse) {
+		option (method_options).id = 13;
+	}
+	rpc CreateFriendship (.blizzard.protocol.friends.v1.CreateFriendshipRequest) returns (.blizzard.protocol.NoData) {
+		option (method_options).id = 14;
+	}
+}
+
+service FriendsListener {
+	option (service_options).descriptor_name = "bnet.protocol.friends.FriendsNotify";
+	option (sdk_service_options).inbound = true;
+	rpc OnFriendAdded (.blizzard.protocol.friends.v1.FriendNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+		option (method_options).id = 1;
+	}
+	rpc OnFriendRemoved (.blizzard.protocol.friends.v1.FriendNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+		option (method_options).id = 2;
+	}
+	rpc OnReceivedInvitationAdded (.blizzard.protocol.friends.v1.InvitationNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+		option (method_options).id = 3;
+	}
+	rpc OnReceivedInvitationRemoved (.blizzard.protocol.friends.v1.InvitationNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+		option (method_options).id = 4;
+	}
+	rpc OnSentInvitationAdded (.blizzard.protocol.friends.v1.SentInvitationAddedNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+		option (method_options).id = 5;
+	}
+	rpc OnSentInvitationRemoved (.blizzard.protocol.friends.v1.SentInvitationRemovedNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+		option (method_options).id = 6;
+	}
+	rpc OnUpdateFriendState (.blizzard.protocol.friends.v1.UpdateFriendStateNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+		option (method_options).id = 7;
+	}
+}
+

@@ -1,0 +1,462 @@
+import public "aurora/club_types.proto";
+
+package blizzard.protocol.club.v1;
+
+message SubscribeRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+}
+
+message UnsubscribeRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+}
+
+message CreateRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional .blizzard.protocol.club.v1.ClubCreateOptions options = 2;
+}
+
+message CreateResponse {
+	optional uint64 club_id = 1;
+}
+
+message DestroyRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+}
+
+message GetDescriptionRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+}
+
+message GetDescriptionResponse {
+	optional .blizzard.protocol.club.v1.ClubDescription club = 1;
+}
+
+message GetClubTypeRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional .blizzard.protocol.club.v1.UniqueClubType type = 2;
+}
+
+message GetClubTypeResponse {
+	optional .blizzard.protocol.club.v1.UniqueClubType type = 1;
+	optional .blizzard.protocol.club.v1.ClubRoleSet role_set = 2;
+	optional .blizzard.protocol.club.v1.ClubTypeRangeSet range_set = 3;
+}
+
+message UpdateClubStateRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional .blizzard.protocol.club.v1.ClubStateOptions options = 3;
+}
+
+message UpdateClubSettingsRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional .blizzard.protocol.club.v1.ClubSettingsOptions options = 3;
+}
+
+message JoinRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional .blizzard.protocol.club.v1.CreateMemberOptions options = 3;
+}
+
+message LeaveRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+}
+
+message KickRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional .blizzard.protocol.club.v1.MemberId target_id = 3;
+}
+
+message GetMemberRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional .blizzard.protocol.club.v1.MemberId member_id = 3;
+}
+
+message GetMemberResponse {
+	optional .blizzard.protocol.club.v1.Member member = 1;
+}
+
+message GetMembersRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 continuation = 4;
+}
+
+message GetMembersResponse {
+	repeated .blizzard.protocol.club.v1.Member member = 1;
+	optional uint64 continuation = 2;
+}
+
+message UpdateMemberStateRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional .blizzard.protocol.club.v1.MemberId member_id = 3;
+	optional .blizzard.protocol.club.v1.MemberStateOptions options = 5;
+}
+
+message UpdateSubscriberStateRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional .blizzard.protocol.club.v1.SubscriberStateOptions options = 3;
+}
+
+message AssignRoleRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional .blizzard.protocol.club.v1.RoleOptions options = 3;
+}
+
+message UnassignRoleRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional .blizzard.protocol.club.v1.RoleOptions options = 3;
+}
+
+message SendInvitationRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional .blizzard.protocol.club.v1.SendInvitationOptions options = 3;
+}
+
+message AcceptInvitationRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional fixed64 invitation_id = 3;
+}
+
+message DeclineInvitationRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional fixed64 invitation_id = 3;
+}
+
+message RevokeInvitationRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional fixed64 invitation_id = 3;
+}
+
+message GetInvitationRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional fixed64 invitation_id = 3;
+}
+
+message GetInvitationResponse {
+	optional .blizzard.protocol.club.v1.ClubInvitation invitation = 1;
+}
+
+message GetInvitationsRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 continuation = 3;
+}
+
+message GetInvitationsResponse {
+	repeated .blizzard.protocol.club.v1.ClubInvitation invitation = 1;
+	optional uint64 continuation = 2;
+}
+
+message SendSuggestionRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional .blizzard.protocol.club.v1.SendSuggestionOptions options = 3;
+}
+
+message AcceptSuggestionRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional fixed64 suggestion_id = 3;
+}
+
+message DeclineSuggestionRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional fixed64 suggestion_id = 3;
+}
+
+message GetSuggestionRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional fixed64 suggestion_id = 3;
+}
+
+message GetSuggestionResponse {
+	optional .blizzard.protocol.club.v1.ClubSuggestion suggestion = 1;
+}
+
+message GetSuggestionsRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 continuation = 3;
+}
+
+message GetSuggestionsResponse {
+	repeated .blizzard.protocol.club.v1.ClubSuggestion suggestion = 1;
+	optional uint64 continuation = 2;
+}
+
+message CreateTicketRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional .blizzard.protocol.club.v1.CreateTicketOptions options = 3;
+}
+
+message CreateTicketResponse {
+	optional .blizzard.protocol.club.v1.ClubTicket ticket = 1;
+}
+
+message DestroyTicketRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional string ticket_id = 3;
+}
+
+message RedeemTicketRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional string ticket_id = 3;
+}
+
+message GetTicketRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional string ticket_id = 3;
+}
+
+message GetTicketResponse {
+	optional .blizzard.protocol.club.v1.ClubTicket ticket = 1;
+}
+
+message GetTicketsRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 continuation = 3;
+}
+
+message GetTicketsResponse {
+	repeated .blizzard.protocol.club.v1.ClubTicket ticket = 1;
+	optional uint64 continuation = 2;
+}
+
+message AddBanRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional .blizzard.protocol.club.v1.AddBanOptions options = 3;
+}
+
+message RemoveBanRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional .blizzard.protocol.club.v1.MemberId target_id = 3;
+}
+
+message GetBanRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional .blizzard.protocol.club.v1.MemberId target_id = 3;
+}
+
+message GetBanResponse {
+	optional .blizzard.protocol.club.v1.ClubBan ban = 1;
+}
+
+message GetBansRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 continuation = 3;
+}
+
+message GetBansResponse {
+	repeated .blizzard.protocol.club.v1.ClubBan ban = 1;
+	optional uint64 continuation = 2;
+}
+
+message SubscribeStreamRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	repeated uint64 stream_id = 3;
+}
+
+message UnsubscribeStreamRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	repeated uint64 stream_id = 3;
+}
+
+message CreateStreamRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional .blizzard.protocol.club.v1.CreateStreamOptions options = 3;
+}
+
+message CreateStreamResponse {
+	optional uint64 club_id = 1;
+	optional uint64 stream_id = 2;
+}
+
+message DestroyStreamRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 stream_id = 3;
+}
+
+message GetStreamRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 stream_id = 3;
+}
+
+message GetStreamResponse {
+	optional .blizzard.protocol.club.v1.Stream stream = 1;
+}
+
+message GetStreamsRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 continuation = 3;
+}
+
+message GetStreamsResponse {
+	repeated .blizzard.protocol.club.v1.Stream stream = 1;
+	repeated .blizzard.protocol.club.v1.StreamView view = 2;
+	optional uint64 continuation = 3;
+}
+
+message UpdateStreamStateRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 stream_id = 3;
+	optional .blizzard.protocol.club.v1.StreamStateOptions options = 5;
+}
+
+message SetStreamFocusRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 stream_id = 3;
+	optional bool focus = 4;
+}
+
+message CreateMessageRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 stream_id = 3;
+	optional .blizzard.protocol.club.v1.CreateMessageOptions options = 4;
+}
+
+message CreateMessageResponse {
+	optional .blizzard.protocol.club.v1.StreamMessage message = 1;
+}
+
+message DestroyMessageRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 stream_id = 3;
+	optional .blizzard.protocol.MessageId message_id = 4;
+}
+
+message DestroyMessageResponse {
+	optional .blizzard.protocol.club.v1.StreamMessage message = 1;
+}
+
+message EditMessageRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 stream_id = 3;
+	optional .blizzard.protocol.MessageId message_id = 4;
+	optional .blizzard.protocol.club.v1.CreateMessageOptions options = 5;
+}
+
+message EditMessageResponse {
+	optional .blizzard.protocol.club.v1.StreamMessage message = 1;
+}
+
+message SetMessagePinnedRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 stream_id = 3;
+}
+
+message SetTypingIndicatorRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 stream_id = 3;
+	optional .blizzard.protocol.TypingIndicator indicator = 4 [default = TYPING_START];
+}
+
+message AdvanceStreamViewTimeRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 stream_id_deprecated = 3 [deprecated = true];
+	repeated uint64 stream_id = 4 [packed = true];
+}
+
+message AdvanceStreamMentionViewTimeRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 stream_id = 3;
+}
+
+message AdvanceActivityViewTimeRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+}
+
+message GetStreamHistoryRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 stream_id = 3;
+	optional .blizzard.protocol.GetEventOptions options = 4;
+}
+
+message GetStreamHistoryResponse {
+	repeated .blizzard.protocol.club.v1.StreamMessage message = 1;
+	optional uint64 continuation = 2;
+}
+
+message GetStreamMessageRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 stream_id = 3;
+	optional .blizzard.protocol.MessageId message_id = 4;
+}
+
+message GetStreamMessageResponse {
+	optional .blizzard.protocol.club.v1.StreamMessage message = 1;
+}
+
+message GetClubActivityRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional .blizzard.protocol.GetEventOptions options = 3;
+}
+
+message GetClubActivityResponse {
+	optional uint64 continuation = 2;
+}
+
+message GetStreamVoiceTokenRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 stream_id = 3;
+}
+
+message GetStreamVoiceTokenResponse {
+	optional string channel_uri = 1;
+	optional .blizzard.protocol.VoiceCredentials credentials = 2;
+}
+
+message KickFromStreamVoiceRequest {
+	optional .blizzard.protocol.club.v1.MemberId agent_id = 1;
+	optional uint64 club_id = 2;
+	optional uint64 stream_id = 3;
+	optional .blizzard.protocol.club.v1.MemberId target_id = 4;
+}
+

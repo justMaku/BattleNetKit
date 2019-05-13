@@ -1,0 +1,104 @@
+import public "aurora/club_member_id.proto";
+import "aurora/global_extensions/message_options.proto";
+import "aurora/api/client/v2/attribute_types.proto";
+import "aurora/club_enum.proto";
+import "aurora/rpc_types.proto";
+
+package blizzard.protocol.club.v1;
+
+message Member {
+	optional .blizzard.protocol.club.v1.MemberId id = 1;
+	optional string battle_tag = 2;
+	repeated uint32 role = 3 [packed = true];
+	repeated .blizzard.protocol.v2.Attribute attribute = 4;
+	optional uint64 join_time = 5;
+	optional .blizzard.protocol.club.v1.PresenceLevel presence_level = 6 [default = PRESENCE_LEVEL_NONE];
+	optional bool moderator_mute = 7;
+	optional .blizzard.protocol.club.v1.WhisperLevel whisper_level = 8 [default = WHISPER_LEVEL_OPEN];
+	optional string note = 9;
+	optional bool active = 50;
+	optional .blizzard.protocol.club.v1.MemberVoiceState voice = 51;
+}
+
+message MemberResult {
+	optional .blizzard.protocol.club.v1.MemberId member_id = 1;
+	optional uint32 status = 2;
+}
+
+message RemoveMemberOptions {
+	optional .blizzard.protocol.club.v1.MemberId id = 1;
+	optional .blizzard.protocol.club.v1.ClubRemovedReason reason = 2 [default = CLUB_REMOVED_REASON_NONE];
+}
+
+message MemberRemovedAssignment {
+	optional .blizzard.protocol.club.v1.MemberId id = 1;
+	optional .blizzard.protocol.club.v1.ClubRemovedReason reason = 2 [default = CLUB_REMOVED_REASON_NONE];
+}
+
+message MemberVoiceOptions {
+	optional uint64 stream_id = 1;
+	optional bool joined = 2;
+	optional .blizzard.protocol.club.v1.VoiceMicrophoneState microphone = 3 [default = MICROPHONE_STATE_NORMAL];
+	optional bool active = 4;
+}
+
+message MemberVoiceState {
+	optional string id = 1;
+	optional uint64 stream_id = 2;
+	optional bool joined = 3;
+	optional .blizzard.protocol.club.v1.VoiceMicrophoneState microphone = 4 [default = MICROPHONE_STATE_NORMAL];
+	optional bool active = 5;
+}
+
+message CreateMemberOptions {
+	optional .blizzard.protocol.club.v1.MemberId id = 1;
+	repeated .blizzard.protocol.v2.Attribute attribute = 2;
+}
+
+message MemberDescription {
+	optional .blizzard.protocol.club.v1.MemberId id = 1;
+	optional string battle_tag = 2;
+}
+
+message RoleOptions {
+	optional .blizzard.protocol.club.v1.MemberId member_id = 1;
+	repeated uint32 role = 2 [packed = true, (valid).repeated.size.min = 1, (valid).repeated.size.max = 1];
+}
+
+message RoleAssignment {
+	optional .blizzard.protocol.club.v1.MemberId member_id = 1;
+	repeated uint32 role = 2 [packed = true];
+}
+
+message MemberAttributeAssignment {
+	optional .blizzard.protocol.club.v1.MemberId member_id = 1;
+	repeated .blizzard.protocol.v2.Attribute attribute = 2;
+}
+
+message SubscriberStateOptions {
+	optional .blizzard.protocol.club.v1.MemberVoiceOptions voice = 1;
+}
+
+message SubscriberStateAssignment {
+	optional .blizzard.protocol.club.v1.MemberId member_id = 1;
+	optional bool active = 2;
+	optional .blizzard.protocol.club.v1.MemberVoiceState voice = 3;
+}
+
+message MemberStateOptions {
+	repeated .blizzard.protocol.v2.Attribute attribute = 1;
+	optional .blizzard.protocol.club.v1.PresenceLevel presence_level = 2 [default = PRESENCE_LEVEL_NONE];
+	optional bool moderator_mute = 3;
+	optional .blizzard.protocol.club.v1.WhisperLevel whisper_level = 4 [default = WHISPER_LEVEL_OPEN];
+	optional string note = 5;
+}
+
+message MemberStateAssignment {
+	optional .blizzard.protocol.club.v1.MemberId member_id = 1;
+	repeated .blizzard.protocol.v2.Attribute attribute = 2;
+	optional .blizzard.protocol.club.v1.PresenceLevel presence_level = 3 [default = PRESENCE_LEVEL_NONE];
+	optional bool moderator_mute = 4;
+	optional .blizzard.protocol.club.v1.WhisperLevel whisper_level = 5 [default = WHISPER_LEVEL_OPEN];
+	optional string note = 6;
+}
+

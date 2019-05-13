@@ -1,0 +1,20 @@
+import public "aurora/club_membership_types.proto";
+import public "aurora/club_enum.proto";
+import public "aurora/club_role.proto";
+import public "aurora/club_range_set.proto";
+import public "aurora/club_core.proto";
+import public "aurora/club_member.proto";
+import public "aurora/club_invitation.proto";
+import public "aurora/club_ban.proto";
+import public "aurora/club_stream.proto";
+import public "aurora/api/client/v2/attribute_types.proto";
+import public "aurora/account_types.proto";
+import public "aurora/event_view_types.proto";
+import public "aurora/invitation_types.proto";
+import public "aurora/message_types.proto";
+import public "aurora/ets_types.proto";
+import public "aurora/voice_types.proto";
+import public "aurora/rpc_types.proto";
+
+package blizzard.protocol.club.v1;
+

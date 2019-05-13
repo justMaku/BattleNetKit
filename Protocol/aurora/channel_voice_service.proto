@@ -1,0 +1,39 @@
+import "aurora/channel_types.proto";
+import "aurora/account_types.proto";
+import "aurora/voice_types.proto";
+import "aurora/rpc_types.proto";
+
+package blizzard.protocol.channel.v1;
+
+option cc_generic_services = false;
+
+message GetLoginTokenRequest {
+	optional .blizzard.protocol.account.v1.GameAccountHandle member_id = 3;
+}
+
+message GetLoginTokenResponse {
+	optional .blizzard.protocol.VoiceCredentials credentials = 1;
+}
+
+message GetJoinTokenRequest {
+	optional .blizzard.protocol.channel.v1.ChannelId channel_id = 2;
+	optional .blizzard.protocol.account.v1.GameAccountHandle member_id = 4;
+}
+
+message GetJoinTokenResponse {
+	optional string channel_uri = 1;
+	optional .blizzard.protocol.VoiceCredentials credentials = 2;
+}
+
+service ChannelVoiceService {
+	option (service_options).descriptor_name = "bnet.protocol.channel.v1.ChannelVoiceService";
+	option (service_options).shard_name = "channel";
+	option (sdk_service_options).outbound = true;
+	rpc GetLoginToken (.blizzard.protocol.channel.v1.GetLoginTokenRequest) returns (.blizzard.protocol.channel.v1.GetLoginTokenResponse) {
+		option (method_options).id = 1;
+	}
+	rpc GetJoinToken (.blizzard.protocol.channel.v1.GetJoinTokenRequest) returns (.blizzard.protocol.channel.v1.GetJoinTokenResponse) {
+		option (method_options).id = 2;
+	}
+}
+

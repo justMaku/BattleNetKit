@@ -1,0 +1,77 @@
+import "aurora/attribute_types.proto";
+import "aurora/entity_types.proto";
+import "aurora/invitation_types.proto";
+import "aurora/role_types.proto";
+
+package blizzard.protocol.friends.v1;
+
+option java_package = "bnet.protocol.friends.v1";
+option java_outer_classname = "FriendsTypesProto";
+
+message Friend {
+	required .blizzard.protocol.EntityId account_id = 1;
+	repeated .blizzard.protocol.Attribute attribute = 2;
+	repeated uint32 role = 3 [packed = true];
+	optional uint64 privileges = 4;
+	optional uint64 attributes_epoch = 5 [deprecated = true];
+	optional uint64 creation_time = 6;
+}
+
+message FriendOfFriend {
+	optional .blizzard.protocol.EntityId account_id = 1;
+	repeated uint32 role = 3 [packed = true];
+	optional uint64 privileges = 4;
+	optional string full_name = 6;
+	optional string battle_tag = 7;
+}
+
+message ReceivedInvitation {
+	required fixed64 id = 1;
+	required .blizzard.protocol.Identity inviter_identity = 2;
+	required .blizzard.protocol.Identity invitee_identity = 3;
+	optional string inviter_name = 4;
+	optional string invitee_name = 5;
+	optional uint64 creation_time = 7;
+	optional fixed32 program = 9;
+
+	extensions 100 to 10000;
+}
+
+message FriendInvitation {
+	repeated uint32 role = 2 [packed = true];
+	repeated .blizzard.protocol.Attribute attribute = 3;
+}
+
+message SentInvitation {
+	optional fixed64 id = 1;
+	optional string target_name = 2;
+	optional uint32 role = 3;
+	repeated .blizzard.protocol.Attribute attribute = 4;
+	optional uint64 creation_time = 5;
+	optional fixed32 program = 6;
+}
+
+message FriendInvitationParams {
+	optional string target_email = 1;
+	optional string target_battle_tag = 2;
+	repeated uint32 role = 6 [packed = true];
+	repeated .blizzard.protocol.Attribute attribute = 8;
+	optional string target_name = 9;
+	optional fixed32 program = 10 [deprecated = true];
+}
+
+message SubscribeResponse {
+	optional uint32 max_friends = 1 [deprecated = true];
+	optional uint32 max_received_invitations = 2 [deprecated = true];
+	optional uint32 max_sent_invitations = 3 [deprecated = true];
+	repeated .blizzard.protocol.Role role = 4;
+	repeated .blizzard.protocol.friends.v1.Friend friends = 5;
+	repeated .blizzard.protocol.friends.v1.ReceivedInvitation received_invitations = 7;
+	repeated .blizzard.protocol.friends.v1.SentInvitation sent_invitations = 8;
+}
+
+message AcceptInvitationOptions {
+	optional uint32 role = 1;
+	optional fixed32 program = 2;
+}
+
