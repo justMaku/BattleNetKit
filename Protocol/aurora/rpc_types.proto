@@ -3,7 +3,7 @@ import public "aurora/global_extensions/method_options.proto";
 import public "aurora/global_extensions/message_options.proto";
 import public "aurora/global_extensions/service_options.proto";
 
-package blizzard.protocol;
+package bgs.protocol;
 
 option java_package = "bnet.protocol";
 option java_outer_classname = "RpcProto";
@@ -22,7 +22,7 @@ message ProcessId {
 }
 
 message ObjectAddress {
-	required .blizzard.protocol.ProcessId host = 1;
+	required .bgs.protocol.ProcessId host = 1;
 	optional uint64 object_id = 2 [default = 0];
 }
 
@@ -30,7 +30,7 @@ message NoData {
 }
 
 message ErrorInfo {
-	required .blizzard.protocol.ObjectAddress object_address = 1;
+	required .bgs.protocol.ObjectAddress object_address = 1;
 	required uint32 status = 2;
 	required uint32 service_hash = 3;
 	required uint32 method_id = 4;
@@ -48,13 +48,13 @@ message Header {
 	optional uint64 object_id = 4 [default = 0];
 	optional uint32 size = 5 [default = 0];
 	optional uint32 status = 6 [default = 0];
-	repeated .blizzard.protocol.ErrorInfo error = 7;
+	repeated .bgs.protocol.ErrorInfo error = 7;
 	optional uint64 timeout = 8;
 	optional bool is_response = 9;
-	repeated .blizzard.protocol.ProcessId forward_targets = 10;
+	repeated .bgs.protocol.ProcessId forward_targets = 10;
 	optional fixed32 service_hash = 11;
 	optional string client_id = 13;
-	repeated .blizzard.protocol.FanoutTarget fanout_target = 14;
+	repeated .bgs.protocol.FanoutTarget fanout_target = 14;
 	repeated string client_id_fanout_target = 15;
 	optional bytes client_record = 16;
 }
@@ -67,7 +67,7 @@ message KafkaHeader {
 	optional uint32 size = 5 [default = 0];
 	optional uint32 status = 6 [default = 0];
 	optional uint64 timeout = 7;
-	optional .blizzard.protocol.ProcessId forward_target = 8;
+	optional .bgs.protocol.ProcessId forward_target = 8;
 	optional string return_topic = 9;
 	optional string client_id = 11;
 }

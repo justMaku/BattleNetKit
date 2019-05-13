@@ -3,110 +3,110 @@ import "aurora/entity_types.proto";
 import "aurora/channel_types.proto";
 import "aurora/rpc_types.proto";
 
-package blizzard.protocol.channel.v1;
+package bgs.protocol.channel.v1;
 
 option cc_generic_services = false;
 
 message RemoveMemberRequest {
-	optional .blizzard.protocol.EntityId agent_id = 1;
-	required .blizzard.protocol.EntityId member_id = 2;
+	optional .bgs.protocol.EntityId agent_id = 1;
+	required .bgs.protocol.EntityId member_id = 2;
 	optional uint32 reason = 3;
 }
 
 message SendMessageRequest {
-	optional .blizzard.protocol.EntityId agent_id = 1;
-	required .blizzard.protocol.channel.v1.Message message = 2;
+	optional .bgs.protocol.EntityId agent_id = 1;
+	required .bgs.protocol.channel.v1.Message message = 2;
 	optional uint64 required_privileges = 3 [default = 0];
 }
 
 message UpdateChannelStateRequest {
-	optional .blizzard.protocol.EntityId agent_id = 1;
-	required .blizzard.protocol.channel.v1.ChannelState state_change = 2;
+	optional .bgs.protocol.EntityId agent_id = 1;
+	required .bgs.protocol.channel.v1.ChannelState state_change = 2;
 }
 
 message UpdateMemberStateRequest {
-	optional .blizzard.protocol.EntityId agent_id = 1;
-	repeated .blizzard.protocol.channel.v1.Member state_change = 2;
+	optional .bgs.protocol.EntityId agent_id = 1;
+	repeated .bgs.protocol.channel.v1.Member state_change = 2;
 	repeated uint32 removed_role = 3 [packed = true];
 }
 
 message DissolveRequest {
-	optional .blizzard.protocol.EntityId agent_id = 1;
+	optional .bgs.protocol.EntityId agent_id = 1;
 	optional uint32 reason = 2;
 }
 
 message JoinNotification {
-	optional .blizzard.protocol.channel.v1.Member self = 1;
-	repeated .blizzard.protocol.channel.v1.Member member = 2;
-	required .blizzard.protocol.channel.v1.ChannelState channel_state = 3;
-	optional .blizzard.protocol.channel.v1.ChannelId channel_id = 4;
-	optional .blizzard.protocol.channel.v1.SubscriberId subscriber_id = 5;
-	optional .blizzard.protocol.account.v1.AccountId presence_subscriber_id = 6;
+	optional .bgs.protocol.channel.v1.Member self = 1;
+	repeated .bgs.protocol.channel.v1.Member member = 2;
+	required .bgs.protocol.channel.v1.ChannelState channel_state = 3;
+	optional .bgs.protocol.channel.v1.ChannelId channel_id = 4;
+	optional .bgs.protocol.channel.v1.SubscriberId subscriber_id = 5;
+	optional .bgs.protocol.account.v1.AccountId presence_subscriber_id = 6;
 }
 
 message MemberAddedNotification {
-	required .blizzard.protocol.channel.v1.Member member = 1;
-	optional .blizzard.protocol.channel.v1.ChannelId channel_id = 2;
-	optional .blizzard.protocol.channel.v1.SubscriberId subscriber_id = 3;
+	required .bgs.protocol.channel.v1.Member member = 1;
+	optional .bgs.protocol.channel.v1.ChannelId channel_id = 2;
+	optional .bgs.protocol.channel.v1.SubscriberId subscriber_id = 3;
 }
 
 message LeaveNotification {
-	optional .blizzard.protocol.EntityId agent_id = 1;
-	required .blizzard.protocol.EntityId member_id = 2 [deprecated = true];
+	optional .bgs.protocol.EntityId agent_id = 1;
+	required .bgs.protocol.EntityId member_id = 2 [deprecated = true];
 	optional uint32 reason = 3;
-	optional .blizzard.protocol.channel.v1.ChannelId channel_id = 4;
-	optional .blizzard.protocol.channel.v1.SubscriberId subscriber_id = 5;
+	optional .bgs.protocol.channel.v1.ChannelId channel_id = 4;
+	optional .bgs.protocol.channel.v1.SubscriberId subscriber_id = 5;
 }
 
 message MemberRemovedNotification {
-	optional .blizzard.protocol.EntityId agent_id = 1;
-	required .blizzard.protocol.EntityId member_id = 2;
+	optional .bgs.protocol.EntityId agent_id = 1;
+	required .bgs.protocol.EntityId member_id = 2;
 	optional uint32 reason = 3;
-	optional .blizzard.protocol.channel.v1.ChannelId channel_id = 4;
-	optional .blizzard.protocol.channel.v1.SubscriberId subscriber_id = 5;
+	optional .bgs.protocol.channel.v1.ChannelId channel_id = 4;
+	optional .bgs.protocol.channel.v1.SubscriberId subscriber_id = 5;
 }
 
 message SendMessageNotification {
-	optional .blizzard.protocol.EntityId agent_id = 1;
-	required .blizzard.protocol.channel.v1.Message message = 2;
+	optional .bgs.protocol.EntityId agent_id = 1;
+	required .bgs.protocol.channel.v1.Message message = 2;
 	optional uint64 required_privileges = 3 [default = 0];
 	optional string battle_tag = 4;
-	optional .blizzard.protocol.channel.v1.ChannelId channel_id = 5;
-	optional .blizzard.protocol.channel.v1.SubscriberId subscriber_id = 6;
+	optional .bgs.protocol.channel.v1.ChannelId channel_id = 5;
+	optional .bgs.protocol.channel.v1.SubscriberId subscriber_id = 6;
 }
 
 message UpdateChannelStateNotification {
-	optional .blizzard.protocol.EntityId agent_id = 1;
-	required .blizzard.protocol.channel.v1.ChannelState state_change = 2;
-	optional .blizzard.protocol.channel.v1.ChannelId channel_id = 3;
-	optional .blizzard.protocol.channel.v1.SubscriberId subscriber_id = 4;
-	optional .blizzard.protocol.account.v1.AccountId presence_subscriber_id = 5;
+	optional .bgs.protocol.EntityId agent_id = 1;
+	required .bgs.protocol.channel.v1.ChannelState state_change = 2;
+	optional .bgs.protocol.channel.v1.ChannelId channel_id = 3;
+	optional .bgs.protocol.channel.v1.SubscriberId subscriber_id = 4;
+	optional .bgs.protocol.account.v1.AccountId presence_subscriber_id = 5;
 }
 
 message UpdateMemberStateNotification {
-	optional .blizzard.protocol.EntityId agent_id = 1;
-	repeated .blizzard.protocol.channel.v1.Member state_change = 2;
-	optional .blizzard.protocol.channel.v1.ChannelId channel_id = 4;
-	optional .blizzard.protocol.channel.v1.SubscriberId subscriber_id = 5;
+	optional .bgs.protocol.EntityId agent_id = 1;
+	repeated .bgs.protocol.channel.v1.Member state_change = 2;
+	optional .bgs.protocol.channel.v1.ChannelId channel_id = 4;
+	optional .bgs.protocol.channel.v1.SubscriberId subscriber_id = 5;
 }
 
 service ChannelService {
 	option (service_options).descriptor_name = "bnet.protocol.channel.Channel";
 	option (service_options).shard_name = "channel";
 	option (sdk_service_options).outbound = true;
-	rpc RemoveMember (.blizzard.protocol.channel.v1.RemoveMemberRequest) returns (.blizzard.protocol.NoData) {
+	rpc RemoveMember (.bgs.protocol.channel.v1.RemoveMemberRequest) returns (.bgs.protocol.NoData) {
 		option (method_options).id = 2;
 	}
-	rpc SendMessage (.blizzard.protocol.channel.v1.SendMessageRequest) returns (.blizzard.protocol.NoData) {
+	rpc SendMessage (.bgs.protocol.channel.v1.SendMessageRequest) returns (.bgs.protocol.NoData) {
 		option (method_options).id = 3;
 	}
-	rpc UpdateChannelState (.blizzard.protocol.channel.v1.UpdateChannelStateRequest) returns (.blizzard.protocol.NoData) {
+	rpc UpdateChannelState (.bgs.protocol.channel.v1.UpdateChannelStateRequest) returns (.bgs.protocol.NoData) {
 		option (method_options).id = 4;
 	}
-	rpc UpdateMemberState (.blizzard.protocol.channel.v1.UpdateMemberStateRequest) returns (.blizzard.protocol.NoData) {
+	rpc UpdateMemberState (.bgs.protocol.channel.v1.UpdateMemberStateRequest) returns (.bgs.protocol.NoData) {
 		option (method_options).id = 5;
 	}
-	rpc Dissolve (.blizzard.protocol.channel.v1.DissolveRequest) returns (.blizzard.protocol.NoData) {
+	rpc Dissolve (.bgs.protocol.channel.v1.DissolveRequest) returns (.bgs.protocol.NoData) {
 		option (method_options).id = 6;
 	}
 }
@@ -114,25 +114,25 @@ service ChannelService {
 service ChannelListener {
 	option (service_options).descriptor_name = "bnet.protocol.channel.ChannelSubscriber";
 	option (sdk_service_options).inbound = true;
-	rpc OnJoin (.blizzard.protocol.channel.v1.JoinNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnJoin (.bgs.protocol.channel.v1.JoinNotification) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 1;
 	}
-	rpc OnMemberAdded (.blizzard.protocol.channel.v1.MemberAddedNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnMemberAdded (.bgs.protocol.channel.v1.MemberAddedNotification) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 2;
 	}
-	rpc OnLeave (.blizzard.protocol.channel.v1.LeaveNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnLeave (.bgs.protocol.channel.v1.LeaveNotification) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 3;
 	}
-	rpc OnMemberRemoved (.blizzard.protocol.channel.v1.MemberRemovedNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnMemberRemoved (.bgs.protocol.channel.v1.MemberRemovedNotification) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 4;
 	}
-	rpc OnSendMessage (.blizzard.protocol.channel.v1.SendMessageNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnSendMessage (.bgs.protocol.channel.v1.SendMessageNotification) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 5;
 	}
-	rpc OnUpdateChannelState (.blizzard.protocol.channel.v1.UpdateChannelStateNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnUpdateChannelState (.bgs.protocol.channel.v1.UpdateChannelStateNotification) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 6;
 	}
-	rpc OnUpdateMemberState (.blizzard.protocol.channel.v1.UpdateMemberStateNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnUpdateMemberState (.bgs.protocol.channel.v1.UpdateMemberStateNotification) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 7;
 	}
 }

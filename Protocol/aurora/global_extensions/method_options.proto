@@ -1,17 +1,17 @@
 import "google/protobuf/descriptor.proto";
 import "aurora/global_extensions/routing.proto";
 
-package blizzard.protocol;
+package bgs.protocol;
 
 option java_package = "bnet.protocol";
 option java_outer_classname = "MethodOptionsProto";
 
 extend .google.protobuf.MethodOptions {
-	optional .blizzard.protocol.BGSMethodOptions method_options = 90000;
+	optional .bgs.protocol.BGSMethodOptions method_options = 90000;
 }
 
 message BGSMethodOptions {
 	optional uint32 id = 1;
-	optional .blizzard.protocol.ClientIdentityRoutingType client_identity_routing = 2 [default = CLIENT_IDENTITY_ROUTING_DISABLED];
+	optional .bgs.protocol.ClientIdentityRoutingType client_identity_routing = 2 [default = CLIENT_IDENTITY_ROUTING_DISABLED];
 }
 

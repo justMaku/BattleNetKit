@@ -1,6 +1,6 @@
 import "aurora/role_types.proto";
 
-package blizzard.protocol.club.v1;
+package bgs.protocol.club.v1;
 
 message ClubPrivilegeSet {
 	optional bool can_destroy = 1;
@@ -55,14 +55,14 @@ message ClubPrivilegeSet {
 
 message ClubRole {
 	optional uint32 id = 1;
-	optional .blizzard.protocol.RoleState state = 2;
-	optional .blizzard.protocol.club.v1.ClubPrivilegeSet privilege = 3;
+	optional .bgs.protocol.RoleState state = 2;
+	optional .bgs.protocol.club.v1.ClubPrivilegeSet privilege = 3;
 	optional bool always_grant_stream_access = 4;
 	optional bool allow_in_club_slot = 5;
 }
 
 message ClubRoleSet {
-	repeated .blizzard.protocol.club.v1.ClubRole role = 1;
+	repeated .bgs.protocol.club.v1.ClubRole role = 1;
 	repeated uint32 default_role = 5 [packed = true];
 	optional bool assignment_respects_relegation_chain = 6;
 	optional string subtype = 7;

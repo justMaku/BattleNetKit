@@ -2,7 +2,7 @@ import "aurora/attribute_types.proto";
 import "aurora/entity_types.proto";
 import "aurora/channel_types.proto";
 
-package blizzard.protocol.presence.v1;
+package bgs.protocol.presence.v1;
 
 message RichPresenceLocalizationKey {
 	required fixed32 program = 1;
@@ -18,8 +18,8 @@ message FieldKey {
 }
 
 message Field {
-	required .blizzard.protocol.presence.v1.FieldKey key = 1;
-	required .blizzard.protocol.Variant value = 2;
+	required .bgs.protocol.presence.v1.FieldKey key = 1;
+	required .bgs.protocol.Variant value = 2;
 }
 
 message FieldOperation {
@@ -28,18 +28,18 @@ message FieldOperation {
 		CLEAR = 1;
 	}
 
-	required .blizzard.protocol.presence.v1.Field field = 1;
-	optional .blizzard.protocol.presence.v1.FieldOperation.OperationType operation = 2 [default = SET];
+	required .bgs.protocol.presence.v1.Field field = 1;
+	optional .bgs.protocol.presence.v1.FieldOperation.OperationType operation = 2 [default = SET];
 }
 
 message PresenceState {
-	optional .blizzard.protocol.EntityId entity_id = 1;
-	repeated .blizzard.protocol.presence.v1.FieldOperation field_operation = 2;
+	optional .bgs.protocol.EntityId entity_id = 1;
+	repeated .bgs.protocol.presence.v1.FieldOperation field_operation = 2;
 }
 
 message ChannelState {
-	optional .blizzard.protocol.EntityId entity_id = 1;
-	repeated .blizzard.protocol.presence.v1.FieldOperation field_operation = 2;
+	optional .bgs.protocol.EntityId entity_id = 1;
+	repeated .bgs.protocol.presence.v1.FieldOperation field_operation = 2;
 	optional bool healing = 3 [default = false];
 }
 

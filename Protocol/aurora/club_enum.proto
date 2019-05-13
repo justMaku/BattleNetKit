@@ -1,4 +1,4 @@
-package blizzard.protocol.club.v1;
+package bgs.protocol.club.v1;
 
 enum PrivacyLevel {
 	PRIVACY_LEVEL_CLOSED = 0;

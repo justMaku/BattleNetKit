@@ -1,4 +1,4 @@
-package blizzard.protocol;
+package bgs.protocol;
 
 option java_package = "bnet.protocol";
 option java_outer_classname = "ContentHandleProto";

@@ -1,7 +1,7 @@
 import "aurora/global_extensions/field_options.proto";
 import "aurora/global_extensions/message_options.proto";
 
-package blizzard.protocol;
+package bgs.protocol;
 
 option java_package = "bnet.protocol";
 option java_outer_classname = "EntityProto";
@@ -13,7 +13,7 @@ message EntityId {
 }
 
 message Identity {
-	optional .blizzard.protocol.EntityId account_id = 1 [(valid).entity_id.kind = ACCOUNT];
-	optional .blizzard.protocol.EntityId game_account_id = 2 [(valid).entity_id.kind = GAME_ACCOUNT];
+	optional .bgs.protocol.EntityId account_id = 1 [(valid).entity_id.kind = ACCOUNT];
+	optional .bgs.protocol.EntityId game_account_id = 2 [(valid).entity_id.kind = GAME_ACCOUNT];
 }
 

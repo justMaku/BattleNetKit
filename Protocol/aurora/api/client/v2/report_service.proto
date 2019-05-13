@@ -2,18 +2,18 @@ import "aurora/account_types.proto";
 import "aurora/api/client/v2/report_types.proto";
 import "aurora/rpc_types.proto";
 
-package blizzard.protocol.report.v2;
+package bgs.protocol.report.v2;
 
 option cc_generic_services = false;
 
 message SubmitReportRequest {
 	option (message_options).custom_validator = true;
-	optional .blizzard.protocol.account.v1.AccountId agent_id = 1;
+	optional .bgs.protocol.account.v1.AccountId agent_id = 1;
 	optional string user_description = 2;
 	optional uint32 program = 3;
 	oneof type {
-		.blizzard.protocol.report.v2.UserOptions user_options = 10;
-		.blizzard.protocol.report.v2.ClubOptions club_options = 11;
+		.bgs.protocol.report.v2.UserOptions user_options = 10;
+		.bgs.protocol.report.v2.ClubOptions club_options = 11;
 	}
 }
 
@@ -21,7 +21,7 @@ service ReportService {
 	option (service_options).descriptor_name = "bnet.protocol.report.v2.ReportService";
 	option (service_options).shard_name = "report";
 	option (sdk_service_options).outbound = true;
-	rpc SubmitReport (.blizzard.protocol.report.v2.SubmitReportRequest) returns (.blizzard.protocol.NoData) {
+	rpc SubmitReport (.bgs.protocol.report.v2.SubmitReportRequest) returns (.bgs.protocol.NoData) {
 		option (method_options).id = 1;
 	}
 }

@@ -3,12 +3,12 @@ import "aurora/content_handle_types.proto";
 import "aurora/entity_types.proto";
 import "aurora/rpc_types.proto";
 
-package blizzard.protocol.authentication.v1;
+package bgs.protocol.authentication.v1;
 
 option cc_generic_services = false;
 
 message ModuleLoadRequest {
-	required .blizzard.protocol.ContentHandle module_handle = 1;
+	required .bgs.protocol.ContentHandle module_handle = 1;
 	optional bytes message = 2;
 }
 
@@ -38,8 +38,8 @@ message LogonRequest {
 
 message LogonResult {
 	required uint32 error_code = 1;
-	optional .blizzard.protocol.EntityId account_id = 2;
-	repeated .blizzard.protocol.EntityId game_account_id = 3;
+	optional .bgs.protocol.EntityId account_id = 2;
+	repeated .bgs.protocol.EntityId game_account_id = 3;
 	optional string email = 4;
 	repeated uint32 available_region = 5;
 	optional uint32 connected_region = 6;
@@ -70,7 +70,7 @@ message LogonQueueUpdateRequest {
 }
 
 message AccountSettingsNotification {
-	repeated .blizzard.protocol.account.v1.AccountLicense licenses = 1;
+	repeated .bgs.protocol.account.v1.AccountLicense licenses = 1;
 	optional bool is_using_rid = 2;
 	optional bool is_playing_from_igr = 3;
 	optional bool can_receive_voice = 4;
@@ -90,11 +90,11 @@ message VersionInfo {
 }
 
 message VersionInfoNotification {
-	optional .blizzard.protocol.authentication.v1.VersionInfo version_info = 1;
+	optional .bgs.protocol.authentication.v1.VersionInfo version_info = 1;
 }
 
 message MemModuleLoadRequest {
-	required .blizzard.protocol.ContentHandle handle = 1;
+	required .bgs.protocol.ContentHandle handle = 1;
 	required bytes key = 2;
 	required bytes input = 3;
 }
@@ -104,12 +104,12 @@ message MemModuleLoadResponse {
 }
 
 message SelectGameAccountRequest {
-	required .blizzard.protocol.EntityId game_account_id = 1;
+	required .bgs.protocol.EntityId game_account_id = 1;
 }
 
 message GameAccountSelectedRequest {
 	required uint32 result = 1;
-	optional .blizzard.protocol.EntityId game_account_id = 2;
+	optional .bgs.protocol.EntityId game_account_id = 2;
 }
 
 message GenerateWebCredentialsRequest {
@@ -127,36 +127,36 @@ message VerifyWebCredentialsRequest {
 service AuthenticationListener {
 	option (service_options).descriptor_name = "bnet.protocol.authentication.AuthenticationClient";
 	option (sdk_service_options).inbound = true;
-	rpc OnModuleLoad (.blizzard.protocol.authentication.v1.ModuleLoadRequest) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnModuleLoad (.bgs.protocol.authentication.v1.ModuleLoadRequest) returns (.bgs.protocol.NO_RESPONSE) {
 		option deprecated = true;
 		option (method_options).id = 1;
 	}
-	rpc OnModuleMessage (.blizzard.protocol.authentication.v1.ModuleMessageRequest) returns (.blizzard.protocol.NoData) {
+	rpc OnModuleMessage (.bgs.protocol.authentication.v1.ModuleMessageRequest) returns (.bgs.protocol.NoData) {
 		option deprecated = true;
 		option (method_options).id = 2;
 	}
-	rpc OnServerStateChange (.blizzard.protocol.authentication.v1.ServerStateChangeRequest) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnServerStateChange (.bgs.protocol.authentication.v1.ServerStateChangeRequest) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 4;
 	}
-	rpc OnLogonComplete (.blizzard.protocol.authentication.v1.LogonResult) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnLogonComplete (.bgs.protocol.authentication.v1.LogonResult) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 5;
 	}
-	rpc OnMemModuleLoad (.blizzard.protocol.authentication.v1.MemModuleLoadRequest) returns (.blizzard.protocol.authentication.v1.MemModuleLoadResponse) {
+	rpc OnMemModuleLoad (.bgs.protocol.authentication.v1.MemModuleLoadRequest) returns (.bgs.protocol.authentication.v1.MemModuleLoadResponse) {
 		option (method_options).id = 6;
 	}
-	rpc OnLogonUpdate (.blizzard.protocol.authentication.v1.LogonUpdateRequest) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnLogonUpdate (.bgs.protocol.authentication.v1.LogonUpdateRequest) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 10;
 	}
-	rpc OnVersionInfoUpdated (.blizzard.protocol.authentication.v1.VersionInfoNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnVersionInfoUpdated (.bgs.protocol.authentication.v1.VersionInfoNotification) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 11;
 	}
-	rpc OnLogonQueueUpdate (.blizzard.protocol.authentication.v1.LogonQueueUpdateRequest) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnLogonQueueUpdate (.bgs.protocol.authentication.v1.LogonQueueUpdateRequest) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 12;
 	}
-	rpc OnLogonQueueEnd (.blizzard.protocol.NoData) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnLogonQueueEnd (.bgs.protocol.NoData) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 13;
 	}
-	rpc OnGameAccountSelected (.blizzard.protocol.authentication.v1.GameAccountSelectedRequest) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnGameAccountSelected (.bgs.protocol.authentication.v1.GameAccountSelectedRequest) returns (.bgs.protocol.NO_RESPONSE) {
 		option deprecated = true;
 		option (method_options).id = 14;
 	}
@@ -166,32 +166,32 @@ service AuthenticationService {
 	option (service_options).descriptor_name = "bnet.protocol.authentication.AuthenticationServer";
 	option (service_options).shard_name = "authentication";
 	option (sdk_service_options).outbound = true;
-	rpc Logon (.blizzard.protocol.authentication.v1.LogonRequest) returns (.blizzard.protocol.NoData) {
+	rpc Logon (.bgs.protocol.authentication.v1.LogonRequest) returns (.bgs.protocol.NoData) {
 		option (method_options).id = 1;
 	}
-	rpc ModuleNotify (.blizzard.protocol.authentication.v1.ModuleNotification) returns (.blizzard.protocol.NoData) {
+	rpc ModuleNotify (.bgs.protocol.authentication.v1.ModuleNotification) returns (.bgs.protocol.NoData) {
 		option deprecated = true;
 		option (method_options).id = 2;
 	}
-	rpc ModuleMessage (.blizzard.protocol.authentication.v1.ModuleMessageRequest) returns (.blizzard.protocol.NoData) {
+	rpc ModuleMessage (.bgs.protocol.authentication.v1.ModuleMessageRequest) returns (.bgs.protocol.NoData) {
 		option deprecated = true;
 		option (method_options).id = 3;
 	}
-	rpc SelectGameAccount_DEPRECATED (.blizzard.protocol.EntityId) returns (.blizzard.protocol.NoData) {
+	rpc SelectGameAccount_DEPRECATED (.bgs.protocol.EntityId) returns (.bgs.protocol.NoData) {
 		option deprecated = true;
 		option (method_options).id = 4;
 	}
-	rpc GenerateSSOToken (.blizzard.protocol.authentication.v1.GenerateSSOTokenRequest) returns (.blizzard.protocol.authentication.v1.GenerateSSOTokenResponse) {
+	rpc GenerateSSOToken (.bgs.protocol.authentication.v1.GenerateSSOTokenRequest) returns (.bgs.protocol.authentication.v1.GenerateSSOTokenResponse) {
 		option (method_options).id = 5;
 	}
-	rpc SelectGameAccount (.blizzard.protocol.authentication.v1.SelectGameAccountRequest) returns (.blizzard.protocol.NoData) {
+	rpc SelectGameAccount (.bgs.protocol.authentication.v1.SelectGameAccountRequest) returns (.bgs.protocol.NoData) {
 		option deprecated = true;
 		option (method_options).id = 6;
 	}
-	rpc VerifyWebCredentials (.blizzard.protocol.authentication.v1.VerifyWebCredentialsRequest) returns (.blizzard.protocol.NoData) {
+	rpc VerifyWebCredentials (.bgs.protocol.authentication.v1.VerifyWebCredentialsRequest) returns (.bgs.protocol.NoData) {
 		option (method_options).id = 7;
 	}
-	rpc GenerateWebCredentials (.blizzard.protocol.authentication.v1.GenerateWebCredentialsRequest) returns (.blizzard.protocol.authentication.v1.GenerateWebCredentialsResponse) {
+	rpc GenerateWebCredentials (.bgs.protocol.authentication.v1.GenerateWebCredentialsRequest) returns (.bgs.protocol.authentication.v1.GenerateWebCredentialsResponse) {
 		option (method_options).id = 8;
 	}
 }

@@ -4,26 +4,26 @@ import "aurora/rpc_types.proto";
 import "aurora/event_view_types.proto";
 import "aurora/message_types.proto";
 
-package blizzard.protocol.whisper.v1;
+package bgs.protocol.whisper.v1;
 
 message Whisper {
-	optional .blizzard.protocol.account.v1.AccountId sender_id = 1;
-	optional .blizzard.protocol.account.v1.AccountId recipient_id = 2;
+	optional .bgs.protocol.account.v1.AccountId sender_id = 1;
+	optional .bgs.protocol.account.v1.AccountId recipient_id = 2;
 	optional string content = 3;
-	repeated .blizzard.protocol.EmbedInfo embed = 4;
+	repeated .bgs.protocol.EmbedInfo embed = 4;
 	optional uint64 creation_time = 6;
 	optional fixed32 program = 7;
-	optional .blizzard.protocol.MessageId message_id = 8;
+	optional .bgs.protocol.MessageId message_id = 8;
 }
 
 message WhisperView {
-	optional .blizzard.protocol.account.v1.AccountId sender_id = 1;
-	optional .blizzard.protocol.ViewMarker view_marker = 2;
+	optional .bgs.protocol.account.v1.AccountId sender_id = 1;
+	optional .bgs.protocol.ViewMarker view_marker = 2;
 	optional string sender_battle_tag = 3;
 }
 
 message SendOptions {
-	optional .blizzard.protocol.account.v1.AccountId target_id = 1;
+	optional .bgs.protocol.account.v1.AccountId target_id = 1;
 	optional string content = 2;
 }
 

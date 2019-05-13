@@ -1,13 +1,13 @@
 import "google/protobuf/descriptor.proto";
 
-package blizzard.protocol;
+package bgs.protocol;
 
 option java_package = "bnet.protocol";
 option java_outer_classname = "ServiceOptionsProto";
 
 extend .google.protobuf.ServiceOptions {
-	optional .blizzard.protocol.BGSServiceOptions service_options = 90000;
-	optional .blizzard.protocol.SDKServiceOptions sdk_service_options = 90001;
+	optional .bgs.protocol.BGSServiceOptions service_options = 90000;
+	optional .bgs.protocol.SDKServiceOptions sdk_service_options = 90001;
 }
 
 message BGSServiceOptions {

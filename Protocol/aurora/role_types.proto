@@ -1,4 +1,4 @@
-package blizzard.protocol;
+package bgs.protocol;
 
 message Role {
 	required uint32 id = 1;

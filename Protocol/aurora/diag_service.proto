@@ -1,6 +1,6 @@
 import "aurora/rpc_types.proto";
 
-package blizzard.protocol.diag.v1;
+package bgs.protocol.diag.v1;
 
 option cc_generic_services = false;
 
@@ -29,20 +29,20 @@ message Row {
 message QueryResponse {
 	required string name = 1;
 	repeated string columns = 2;
-	repeated .blizzard.protocol.diag.v1.Row rows = 3;
+	repeated .bgs.protocol.diag.v1.Row rows = 3;
 }
 
 service DiagService {
 	option (service_options).descriptor_name = "bnet.protocol.diag.DiagService";
 	option (service_options).shard_name = "diag";
 	option (sdk_service_options).inbound = true;
-	rpc GetVar (.blizzard.protocol.diag.v1.GetVarRequest) returns (.blizzard.protocol.diag.v1.GetVarResponse) {
+	rpc GetVar (.bgs.protocol.diag.v1.GetVarRequest) returns (.bgs.protocol.diag.v1.GetVarResponse) {
 		option (method_options).id = 1;
 	}
-	rpc SetVar (.blizzard.protocol.diag.v1.SetVarRequest) returns (.blizzard.protocol.NoData) {
+	rpc SetVar (.bgs.protocol.diag.v1.SetVarRequest) returns (.bgs.protocol.NoData) {
 		option (method_options).id = 2;
 	}
-	rpc Query (.blizzard.protocol.diag.v1.QueryRequest) returns (.blizzard.protocol.diag.v1.QueryResponse) {
+	rpc Query (.bgs.protocol.diag.v1.QueryRequest) returns (.bgs.protocol.diag.v1.QueryResponse) {
 		option (method_options).id = 3;
 	}
 }

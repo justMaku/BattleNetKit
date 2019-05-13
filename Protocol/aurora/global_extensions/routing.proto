@@ -1,4 +1,4 @@
-package blizzard.protocol;
+package bgs.protocol;
 
 enum ClientIdentityRoutingType {
 	CLIENT_IDENTITY_ROUTING_DISABLED = 0;

@@ -1,4 +1,4 @@
-package blizzard.protocol;
+package bgs.protocol;
 
 enum VoiceJoinType {
 	VOICE_JOIN_NORMAL = 0;
@@ -16,7 +16,7 @@ message VoiceCredentials {
 	optional string voice_id = 1;
 	optional string token = 2;
 	optional string url = 3;
-	optional .blizzard.protocol.VoiceJoinType join_type = 4 [default = VOICE_JOIN_NORMAL];
-	optional .blizzard.protocol.VoiceMuteReason mute_reason = 5 [default = VOICE_MUTE_REASON_NONE];
+	optional .bgs.protocol.VoiceJoinType join_type = 4 [default = VOICE_JOIN_NORMAL];
+	optional .bgs.protocol.VoiceMuteReason mute_reason = 5 [default = VOICE_MUTE_REASON_NONE];
 }
 

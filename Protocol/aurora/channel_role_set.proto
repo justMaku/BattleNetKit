@@ -1,6 +1,6 @@
 import "aurora/role_types.proto";
 
-package blizzard.protocol.channel;
+package bgs.protocol.channel;
 
 message ChannelPrivilegeSet {
 	optional bool can_invite = 1;
@@ -22,12 +22,12 @@ message ChannelPrivilegeSet {
 
 message ChannelRole {
 	optional uint32 id = 1;
-	optional .blizzard.protocol.RoleState state = 2;
-	optional .blizzard.protocol.channel.ChannelPrivilegeSet privilege = 3;
+	optional .bgs.protocol.RoleState state = 2;
+	optional .bgs.protocol.channel.ChannelPrivilegeSet privilege = 3;
 }
 
 message ChannelRoleSet {
-	repeated .blizzard.protocol.channel.ChannelRole role = 1;
+	repeated .bgs.protocol.channel.ChannelRole role = 1;
 	repeated uint32 default_role = 2 [packed = true];
 	optional string name = 3;
 }

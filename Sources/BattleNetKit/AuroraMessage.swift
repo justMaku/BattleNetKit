@@ -1,4 +1,7 @@
 import Foundation
+import SwiftProtobuf
+
+public typealias Message = SwiftProtobuf.Message
 
 struct AuroraEnvelope {
     enum Error: Swift.Error {
@@ -6,7 +9,7 @@ struct AuroraEnvelope {
         case unexpectedMessageType(type: Message.Type)
     }
 
-    let header: Header
+    let header: Bgs_Protocol_Header
     let message: Message?
 
     func encode() throws -> Data {

@@ -1,4 +1,4 @@
-package blizzard.protocol.channel.v2;
+package bgs.protocol.channel.v2;
 
 enum PrivacyLevel {
 	PRIVACY_LEVEL_OPEN = 1;

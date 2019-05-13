@@ -2,7 +2,7 @@ import "aurora/account_types.proto";
 import "aurora/rpc_types.proto";
 import "aurora/message_types.proto";
 
-package blizzard.protocol.report.v2;
+package bgs.protocol.report.v2;
 
 option cc_generic_services = false;
 
@@ -33,22 +33,22 @@ enum ClubSource {
 
 message ReportItem {
 	oneof type {
-		.blizzard.protocol.MessageId message_id = 1;
+		.bgs.protocol.MessageId message_id = 1;
 	}
 }
 
 message UserOptions {
-	optional .blizzard.protocol.account.v1.AccountId target_id = 1;
-	optional .blizzard.protocol.report.v2.IssueType type = 2 [default = ISSUE_TYPE_SPAM];
-	optional .blizzard.protocol.report.v2.UserSource source = 3 [default = USER_SOURCE_OTHER];
-	optional .blizzard.protocol.report.v2.ReportItem item = 4;
+	optional .bgs.protocol.account.v1.AccountId target_id = 1;
+	optional .bgs.protocol.report.v2.IssueType type = 2 [default = ISSUE_TYPE_SPAM];
+	optional .bgs.protocol.report.v2.UserSource source = 3 [default = USER_SOURCE_OTHER];
+	optional .bgs.protocol.report.v2.ReportItem item = 4;
 }
 
 message ClubOptions {
 	optional uint64 club_id = 1;
 	optional uint64 stream_id = 2;
-	optional .blizzard.protocol.report.v2.IssueType type = 3 [default = ISSUE_TYPE_SPAM];
-	optional .blizzard.protocol.report.v2.ClubSource source = 4 [default = CLUB_SOURCE_OTHER];
-	optional .blizzard.protocol.report.v2.ReportItem item = 5;
+	optional .bgs.protocol.report.v2.IssueType type = 3 [default = ISSUE_TYPE_SPAM];
+	optional .bgs.protocol.report.v2.ClubSource source = 4 [default = CLUB_SOURCE_OTHER];
+	optional .bgs.protocol.report.v2.ReportItem item = 5;
 }
 

@@ -2,67 +2,67 @@ import "aurora/api/client/v2/channel_types.proto";
 import "aurora/rpc_types.proto";
 import "aurora/invitation_types.proto";
 
-package blizzard.protocol.channel.v2.membership;
+package bgs.protocol.channel.v2.membership;
 
 option cc_generic_services = false;
 
 message SubscribeRequest {
-	optional .blizzard.protocol.account.v1.GameAccountHandle agent_id = 1;
+	optional .bgs.protocol.account.v1.GameAccountHandle agent_id = 1;
 }
 
 message SubscribeResponse {
-	optional .blizzard.protocol.channel.v2.ChannelMembershipState state = 1;
+	optional .bgs.protocol.channel.v2.ChannelMembershipState state = 1;
 }
 
 message UnsubscribeRequest {
-	optional .blizzard.protocol.account.v1.GameAccountHandle agent_id = 1;
+	optional .bgs.protocol.account.v1.GameAccountHandle agent_id = 1;
 }
 
 message GetStateRequest {
-	optional .blizzard.protocol.account.v1.GameAccountHandle agent_id = 1;
+	optional .bgs.protocol.account.v1.GameAccountHandle agent_id = 1;
 }
 
 message GetStateResponse {
-	optional .blizzard.protocol.channel.v2.ChannelMembershipState state = 1;
+	optional .bgs.protocol.channel.v2.ChannelMembershipState state = 1;
 }
 
 message ChannelAddedNotification {
-	optional .blizzard.protocol.account.v1.GameAccountHandle agent_id = 1;
-	optional .blizzard.protocol.account.v1.GameAccountHandle subscriber_id = 2;
-	optional .blizzard.protocol.channel.v2.ChannelDescription membership = 3;
+	optional .bgs.protocol.account.v1.GameAccountHandle agent_id = 1;
+	optional .bgs.protocol.account.v1.GameAccountHandle subscriber_id = 2;
+	optional .bgs.protocol.channel.v2.ChannelDescription membership = 3;
 }
 
 message ChannelRemovedNotification {
-	optional .blizzard.protocol.account.v1.GameAccountHandle agent_id = 1;
-	optional .blizzard.protocol.account.v1.GameAccountHandle subscriber_id = 2;
-	optional .blizzard.protocol.channel.v2.ChannelId channel_id = 4;
-	optional .blizzard.protocol.channel.v2.ChannelRemovedReason reason = 5 [default = CHANNEL_REMOVED_REASON_MEMBER_LEFT];
+	optional .bgs.protocol.account.v1.GameAccountHandle agent_id = 1;
+	optional .bgs.protocol.account.v1.GameAccountHandle subscriber_id = 2;
+	optional .bgs.protocol.channel.v2.ChannelId channel_id = 4;
+	optional .bgs.protocol.channel.v2.ChannelRemovedReason reason = 5 [default = CHANNEL_REMOVED_REASON_MEMBER_LEFT];
 }
 
 message ReceivedInvitationAddedNotification {
-	optional .blizzard.protocol.account.v1.GameAccountHandle agent_id = 1;
-	optional .blizzard.protocol.account.v1.GameAccountHandle subscriber_id = 2;
-	optional .blizzard.protocol.channel.v2.ChannelInvitation invitation = 3;
+	optional .bgs.protocol.account.v1.GameAccountHandle agent_id = 1;
+	optional .bgs.protocol.account.v1.GameAccountHandle subscriber_id = 2;
+	optional .bgs.protocol.channel.v2.ChannelInvitation invitation = 3;
 }
 
 message ReceivedInvitationRemovedNotification {
-	optional .blizzard.protocol.account.v1.GameAccountHandle agent_id = 1;
-	optional .blizzard.protocol.account.v1.GameAccountHandle subscriber_id = 2;
+	optional .bgs.protocol.account.v1.GameAccountHandle agent_id = 1;
+	optional .bgs.protocol.account.v1.GameAccountHandle subscriber_id = 2;
 	optional fixed64 invitation_id = 3;
-	optional .blizzard.protocol.InvitationRemovedReason reason = 4 [default = INVITATION_REMOVED_REASON_ACCEPTED];
+	optional .bgs.protocol.InvitationRemovedReason reason = 4 [default = INVITATION_REMOVED_REASON_ACCEPTED];
 }
 
 service ChannelMembershipService {
 	option (service_options).descriptor_name = "bnet.protocol.channel.v2.membership.ChannelMembershipService";
 	option (service_options).shard_name = "channel";
 	option (sdk_service_options).outbound = true;
-	rpc Subscribe (.blizzard.protocol.channel.v2.membership.SubscribeRequest) returns (.blizzard.protocol.channel.v2.membership.SubscribeResponse) {
+	rpc Subscribe (.bgs.protocol.channel.v2.membership.SubscribeRequest) returns (.bgs.protocol.channel.v2.membership.SubscribeResponse) {
 		option (method_options).id = 1;
 	}
-	rpc Unsubscribe (.blizzard.protocol.channel.v2.membership.UnsubscribeRequest) returns (.blizzard.protocol.NoData) {
+	rpc Unsubscribe (.bgs.protocol.channel.v2.membership.UnsubscribeRequest) returns (.bgs.protocol.NoData) {
 		option (method_options).id = 2;
 	}
-	rpc GetState (.blizzard.protocol.channel.v2.membership.GetStateRequest) returns (.blizzard.protocol.channel.v2.membership.GetStateResponse) {
+	rpc GetState (.bgs.protocol.channel.v2.membership.GetStateRequest) returns (.bgs.protocol.channel.v2.membership.GetStateResponse) {
 		option (method_options).id = 3;
 	}
 }
@@ -70,16 +70,16 @@ service ChannelMembershipService {
 service ChannelMembershipListener {
 	option (service_options).descriptor_name = "bnet.protocol.channel.v2.membership.ChannelMembershipListener";
 	option (sdk_service_options).inbound = true;
-	rpc OnChannelAdded (.blizzard.protocol.channel.v2.membership.ChannelAddedNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnChannelAdded (.bgs.protocol.channel.v2.membership.ChannelAddedNotification) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 1;
 	}
-	rpc OnChannelRemoved (.blizzard.protocol.channel.v2.membership.ChannelRemovedNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnChannelRemoved (.bgs.protocol.channel.v2.membership.ChannelRemovedNotification) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 2;
 	}
-	rpc OnReceivedInvitationAdded (.blizzard.protocol.channel.v2.membership.ReceivedInvitationAddedNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnReceivedInvitationAdded (.bgs.protocol.channel.v2.membership.ReceivedInvitationAddedNotification) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 3;
 	}
-	rpc OnReceivedInvitationRemoved (.blizzard.protocol.channel.v2.membership.ReceivedInvitationRemovedNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnReceivedInvitationRemoved (.bgs.protocol.channel.v2.membership.ReceivedInvitationRemovedNotification) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 4;
 	}
 }

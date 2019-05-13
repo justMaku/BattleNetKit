@@ -1,14 +1,14 @@
 import "google/protobuf/descriptor.proto";
 import "aurora/global_extensions/range.proto";
 
-package blizzard.protocol;
+package bgs.protocol;
 
 option java_package = "bnet.protocol";
 option java_outer_classname = "FieldOptionsProto";
 
 extend .google.protobuf.FieldOptions {
-	optional .blizzard.protocol.BGSFieldOptions field_options = 90000;
-	optional .blizzard.protocol.FieldRestriction valid = 90001;
+	optional .bgs.protocol.BGSFieldOptions field_options = 90000;
+	optional .bgs.protocol.FieldRestriction valid = 90001;
 }
 
 enum LogOption {
@@ -17,7 +17,7 @@ enum LogOption {
 }
 
 message BGSFieldOptions {
-	optional .blizzard.protocol.LogOption log = 1 [default = HIDDEN];
+	optional .bgs.protocol.LogOption log = 1 [default = HIDDEN];
 	optional bool shard_key = 2;
 	optional bool fanout_key = 3;
 	optional bool client_instance_key = 4;
@@ -25,45 +25,45 @@ message BGSFieldOptions {
 
 message FieldRestriction {
 	oneof type {
-		.blizzard.protocol.SignedFieldRestriction signed = 1;
-		.blizzard.protocol.UnsignedFieldRestriction unsigned = 2;
-		.blizzard.protocol.FloatFieldRestriction float = 3;
-		.blizzard.protocol.StringFieldRestriction string = 4;
-		.blizzard.protocol.RepeatedFieldRestriction repeated = 5;
-		.blizzard.protocol.MessageFieldRestriction message = 6;
-		.blizzard.protocol.EntityIdRestriction entity_id = 7;
+		.bgs.protocol.SignedFieldRestriction signed = 1;
+		.bgs.protocol.UnsignedFieldRestriction unsigned = 2;
+		.bgs.protocol.FloatFieldRestriction float = 3;
+		.bgs.protocol.StringFieldRestriction string = 4;
+		.bgs.protocol.RepeatedFieldRestriction repeated = 5;
+		.bgs.protocol.MessageFieldRestriction message = 6;
+		.bgs.protocol.EntityIdRestriction entity_id = 7;
 	}
 }
 
 message RepeatedFieldRestriction {
-	optional .blizzard.protocol.UnsignedIntRange size = 1;
+	optional .bgs.protocol.UnsignedIntRange size = 1;
 	optional bool unique = 2;
 	oneof type {
-		.blizzard.protocol.SignedFieldRestriction signed = 3;
-		.blizzard.protocol.UnsignedFieldRestriction unsigned = 4;
-		.blizzard.protocol.FloatFieldRestriction float = 5;
-		.blizzard.protocol.StringFieldRestriction string = 6;
-		.blizzard.protocol.EntityIdRestriction entity_id = 7;
+		.bgs.protocol.SignedFieldRestriction signed = 3;
+		.bgs.protocol.UnsignedFieldRestriction unsigned = 4;
+		.bgs.protocol.FloatFieldRestriction float = 5;
+		.bgs.protocol.StringFieldRestriction string = 6;
+		.bgs.protocol.EntityIdRestriction entity_id = 7;
 	}
 }
 
 message SignedFieldRestriction {
-	optional .blizzard.protocol.SignedIntRange limits = 1;
+	optional .bgs.protocol.SignedIntRange limits = 1;
 	repeated sint64 exclude = 2;
 }
 
 message UnsignedFieldRestriction {
-	optional .blizzard.protocol.UnsignedIntRange limits = 1;
+	optional .bgs.protocol.UnsignedIntRange limits = 1;
 	repeated uint64 exclude = 2;
 }
 
 message FloatFieldRestriction {
-	optional .blizzard.protocol.FloatRange limits = 1;
+	optional .bgs.protocol.FloatRange limits = 1;
 	repeated float exclude = 2;
 }
 
 message StringFieldRestriction {
-	optional .blizzard.protocol.UnsignedIntRange size = 1;
+	optional .bgs.protocol.UnsignedIntRange size = 1;
 	repeated string exclude = 2;
 }
 
@@ -78,7 +78,7 @@ message EntityIdRestriction {
 	}
 
 	optional bool needed = 1;
-	optional .blizzard.protocol.EntityIdRestriction.Kind kind = 2 [default = ANY];
+	optional .bgs.protocol.EntityIdRestriction.Kind kind = 2 [default = ANY];
 }
 
 message MessageFieldRestriction {

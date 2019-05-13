@@ -1,6 +1,6 @@
 import "aurora/rpc_types.proto";
 
-package blizzard.protocol.challenge.v1;
+package bgs.protocol.challenge.v1;
 
 option cc_generic_services = false;
 
@@ -18,10 +18,10 @@ message ChallengeExternalResult {
 service ChallengeListener {
 	option (service_options).descriptor_name = "bnet.protocol.challenge.ChallengeNotify";
 	option (sdk_service_options).inbound = true;
-	rpc OnExternalChallenge (.blizzard.protocol.challenge.v1.ChallengeExternalRequest) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnExternalChallenge (.bgs.protocol.challenge.v1.ChallengeExternalRequest) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 3;
 	}
-	rpc OnExternalChallengeResult (.blizzard.protocol.challenge.v1.ChallengeExternalResult) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnExternalChallengeResult (.bgs.protocol.challenge.v1.ChallengeExternalResult) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 4;
 	}
 }

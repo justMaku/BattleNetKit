@@ -1,4 +1,4 @@
-package blizzard.protocol.profanity.v1;
+package bgs.protocol.profanity.v1;
 
 message WordFilter {
 	required string type = 1;
@@ -6,6 +6,6 @@ message WordFilter {
 }
 
 message WordFilters {
-	repeated .blizzard.protocol.profanity.v1.WordFilter filters = 1;
+	repeated .bgs.protocol.profanity.v1.WordFilter filters = 1;
 }
 

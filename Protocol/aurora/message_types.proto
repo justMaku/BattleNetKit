@@ -1,4 +1,4 @@
-package blizzard.protocol;
+package bgs.protocol;
 
 enum TypingIndicator {
 	TYPING_START = 0;

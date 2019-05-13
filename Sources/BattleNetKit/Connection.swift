@@ -10,6 +10,12 @@ internal final class AuroraConnectionHandler: ChannelInboundHandler {
 
     public func channelActive(context: ChannelHandlerContext) {
         print("Client connected to \(context.remoteAddress!)")
+
+        let line = "PAPIEZ!"
+        var buffer = context.channel.allocator.buffer(capacity: line.utf8.count)
+        buffer.writeString(line)
+        self.numBytes = buffer.readableBytes
+        context.writeAndFlush(self.wrapOutboundOut(buffer), promise: nil)
     }
 
     public func channelRead(context: ChannelHandlerContext, data: NIOAny) {

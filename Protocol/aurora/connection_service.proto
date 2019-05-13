@@ -1,7 +1,7 @@
 import "aurora/content_handle_types.proto";
 import "aurora/rpc_types.proto";
 
-package blizzard.protocol.connection.v1;
+package bgs.protocol.connection.v1;
 
 option cc_generic_services = false;
 option java_package = "bnet.protocol.connection.v1";
@@ -9,24 +9,24 @@ option java_outer_classname = "ConnectionServiceProto";
 option java_generic_services = true;
 
 message ConnectRequest {
-	optional .blizzard.protocol.ProcessId client_id = 1;
-	optional .blizzard.protocol.connection.v1.BindRequest bind_request = 2;
+	optional .bgs.protocol.ProcessId client_id = 1;
+	optional .bgs.protocol.connection.v1.BindRequest bind_request = 2;
 	optional bool use_bindless_rpc = 3 [default = true];
 }
 
 message ConnectionMeteringContentHandles {
-	repeated .blizzard.protocol.ContentHandle content_handle = 1;
+	repeated .bgs.protocol.ContentHandle content_handle = 1;
 }
 
 message ConnectResponse {
-	required .blizzard.protocol.ProcessId server_id = 1;
-	optional .blizzard.protocol.ProcessId client_id = 2;
+	required .bgs.protocol.ProcessId server_id = 1;
+	optional .bgs.protocol.ProcessId client_id = 2;
 	optional uint32 bind_result = 3;
-	optional .blizzard.protocol.connection.v1.BindResponse bind_response = 4;
-	optional .blizzard.protocol.connection.v1.ConnectionMeteringContentHandles content_handle_array = 5;
+	optional .bgs.protocol.connection.v1.BindResponse bind_response = 4;
+	optional .bgs.protocol.connection.v1.ConnectionMeteringContentHandles content_handle_array = 5;
 	optional uint64 server_time = 6;
 	optional bool use_bindless_rpc = 7 [default = false];
-	optional .blizzard.protocol.connection.v1.ConnectionMeteringContentHandles binary_content_handle_array = 8;
+	optional .bgs.protocol.connection.v1.ConnectionMeteringContentHandles binary_content_handle_array = 8;
 }
 
 message BoundService {
@@ -36,9 +36,9 @@ message BoundService {
 
 message BindRequest {
 	repeated fixed32 deprecated_imported_service_hash = 1 [deprecated = true, packed = true];
-	repeated .blizzard.protocol.connection.v1.BoundService deprecated_exported_service = 2 [deprecated = true];
-	repeated .blizzard.protocol.connection.v1.BoundService exported_service = 3;
-	repeated .blizzard.protocol.connection.v1.BoundService imported_service = 4;
+	repeated .bgs.protocol.connection.v1.BoundService deprecated_exported_service = 2 [deprecated = true];
+	repeated .bgs.protocol.connection.v1.BoundService exported_service = 3;
+	repeated .bgs.protocol.connection.v1.BoundService imported_service = 4;
 }
 
 message BindResponse {
@@ -49,7 +49,7 @@ message EchoRequest {
 	optional fixed64 time = 1;
 	optional bool network_only = 2 [default = false];
 	optional bytes payload = 3;
-	optional .blizzard.protocol.ProcessId forward = 4;
+	optional .bgs.protocol.ProcessId forward = 4;
 	optional string forward_client_id = 5;
 }
 
@@ -75,27 +75,27 @@ service ConnectionService {
 	option (service_options).shard_name = "connection";
 	option (sdk_service_options).inbound = true;
 	option (sdk_service_options).outbound = true;
-	rpc Connect (.blizzard.protocol.connection.v1.ConnectRequest) returns (.blizzard.protocol.connection.v1.ConnectResponse) {
+	rpc Connect (.bgs.protocol.connection.v1.ConnectRequest) returns (.bgs.protocol.connection.v1.ConnectResponse) {
 		option (method_options).id = 1;
 	}
-	rpc Bind (.blizzard.protocol.connection.v1.BindRequest) returns (.blizzard.protocol.connection.v1.BindResponse) {
+	rpc Bind (.bgs.protocol.connection.v1.BindRequest) returns (.bgs.protocol.connection.v1.BindResponse) {
 		option deprecated = true;
 		option (method_options).id = 2;
 	}
-	rpc Echo (.blizzard.protocol.connection.v1.EchoRequest) returns (.blizzard.protocol.connection.v1.EchoResponse) {
+	rpc Echo (.bgs.protocol.connection.v1.EchoRequest) returns (.bgs.protocol.connection.v1.EchoResponse) {
 		option (method_options).id = 3;
 	}
-	rpc ForceDisconnect (.blizzard.protocol.connection.v1.DisconnectNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc ForceDisconnect (.bgs.protocol.connection.v1.DisconnectNotification) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 4;
 	}
-	rpc KeepAlive (.blizzard.protocol.NoData) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc KeepAlive (.bgs.protocol.NoData) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 5;
 	}
-	rpc Encrypt (.blizzard.protocol.connection.v1.EncryptRequest) returns (.blizzard.protocol.NoData) {
+	rpc Encrypt (.bgs.protocol.connection.v1.EncryptRequest) returns (.bgs.protocol.NoData) {
 		option deprecated = true;
 		option (method_options).id = 6;
 	}
-	rpc RequestDisconnect (.blizzard.protocol.connection.v1.DisconnectRequest) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc RequestDisconnect (.bgs.protocol.connection.v1.DisconnectRequest) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 7;
 	}
 }

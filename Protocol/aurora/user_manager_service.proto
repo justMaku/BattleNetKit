@@ -2,67 +2,67 @@ import "aurora/user_manager_types.proto";
 import "aurora/entity_types.proto";
 import "aurora/rpc_types.proto";
 
-package blizzard.protocol.user_manager.v1;
+package bgs.protocol.user_manager.v1;
 
 option cc_generic_services = false;
 
 message SubscribeRequest {
-	optional .blizzard.protocol.EntityId agent_id = 1 [(field_options).client_instance_key = true];
+	optional .bgs.protocol.EntityId agent_id = 1 [(field_options).client_instance_key = true];
 	required uint64 object_id = 2;
 }
 
 message SubscribeResponse {
-	repeated .blizzard.protocol.user_manager.v1.BlockedPlayer blocked_players = 1;
-	repeated .blizzard.protocol.user_manager.v1.RecentPlayer recent_players = 2;
+	repeated .bgs.protocol.user_manager.v1.BlockedPlayer blocked_players = 1;
+	repeated .bgs.protocol.user_manager.v1.RecentPlayer recent_players = 2;
 }
 
 message UnsubscribeRequest {
-	optional .blizzard.protocol.EntityId agent_id = 1 [(field_options).client_instance_key = true];
+	optional .bgs.protocol.EntityId agent_id = 1 [(field_options).client_instance_key = true];
 	optional uint64 object_id = 2;
 }
 
 message AddRecentPlayersRequest {
 	option (message_options).custom_validator = true;
-	repeated .blizzard.protocol.user_manager.v1.RecentPlayer players = 1;
-	optional .blizzard.protocol.EntityId agent_id = 2 [(field_options).client_instance_key = true];
+	repeated .bgs.protocol.user_manager.v1.RecentPlayer players = 1;
+	optional .bgs.protocol.EntityId agent_id = 2 [(field_options).client_instance_key = true];
 	optional uint32 program = 3;
 }
 
 message ClearRecentPlayersRequest {
-	optional .blizzard.protocol.EntityId agent_id = 1 [(field_options).client_instance_key = true];
+	optional .bgs.protocol.EntityId agent_id = 1 [(field_options).client_instance_key = true];
 	optional uint32 program = 2;
 }
 
 message BlockPlayerRequest {
 	option (message_options).custom_validator = true;
-	optional .blizzard.protocol.EntityId agent_id = 1 [(field_options).client_instance_key = true];
-	required .blizzard.protocol.EntityId target_id = 2;
+	optional .bgs.protocol.EntityId agent_id = 1 [(field_options).client_instance_key = true];
+	required .bgs.protocol.EntityId target_id = 2;
 }
 
 message UnblockPlayerRequest {
 	option (message_options).custom_validator = true;
-	optional .blizzard.protocol.EntityId agent_id = 1 [(field_options).client_instance_key = true];
-	required .blizzard.protocol.EntityId target_id = 2;
+	optional .bgs.protocol.EntityId agent_id = 1 [(field_options).client_instance_key = true];
+	required .bgs.protocol.EntityId target_id = 2;
 }
 
 message BlockedPlayerAddedNotification {
-	required .blizzard.protocol.user_manager.v1.BlockedPlayer player = 1;
-	optional .blizzard.protocol.EntityId game_account_id = 2;
-	optional .blizzard.protocol.EntityId account_id = 3;
+	required .bgs.protocol.user_manager.v1.BlockedPlayer player = 1;
+	optional .bgs.protocol.EntityId game_account_id = 2;
+	optional .bgs.protocol.EntityId account_id = 3;
 }
 
 message BlockedPlayerRemovedNotification {
-	required .blizzard.protocol.user_manager.v1.BlockedPlayer player = 1;
-	optional .blizzard.protocol.EntityId game_account_id = 2;
-	optional .blizzard.protocol.EntityId account_id = 3;
+	required .bgs.protocol.user_manager.v1.BlockedPlayer player = 1;
+	optional .bgs.protocol.EntityId game_account_id = 2;
+	optional .bgs.protocol.EntityId account_id = 3;
 }
 
 message RecentPlayersAddedNotification {
-	repeated .blizzard.protocol.user_manager.v1.RecentPlayer player = 1;
+	repeated .bgs.protocol.user_manager.v1.RecentPlayer player = 1;
 }
 
 message RecentPlayersRemovedNotification {
-	repeated .blizzard.protocol.user_manager.v1.RecentPlayer player = 1;
+	repeated .bgs.protocol.user_manager.v1.RecentPlayer player = 1;
 }
 
 service UserManagerService {
@@ -70,25 +70,25 @@ service UserManagerService {
 	option (service_options).shard_name = "user_manager";
 	option (service_options).resolve_client_instance = true;
 	option (sdk_service_options).outbound = true;
-	rpc Subscribe (.blizzard.protocol.user_manager.v1.SubscribeRequest) returns (.blizzard.protocol.user_manager.v1.SubscribeResponse) {
+	rpc Subscribe (.bgs.protocol.user_manager.v1.SubscribeRequest) returns (.bgs.protocol.user_manager.v1.SubscribeResponse) {
 		option (method_options).id = 1;
 	}
-	rpc AddRecentPlayers (.blizzard.protocol.user_manager.v1.AddRecentPlayersRequest) returns (.blizzard.protocol.NoData) {
+	rpc AddRecentPlayers (.bgs.protocol.user_manager.v1.AddRecentPlayersRequest) returns (.bgs.protocol.NoData) {
 		option (method_options).id = 10;
 	}
-	rpc ClearRecentPlayers (.blizzard.protocol.user_manager.v1.ClearRecentPlayersRequest) returns (.blizzard.protocol.NoData) {
+	rpc ClearRecentPlayers (.bgs.protocol.user_manager.v1.ClearRecentPlayersRequest) returns (.bgs.protocol.NoData) {
 		option (method_options).id = 11;
 	}
-	rpc BlockPlayer (.blizzard.protocol.user_manager.v1.BlockPlayerRequest) returns (.blizzard.protocol.NoData) {
+	rpc BlockPlayer (.bgs.protocol.user_manager.v1.BlockPlayerRequest) returns (.bgs.protocol.NoData) {
 		option (method_options).id = 20;
 	}
-	rpc UnblockPlayer (.blizzard.protocol.user_manager.v1.UnblockPlayerRequest) returns (.blizzard.protocol.NoData) {
+	rpc UnblockPlayer (.bgs.protocol.user_manager.v1.UnblockPlayerRequest) returns (.bgs.protocol.NoData) {
 		option (method_options).id = 21;
 	}
-	rpc BlockPlayerForSession (.blizzard.protocol.user_manager.v1.BlockPlayerRequest) returns (.blizzard.protocol.NoData) {
+	rpc BlockPlayerForSession (.bgs.protocol.user_manager.v1.BlockPlayerRequest) returns (.bgs.protocol.NoData) {
 		option (method_options).id = 40;
 	}
-	rpc Unsubscribe (.blizzard.protocol.user_manager.v1.UnsubscribeRequest) returns (.blizzard.protocol.NoData) {
+	rpc Unsubscribe (.bgs.protocol.user_manager.v1.UnsubscribeRequest) returns (.bgs.protocol.NoData) {
 		option (method_options).id = 51;
 	}
 }
@@ -96,16 +96,16 @@ service UserManagerService {
 service UserManagerListener {
 	option (service_options).descriptor_name = "bnet.protocol.user_manager.UserManagerNotify";
 	option (sdk_service_options).inbound = true;
-	rpc OnBlockedPlayerAdded (.blizzard.protocol.user_manager.v1.BlockedPlayerAddedNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnBlockedPlayerAdded (.bgs.protocol.user_manager.v1.BlockedPlayerAddedNotification) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 1;
 	}
-	rpc OnBlockedPlayerRemoved (.blizzard.protocol.user_manager.v1.BlockedPlayerRemovedNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnBlockedPlayerRemoved (.bgs.protocol.user_manager.v1.BlockedPlayerRemovedNotification) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 2;
 	}
-	rpc OnRecentPlayersAdded (.blizzard.protocol.user_manager.v1.RecentPlayersAddedNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnRecentPlayersAdded (.bgs.protocol.user_manager.v1.RecentPlayersAddedNotification) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 11;
 	}
-	rpc OnRecentPlayersRemoved (.blizzard.protocol.user_manager.v1.RecentPlayersRemovedNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnRecentPlayersRemoved (.bgs.protocol.user_manager.v1.RecentPlayersRemovedNotification) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 12;
 	}
 }

@@ -1,11 +1,11 @@
 import "aurora/global_extensions/message_options.proto";
 import "aurora/account_types.proto";
 
-package blizzard.protocol.club.v1;
+package bgs.protocol.club.v1;
 
 message MemberId {
 	option (message_options).custom_select_shard = true;
-	optional .blizzard.protocol.account.v1.AccountId account_id = 1;
+	optional .bgs.protocol.account.v1.AccountId account_id = 1;
 	optional uint64 unique_id = 2;
 }
 

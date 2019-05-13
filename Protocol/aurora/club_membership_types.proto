@@ -4,31 +4,31 @@ import "aurora/club_invitation.proto";
 import "aurora/event_view_types.proto";
 import "aurora/rpc_types.proto";
 
-package blizzard.protocol.club.v1;
+package bgs.protocol.club.v1;
 
 message ClubMembershipFilter {
-	optional .blizzard.protocol.club.v1.MemberId member_id = 1;
-	optional .blizzard.protocol.club.v1.UniqueClubType type = 2;
+	optional .bgs.protocol.club.v1.MemberId member_id = 1;
+	optional .bgs.protocol.club.v1.UniqueClubType type = 2;
 }
 
 message ClubMembershipSubscribeOptions {
-	repeated .blizzard.protocol.club.v1.ClubMembershipFilter filter = 1 [(valid).repeated.size.min = 0, (valid).repeated.size.max = 25];
+	repeated .bgs.protocol.club.v1.ClubMembershipFilter filter = 1 [(valid).repeated.size.min = 0, (valid).repeated.size.max = 25];
 }
 
 message ClubMembershipGetStateOptions {
-	repeated .blizzard.protocol.club.v1.ClubMembershipFilter filter = 1 [(valid).repeated.size.min = 0, (valid).repeated.size.max = 25];
+	repeated .bgs.protocol.club.v1.ClubMembershipFilter filter = 1 [(valid).repeated.size.min = 0, (valid).repeated.size.max = 25];
 }
 
 message ClubMembershipDescription {
-	optional .blizzard.protocol.club.v1.MemberId member_id = 1;
-	optional .blizzard.protocol.club.v1.ClubDescription club = 2;
+	optional .bgs.protocol.club.v1.MemberId member_id = 1;
+	optional .bgs.protocol.club.v1.ClubDescription club = 2;
 }
 
 message ClubMembershipState {
-	repeated .blizzard.protocol.club.v1.ClubMembershipDescription description = 1;
-	repeated .blizzard.protocol.club.v1.ClubInvitation invitation = 2;
-	optional .blizzard.protocol.club.v1.ClubSharedSettings setting = 3;
-	optional .blizzard.protocol.ViewMarker mention_view = 4;
+	repeated .bgs.protocol.club.v1.ClubMembershipDescription description = 1;
+	repeated .bgs.protocol.club.v1.ClubInvitation invitation = 2;
+	optional .bgs.protocol.club.v1.ClubSharedSettings setting = 3;
+	optional .bgs.protocol.ViewMarker mention_view = 4;
 }
 
 message ClubPosition {
@@ -36,14 +36,14 @@ message ClubPosition {
 }
 
 message ClubSharedSettings {
-	optional .blizzard.protocol.club.v1.ClubPosition club_position = 1;
+	optional .bgs.protocol.club.v1.ClubPosition club_position = 1;
 }
 
 message ClubSharedSettingsOptions {
-	optional .blizzard.protocol.club.v1.ClubPosition club_position = 1;
+	optional .bgs.protocol.club.v1.ClubPosition club_position = 1;
 }
 
 message ClubSharedSettingsAssignment {
-	optional .blizzard.protocol.club.v1.ClubPosition club_position = 1;
+	optional .bgs.protocol.club.v1.ClubPosition club_position = 1;
 }
 

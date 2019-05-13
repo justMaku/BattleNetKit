@@ -2,19 +2,19 @@ import "aurora/account_types.proto";
 import "aurora/rpc_types.proto";
 import "aurora/session_types.proto";
 
-package blizzard.protocol.session.v1;
+package bgs.protocol.session.v1;
 
 option cc_generic_services = false;
 
 message CreateSessionRequest {
-	optional .blizzard.protocol.account.v1.Identity identity = 1;
+	optional .bgs.protocol.account.v1.Identity identity = 1;
 	optional fixed32 platform = 2;
 	optional fixed32 locale = 3;
 	optional string client_address = 4;
 	optional int32 application_version = 5;
 	optional string user_agent = 6;
 	optional bytes session_key = 7;
-	optional .blizzard.protocol.session.v1.SessionOptions options = 8;
+	optional .bgs.protocol.session.v1.SessionOptions options = 8;
 	optional bool requires_mark_alive = 9 [default = false];
 	optional string mac_address = 10;
 }
@@ -24,12 +24,12 @@ message CreateSessionResponse {
 }
 
 message UpdateSessionRequest {
-	optional .blizzard.protocol.account.v1.Identity identity = 1;
-	optional .blizzard.protocol.session.v1.SessionOptions options = 2;
+	optional .bgs.protocol.account.v1.Identity identity = 1;
+	optional .bgs.protocol.session.v1.SessionOptions options = 2;
 }
 
 message DestroySessionRequest {
-	optional .blizzard.protocol.account.v1.Identity identity = 1;
+	optional .bgs.protocol.account.v1.Identity identity = 1;
 	optional string session_id = 2;
 }
 
@@ -42,35 +42,35 @@ message GetSessionCapacityResponse {
 }
 
 message GetSessionStateByBenefactorRequest {
-	optional .blizzard.protocol.account.v1.GameAccountHandle benefactor_handle = 1;
+	optional .bgs.protocol.account.v1.GameAccountHandle benefactor_handle = 1;
 	optional bool include_billing_disabled = 2 [default = false];
 }
 
 message GetSessionStateByBenefactorResponse {
-	optional .blizzard.protocol.account.v1.GameAccountHandle benefactor_handle = 1 [deprecated = true];
-	repeated .blizzard.protocol.session.v1.SessionState session = 2;
+	optional .bgs.protocol.account.v1.GameAccountHandle benefactor_handle = 1 [deprecated = true];
+	repeated .bgs.protocol.session.v1.SessionState session = 2;
 }
 
 message MarkSessionsAliveRequest {
-	repeated .blizzard.protocol.session.v1.SessionIdentifier session = 1;
+	repeated .bgs.protocol.session.v1.SessionIdentifier session = 1;
 }
 
 message MarkSessionsAliveResponse {
-	repeated .blizzard.protocol.session.v1.SessionIdentifier failed_session = 1;
+	repeated .bgs.protocol.session.v1.SessionIdentifier failed_session = 1;
 }
 
 message GetSessionStateRequest {
-	optional .blizzard.protocol.account.v1.GameAccountHandle handle = 1;
+	optional .bgs.protocol.account.v1.GameAccountHandle handle = 1;
 	optional bool include_billing_disabled = 2 [default = false];
 }
 
 message GetSessionStateResponse {
-	optional .blizzard.protocol.account.v1.GameAccountHandle handle = 1 [deprecated = true];
-	optional .blizzard.protocol.session.v1.SessionState session = 2;
+	optional .bgs.protocol.account.v1.GameAccountHandle handle = 1 [deprecated = true];
+	optional .bgs.protocol.session.v1.SessionState session = 2;
 }
 
 message GetSignedSessionStateRequest {
-	optional .blizzard.protocol.account.v1.GameAccountHandle agent_id = 1;
+	optional .bgs.protocol.account.v1.GameAccountHandle agent_id = 1;
 }
 
 message GetSignedSessionStateResponse {
@@ -86,7 +86,7 @@ message RefreshSessionKeyResponse {
 }
 
 message SessionCreatedNotification {
-	optional .blizzard.protocol.account.v1.Identity identity = 1;
+	optional .bgs.protocol.account.v1.Identity identity = 1;
 	optional uint32 reason = 2;
 	optional string session_id = 3;
 	optional bytes session_key = 4;
@@ -94,13 +94,13 @@ message SessionCreatedNotification {
 }
 
 message SessionDestroyedNotification {
-	optional .blizzard.protocol.account.v1.Identity identity = 1;
+	optional .bgs.protocol.account.v1.Identity identity = 1;
 	optional uint32 reason = 2;
 	optional string session_id = 3;
 }
 
 message SessionUpdatedNotification {
-	optional .blizzard.protocol.account.v1.Identity identity = 1;
+	optional .bgs.protocol.account.v1.Identity identity = 1;
 	optional uint32 reason = 2;
 	optional string session_id = 3;
 }
@@ -108,13 +108,13 @@ message SessionUpdatedNotification {
 service SessionListener {
 	option (service_options).descriptor_name = "bnet.protocol.session.SessionListener";
 	option (sdk_service_options).inbound = true;
-	rpc OnSessionCreated (.blizzard.protocol.session.v1.SessionCreatedNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnSessionCreated (.bgs.protocol.session.v1.SessionCreatedNotification) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 1;
 	}
-	rpc OnSessionDestroyed (.blizzard.protocol.session.v1.SessionDestroyedNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnSessionDestroyed (.bgs.protocol.session.v1.SessionDestroyedNotification) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 2;
 	}
-	rpc OnSessionUpdated (.blizzard.protocol.session.v1.SessionUpdatedNotification) returns (.blizzard.protocol.NO_RESPONSE) {
+	rpc OnSessionUpdated (.bgs.protocol.session.v1.SessionUpdatedNotification) returns (.bgs.protocol.NO_RESPONSE) {
 		option (method_options).id = 3;
 	}
 }
@@ -123,31 +123,31 @@ service SessionService {
 	option (service_options).descriptor_name = "bnet.protocol.session.SessionService";
 	option (service_options).shard_name = "session";
 	option (sdk_service_options).outbound = true;
-	rpc CreateSession (.blizzard.protocol.session.v1.CreateSessionRequest) returns (.blizzard.protocol.session.v1.CreateSessionResponse) {
+	rpc CreateSession (.bgs.protocol.session.v1.CreateSessionRequest) returns (.bgs.protocol.session.v1.CreateSessionResponse) {
 		option (method_options).id = 1;
 	}
-	rpc DestroySession (.blizzard.protocol.session.v1.DestroySessionRequest) returns (.blizzard.protocol.NoData) {
+	rpc DestroySession (.bgs.protocol.session.v1.DestroySessionRequest) returns (.bgs.protocol.NoData) {
 		option (method_options).id = 2;
 	}
-	rpc UpdateSession (.blizzard.protocol.session.v1.UpdateSessionRequest) returns (.blizzard.protocol.NoData) {
+	rpc UpdateSession (.bgs.protocol.session.v1.UpdateSessionRequest) returns (.bgs.protocol.NoData) {
 		option (method_options).id = 5;
 	}
-	rpc GetSessionCapacity (.blizzard.protocol.session.v1.GetSessionCapacityRequest) returns (.blizzard.protocol.session.v1.GetSessionCapacityResponse) {
+	rpc GetSessionCapacity (.bgs.protocol.session.v1.GetSessionCapacityRequest) returns (.bgs.protocol.session.v1.GetSessionCapacityResponse) {
 		option (method_options).id = 6;
 	}
-	rpc GetSessionStateByBenefactor (.blizzard.protocol.session.v1.GetSessionStateByBenefactorRequest) returns (.blizzard.protocol.session.v1.GetSessionStateByBenefactorResponse) {
+	rpc GetSessionStateByBenefactor (.bgs.protocol.session.v1.GetSessionStateByBenefactorRequest) returns (.bgs.protocol.session.v1.GetSessionStateByBenefactorResponse) {
 		option (method_options).id = 7;
 	}
-	rpc MarkSessionsAlive (.blizzard.protocol.session.v1.MarkSessionsAliveRequest) returns (.blizzard.protocol.session.v1.MarkSessionsAliveResponse) {
+	rpc MarkSessionsAlive (.bgs.protocol.session.v1.MarkSessionsAliveRequest) returns (.bgs.protocol.session.v1.MarkSessionsAliveResponse) {
 		option (method_options).id = 8;
 	}
-	rpc GetSessionState (.blizzard.protocol.session.v1.GetSessionStateRequest) returns (.blizzard.protocol.session.v1.GetSessionStateResponse) {
+	rpc GetSessionState (.bgs.protocol.session.v1.GetSessionStateRequest) returns (.bgs.protocol.session.v1.GetSessionStateResponse) {
 		option (method_options).id = 9;
 	}
-	rpc GetSignedSessionState (.blizzard.protocol.session.v1.GetSignedSessionStateRequest) returns (.blizzard.protocol.session.v1.GetSignedSessionStateResponse) {
+	rpc GetSignedSessionState (.bgs.protocol.session.v1.GetSignedSessionStateRequest) returns (.bgs.protocol.session.v1.GetSignedSessionStateResponse) {
 		option (method_options).id = 10;
 	}
-	rpc RefreshSessionKey (.blizzard.protocol.session.v1.RefreshSessionKeyRequest) returns (.blizzard.protocol.session.v1.RefreshSessionKeyResponse) {
+	rpc RefreshSessionKey (.bgs.protocol.session.v1.RefreshSessionKeyRequest) returns (.bgs.protocol.session.v1.RefreshSessionKeyResponse) {
 		option (method_options).id = 11;
 	}
 }

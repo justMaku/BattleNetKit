@@ -1,4 +1,4 @@
-package blizzard.protocol;
+package bgs.protocol;
 
 message EmbedImage {
 	optional string url = 1;
@@ -24,10 +24,10 @@ message EmbedInfo {
 	optional string title = 1;
 	optional string type = 2;
 	optional string original_url = 3;
-	optional .blizzard.protocol.EmbedImage thumbnail = 4;
-	optional .blizzard.protocol.Provider provider = 5;
+	optional .bgs.protocol.EmbedImage thumbnail = 4;
+	optional .bgs.protocol.Provider provider = 5;
 	optional string description = 6;
-	optional .blizzard.protocol.Favicon favicon = 7;
-	optional .blizzard.protocol.EmbedHTML html = 8;
+	optional .bgs.protocol.Favicon favicon = 7;
+	optional .bgs.protocol.EmbedHTML html = 8;
 }
 

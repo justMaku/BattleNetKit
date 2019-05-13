@@ -16,5 +16,5 @@ import public "aurora/ets_types.proto";
 import public "aurora/voice_types.proto";
 import public "aurora/rpc_types.proto";
 
-package blizzard.protocol.club.v1;
+package bgs.protocol.club.v1;
 

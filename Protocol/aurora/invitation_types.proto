@@ -1,6 +1,6 @@
 import "aurora/entity_types.proto";
 
-package blizzard.protocol;
+package bgs.protocol;
 
 option java_package = "bnet.protocol";
 option java_outer_classname = "InvitationTypesProto";
@@ -23,8 +23,8 @@ enum SuggestionRemovedReason {
 
 message Invitation {
 	required fixed64 id = 1;
-	required .blizzard.protocol.Identity inviter_identity = 2;
-	required .blizzard.protocol.Identity invitee_identity = 3;
+	required .bgs.protocol.Identity inviter_identity = 2;
+	required .bgs.protocol.Identity invitee_identity = 3;
 	optional string inviter_name = 4;
 	optional string invitee_name = 5;
 	optional string invitation_message = 6;

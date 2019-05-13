@@ -1,4 +1,4 @@
-package blizzard.protocol;
+package bgs.protocol;
 
 message TimeSeriesId {
 	optional uint64 epoch = 1;
