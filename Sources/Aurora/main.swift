@@ -1,5 +1,5 @@
 import BattleNetKit
 import Foundation
 
-let client = try BattleNetKitClient()
+let client = try BattleNetClient()
 try client.run()
