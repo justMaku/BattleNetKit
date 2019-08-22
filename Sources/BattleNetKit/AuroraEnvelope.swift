@@ -3,6 +3,11 @@ import SwiftProtobuf
 
 public typealias Message = SwiftProtobuf.Message
 
+struct UnresolvedAuroraEnvelope {
+    let header: Bgs_Protocol_Header
+    let messageBytes: ByteBuffer?
+}
+
 struct AuroraEnvelope {
     enum Error: Swift.Error {
         case unexpectedNilMessage(packet: AuroraEnvelope)

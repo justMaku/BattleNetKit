@@ -3,33 +3,16 @@ import Foundation
 import NIO
 
 internal final class AuroraConnectionHandler: ChannelInboundHandler {
-    public typealias InboundIn = ByteBuffer
-    public typealias OutboundOut = ByteBuffer
+    public typealias InboundIn = UnresolvedAuroraEnvelope
+    public typealias OutboundOut = AuroraEnvelope
 
     private var numBytes = 0
 
-    public func channelActive(context: ChannelHandlerContext) {
-        print("Client connected to \(context.remoteAddress!)")
-
-        let line = "PAPIEZ!"
-        var buffer = context.channel.allocator.buffer(capacity: line.utf8.count)
-        buffer.writeString(line)
-        self.numBytes = buffer.readableBytes
-        context.writeAndFlush(self.wrapOutboundOut(buffer), promise: nil)
-    }
-
     public func channelRead(context: ChannelHandlerContext, data: NIOAny) {
-        var byteBuffer = self.unwrapInboundIn(data)
-        self.numBytes -= byteBuffer.readableBytes
+        let envelope = unwrapInboundIn(data)
+        print(envelope)
 
-        if self.numBytes == 0 {
-            if let string = byteBuffer.readString(length: byteBuffer.readableBytes) {
-                print("Received: '\(string)' back from the server, closing channel.")
-            } else {
-                print("Received the line back from the server, closing channel")
-            }
-            context.close(promise: nil)
-        }
+        context.fireChannelReadComplete()
     }
 
     public func errorCaught(context: ChannelHandlerContext, error: Error) {

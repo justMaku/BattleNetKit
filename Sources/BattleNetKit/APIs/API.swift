@@ -1,9 +1,8 @@
 import Foundation
-
-class ConnectionAPI {}
+import NIO
 
 protocol API {
-    init(client: BattleNetClient)
+    init(channel: Channel)
     func bind(to connectionAPI: ConnectionAPI) throws
     func register(with connectionAPI: ConnectionAPI) throws
 }
