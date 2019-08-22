@@ -14,6 +14,12 @@ import json
 from jinja2 import Template
 
 
+def log(line):
+    f = open("generate_services.log", "a+")
+    f.write(line + "\n")
+    f.close()
+
+
 def traverse(proto_file):
 
     def _traverse(package, items):
@@ -48,7 +54,8 @@ def translate(name):
     parts = filter(lambda part: len(part) > 0, parts)
     parts = map(lambda part: join_parts(part), parts)
     parts = map(lambda part: part[:1].upper() + part[1:], parts)
-    return "_".join(parts)
+
+    return "_".join(parts).replace("NORESPONSE", "NO_RESPONSE")
 
 
 def handle(service):
