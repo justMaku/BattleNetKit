@@ -1,6 +1,6 @@
 import Foundation
 
-enum BattleNetError: Int64, Error {
+enum BattleNetStatus: Int64, Error {
     case ok = 0x0000_0000
     case `internal` = 0x0000_0001
     case timedOut = 0x0000_0002

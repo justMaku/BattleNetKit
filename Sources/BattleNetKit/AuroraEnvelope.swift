@@ -3,18 +3,13 @@ import SwiftProtobuf
 
 public typealias Message = SwiftProtobuf.Message
 
-struct UnresolvedAuroraEnvelope {
-    let header: Bgs_Protocol_Header
-    let messageBytes: ByteBuffer?
-}
-
 struct AuroraEnvelope {
     enum Error: Swift.Error {
         case unexpectedNilMessage(packet: AuroraEnvelope)
         case unexpectedMessageType(type: Message.Type)
     }
 
-    let header: Bgs_Protocol_Header
+    var header: Bgs_Protocol_Header
     let message: Message?
 
     func encode() throws -> Data {

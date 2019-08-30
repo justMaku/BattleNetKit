@@ -1,4 +1,5 @@
 import Foundation
+import NIO
 
 class Bnet_Protocol_Connection_ConnectionService: ServiceType {
     var id: UInt32?
@@ -14,6 +15,24 @@ class Bnet_Protocol_Connection_ConnectionService: ServiceType {
 
     static func handles(_ method: MethodType) -> Bool {
         return type(of: method) == Method.self
+    }
+
+    let messageQueue: AuroraMessageQueue
+
+    init(messageQueue: AuroraMessageQueue) {
+        self.messageQueue = messageQueue
+    }
+
+    func connect(
+        request: Bgs_Protocol_Connection_V1_ConnectRequest
+    ) -> EventLoopFuture<Bgs_Protocol_Connection_V1_ConnectResponse> {
+        return messageQueue.enqueue(
+            call: .init(
+                message: request,
+                service: self,
+                method: Method.Connect
+            )
+        )
     }
 
     enum Method: Int, MethodType {
