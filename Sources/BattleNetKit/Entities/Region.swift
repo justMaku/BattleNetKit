@@ -16,6 +16,7 @@ public enum Region: UInt32, Codable {
     case us = 1
     case eu = 2
     case kr = 3
+    case cn = 5
     case test = 98
 
     var host: String {
@@ -27,6 +28,7 @@ public enum Region: UInt32, Codable {
         case .us: return "us"
         case .eu: return "eu"
         case .kr: return "kr"
+        case .cn: return "cn"
         case .test: return "test"
         }
     }
@@ -59,6 +61,7 @@ public enum Region: UInt32, Codable {
     public init(from name: String) throws {
         switch name {
         case Region.eu.name: self = .eu
+        case Region.cn.name: self = .cn
         case Region.kr.name: self = .kr
         case Region.us.name: self = .us
         case Region.test.name: self = .test
