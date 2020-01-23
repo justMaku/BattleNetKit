@@ -4,7 +4,6 @@ import NIO
 enum Constants {
     public static let auroraClientName = "WoW"
     public static let auroraClientVersion = "Battle.net Game Service SDK v1.11.5 \"1b75249ba9\"/224 (Oct 22 2018 09:29:50)"
-    public static let auroraAttributeVersion = "classic1"
     public static let gameClientName = "WoW"
     public static let localeName = "enUS"
     public static let platformType = "Mac"
@@ -18,10 +17,20 @@ enum Constants {
 }
 
 public class AuthenticationAPI: API {
+    enum Error: Swift.Error {
+        case externalChallengeRequired
+        case loginActionCancelled
+    }
+
     private let clientService: Bnet_Protocol_Authentication_AuthenticationClient
     private let serverService: Bnet_Protocol_Authentication_AuthenticationServer
 
     private let challangeService: Bnet_Protocol_Challenge_ChallengeNotify
+    private var loginPromise: EventLoopPromise<Bgs_Protocol_Authentication_V1_LogonResult>? = nil {
+        didSet {
+            oldValue?.fail(Error.loginActionCancelled)
+        }
+    }
 
     internal let eventLoop: EventLoop
 
@@ -40,8 +49,9 @@ public class AuthenticationAPI: API {
         try serviceProvider.register(inbound: self.challangeService)
     }
 
-    public func login(token: String) -> EventLoopFuture<()> {
+    public func login(token: String) -> EventLoopFuture<Bgs_Protocol_Authentication_V1_LogonResult> {
         var logonRequest = Bgs_Protocol_Authentication_V1_LogonRequest()
+        let loginPromise = self.eventLoop.makePromise(of: Bgs_Protocol_Authentication_V1_LogonResult.self)
 
         logonRequest.program = Constants.auroraClientName
         logonRequest.locale = Constants.localeName
@@ -52,63 +62,38 @@ public class AuthenticationAPI: API {
         logonRequest.allowLogonQueueNotifications = true
         logonRequest.cachedWebCredentials = token.data(using: .ascii)!
 
-        return self.serverService.Logon(request: logonRequest).map { _ in return () }
+        self.loginPromise = loginPromise
+
+        return self.serverService.Logon(request: logonRequest).flatMap { _ in
+            return loginPromise.futureResult
+        }
     }
 }
 
 extension AuthenticationAPI: Bnet_Protocol_Authentication_AuthenticationClientHandler {
-    func OnLogonQueueUpdate(request: Bgs_Protocol_Authentication_V1_LogonQueueUpdateRequest) -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        print(request)
-        return self.eventLoop.makeSucceededFuture(Bgs_Protocol_NO_RESPONSE())
-    }
-
-    func OnModuleLoad(request: Bgs_Protocol_Authentication_V1_ModuleLoadRequest) -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        fatalError("NIY")
-    }
-
-    func OnModuleMessage(request: Bgs_Protocol_Authentication_V1_ModuleMessageRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
-        fatalError("NIY")
-    }
-
-    func OnServerStateChange(request: Bgs_Protocol_Authentication_V1_ServerStateChangeRequest) -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        fatalError("NIY")
-    }
-
     func OnLogonComplete(request: Bgs_Protocol_Authentication_V1_LogonResult) -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        print(request)
+        self.loginPromise?.succeed(request)
 
         return self.eventLoop.makeSucceededFuture(Bgs_Protocol_NO_RESPONSE())
-    }
-
-    func OnMemModuleLoad(request: Bgs_Protocol_Authentication_V1_MemModuleLoadRequest) -> EventLoopFuture<Bgs_Protocol_Authentication_V1_MemModuleLoadResponse> {
-        fatalError("NIY")
     }
 
     func OnLogonUpdate(request: Bgs_Protocol_Authentication_V1_LogonUpdateRequest) -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeSucceededFuture(Bgs_Protocol_NO_RESPONSE())
+        return self.eventLoop.makeSucceededFuture(Bgs_Protocol_NO_RESPONSE())
     }
 
-    func OnVersionInfoUpdated(request: Bgs_Protocol_Authentication_V1_VersionInfoNotification) -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        fatalError("NIY")
+    func OnLogonQueueUpdate(request: Bgs_Protocol_Authentication_V1_LogonQueueUpdateRequest) -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
+        self.eventLoop.makeSucceededFuture(Bgs_Protocol_NO_RESPONSE())
     }
 
     func OnLogonQueueEnd() -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
         self.eventLoop.makeSucceededFuture(Bgs_Protocol_NO_RESPONSE())
     }
-
-    func OnGameAccountSelected(request: Bgs_Protocol_Authentication_V1_GameAccountSelectedRequest) -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        fatalError("NIY")
-    }
 }
 
 extension AuthenticationAPI: Bnet_Protocol_Challenge_ChallengeNotifyHandler {
     func OnExternalChallenge(request: Bgs_Protocol_Challenge_V1_ChallengeExternalRequest) -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        print(request)
-        return self.eventLoop.makeSucceededFuture(Bgs_Protocol_NO_RESPONSE())
-    }
+        self.loginPromise?.fail(Error.externalChallengeRequired)
 
-    func OnExternalChallengeResult(request: Bgs_Protocol_Challenge_V1_ChallengeExternalResult) -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        print(request)
         return self.eventLoop.makeSucceededFuture(Bgs_Protocol_NO_RESPONSE())
     }
 }
