@@ -1,21 +1,8 @@
 import Foundation
+import NIO
+import SwiftProtobuf
 
 class Bnet_Protocol_Club_V1_ClubMembershipListener: ServiceType {
-    var id: UInt32?
-    static let name = "bnet.protocol.club.v1.ClubMembershipListener"
-
-    static func method(with id: UInt32) throws -> MethodType {
-        guard let method = Method(id: id) else {
-            throw ServiceTypeError.unknownMethodForService(method: id)
-        }
-
-        return method
-    }
-
-    static func handles(_ method: MethodType) -> Bool {
-        return type(of: method) == Method.self
-    }
-
     enum Method: Int, MethodType {
         case OnClubAdded = 1
         case OnClubRemoved = 2
@@ -66,7 +53,195 @@ class Bnet_Protocol_Club_V1_ClubMembershipListener: ServiceType {
         }
 
         var id: UInt32 {
-            return UInt32(rawValue)
+            return UInt32(self.rawValue)
         }
+    }
+
+    static let name = "bnet.protocol.club.v1.ClubMembershipListener"
+
+    let messageQueue: AuroraMessageQueue
+    let eventLoop: EventLoop
+
+    weak var delegate: Bnet_Protocol_Club_V1_ClubMembershipListenerHandler?
+
+    init(eventLoop: EventLoop, messageQueue: AuroraMessageQueue) {
+        self.eventLoop = eventLoop
+        self.messageQueue = messageQueue
+    }
+
+    static func method(with id: UInt32) throws -> MethodType {
+        guard let method = Method(id: id) else {
+            throw ServiceTypeError.unknownMethodForService(method: id)
+        }
+
+        return method
+    }
+}
+
+extension Bnet_Protocol_Club_V1_ClubMembershipListener {
+    func handle(method: MethodType, request: Message?) -> EventLoopFuture<SwiftProtobuf.Message> {
+        do {
+            guard let delegate = self.delegate else {
+                throw ServiceTypeError.missingDelegateForService(service: self)
+            }
+
+            guard let typedMethod = method as? Method else {
+                throw ServiceTypeError.unexpectedMethodType(expected: Method.self, received: type(of: method))
+            }
+
+            switch typedMethod {
+            case .OnClubAdded:
+
+                guard let message = request as? Bgs_Protocol_Club_V1_Membership_ClubAddedNotification else {
+                    throw ServiceTypeError.unexpectedMessageType(
+                        expected: Bgs_Protocol_Club_V1_Membership_ClubAddedNotification.self,
+                        received: type(of: request)
+                    )
+                }
+                return delegate.OnClubAdded(request: message).map { $0 as Message }
+
+            case .OnClubRemoved:
+
+                guard let message = request as? Bgs_Protocol_Club_V1_Membership_ClubRemovedNotification else {
+                    throw ServiceTypeError.unexpectedMessageType(
+                        expected: Bgs_Protocol_Club_V1_Membership_ClubRemovedNotification.self,
+                        received: type(of: request)
+                    )
+                }
+                return delegate.OnClubRemoved(request: message).map { $0 as Message }
+
+            case .OnReceivedInvitationAdded:
+
+                guard let message = request as? Bgs_Protocol_Club_V1_Membership_ReceivedInvitationAddedNotification else {
+                    throw ServiceTypeError.unexpectedMessageType(
+                        expected: Bgs_Protocol_Club_V1_Membership_ReceivedInvitationAddedNotification.self,
+                        received: type(of: request)
+                    )
+                }
+                return delegate.OnReceivedInvitationAdded(request: message).map { $0 as Message }
+
+            case .OnReceivedInvitationRemoved:
+
+                guard let message = request as? Bgs_Protocol_Club_V1_Membership_ReceivedInvitationRemovedNotification else {
+                    throw ServiceTypeError.unexpectedMessageType(
+                        expected: Bgs_Protocol_Club_V1_Membership_ReceivedInvitationRemovedNotification.self,
+                        received: type(of: request)
+                    )
+                }
+                return delegate.OnReceivedInvitationRemoved(request: message).map { $0 as Message }
+
+            case .OnSharedSettingsChanged:
+
+                guard let message = request as? Bgs_Protocol_Club_V1_Membership_SharedSettingsChangedNotification else {
+                    throw ServiceTypeError.unexpectedMessageType(
+                        expected: Bgs_Protocol_Club_V1_Membership_SharedSettingsChangedNotification.self,
+                        received: type(of: request)
+                    )
+                }
+                return delegate.OnSharedSettingsChanged(request: message).map { $0 as Message }
+
+            case .OnStreamMentionAdded:
+
+                guard let message = request as? Bgs_Protocol_Club_V1_Membership_StreamMentionAddedNotification else {
+                    throw ServiceTypeError.unexpectedMessageType(
+                        expected: Bgs_Protocol_Club_V1_Membership_StreamMentionAddedNotification.self,
+                        received: type(of: request)
+                    )
+                }
+                return delegate.OnStreamMentionAdded(request: message).map { $0 as Message }
+
+            case .OnStreamMentionRemoved:
+
+                guard let message = request as? Bgs_Protocol_Club_V1_Membership_StreamMentionRemovedNotification else {
+                    throw ServiceTypeError.unexpectedMessageType(
+                        expected: Bgs_Protocol_Club_V1_Membership_StreamMentionRemovedNotification.self,
+                        received: type(of: request)
+                    )
+                }
+                return delegate.OnStreamMentionRemoved(request: message).map { $0 as Message }
+
+            case .OnStreamMentionAdvanceViewTime:
+
+                guard let message = request as? Bgs_Protocol_Club_V1_Membership_StreamMentionAdvanceViewTimeNotification else {
+                    throw ServiceTypeError.unexpectedMessageType(
+                        expected: Bgs_Protocol_Club_V1_Membership_StreamMentionAdvanceViewTimeNotification.self,
+                        received: type(of: request)
+                    )
+                }
+                return delegate.OnStreamMentionAdvanceViewTime(request: message).map { $0 as Message }
+            }
+        } catch let error {
+            return self.eventLoop.makeFailedFuture(error)
+        }
+    }
+}
+
+protocol Bnet_Protocol_Club_V1_ClubMembershipListenerHandler: AnyObject {
+    var eventLoop: EventLoop { get }
+
+    func OnClubAdded(request: Bgs_Protocol_Club_V1_Membership_ClubAddedNotification)
+        -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE>
+
+    func OnClubRemoved(request: Bgs_Protocol_Club_V1_Membership_ClubRemovedNotification)
+        -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE>
+
+    func OnReceivedInvitationAdded(request: Bgs_Protocol_Club_V1_Membership_ReceivedInvitationAddedNotification)
+        -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE>
+
+    func OnReceivedInvitationRemoved(request: Bgs_Protocol_Club_V1_Membership_ReceivedInvitationRemovedNotification)
+        -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE>
+
+    func OnSharedSettingsChanged(request: Bgs_Protocol_Club_V1_Membership_SharedSettingsChangedNotification)
+        -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE>
+
+    func OnStreamMentionAdded(request: Bgs_Protocol_Club_V1_Membership_StreamMentionAddedNotification)
+        -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE>
+
+    func OnStreamMentionRemoved(request: Bgs_Protocol_Club_V1_Membership_StreamMentionRemovedNotification)
+        -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE>
+
+    func OnStreamMentionAdvanceViewTime(request: Bgs_Protocol_Club_V1_Membership_StreamMentionAdvanceViewTimeNotification)
+        -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE>
+}
+
+extension Bnet_Protocol_Club_V1_ClubMembershipListenerHandler {
+    func OnClubAdded(request: Bgs_Protocol_Club_V1_Membership_ClubAddedNotification)
+        -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
+        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+    }
+
+    func OnClubRemoved(request: Bgs_Protocol_Club_V1_Membership_ClubRemovedNotification)
+        -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
+        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+    }
+
+    func OnReceivedInvitationAdded(request: Bgs_Protocol_Club_V1_Membership_ReceivedInvitationAddedNotification)
+        -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
+        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+    }
+
+    func OnReceivedInvitationRemoved(request: Bgs_Protocol_Club_V1_Membership_ReceivedInvitationRemovedNotification)
+        -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
+        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+    }
+
+    func OnSharedSettingsChanged(request: Bgs_Protocol_Club_V1_Membership_SharedSettingsChangedNotification)
+        -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
+        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+    }
+
+    func OnStreamMentionAdded(request: Bgs_Protocol_Club_V1_Membership_StreamMentionAddedNotification)
+        -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
+        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+    }
+
+    func OnStreamMentionRemoved(request: Bgs_Protocol_Club_V1_Membership_StreamMentionRemovedNotification)
+        -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
+        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+    }
+
+    func OnStreamMentionAdvanceViewTime(request: Bgs_Protocol_Club_V1_Membership_StreamMentionAdvanceViewTimeNotification)
+        -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
+        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
     }
 }

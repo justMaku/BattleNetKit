@@ -1,21 +1,8 @@
 import Foundation
+import NIO
+import SwiftProtobuf
 
 class Bnet_Protocol_Channel_Channel: ServiceType {
-    var id: UInt32?
-    static let name = "bnet.protocol.channel.Channel"
-
-    static func method(with id: UInt32) throws -> MethodType {
-        guard let method = Method(id: id) else {
-            throw ServiceTypeError.unknownMethodForService(method: id)
-        }
-
-        return method
-    }
-
-    static func handles(_ method: MethodType) -> Bool {
-        return type(of: method) == Method.self
-    }
-
     enum Method: Int, MethodType {
         case RemoveMember = 2
         case SendMessage = 3
@@ -54,7 +41,47 @@ class Bnet_Protocol_Channel_Channel: ServiceType {
         }
 
         var id: UInt32 {
-            return UInt32(rawValue)
+            return UInt32(self.rawValue)
         }
+    }
+
+    static let name = "bnet.protocol.channel.Channel"
+
+    let messageQueue: AuroraMessageQueue
+    let eventLoop: EventLoop
+
+    init(eventLoop: EventLoop, messageQueue: AuroraMessageQueue) {
+        self.eventLoop = eventLoop
+        self.messageQueue = messageQueue
+    }
+
+    static func method(with id: UInt32) throws -> MethodType {
+        guard let method = Method(id: id) else {
+            throw ServiceTypeError.unknownMethodForService(method: id)
+        }
+
+        return method
+    }
+}
+
+extension Bnet_Protocol_Channel_Channel {
+    func RemoveMember(request: Bgs_Protocol_Channel_V1_RemoveMemberRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.RemoveMember))
+    }
+
+    func SendMessage(request: Bgs_Protocol_Channel_V1_SendMessageRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.SendMessage))
+    }
+
+    func UpdateChannelState(request: Bgs_Protocol_Channel_V1_UpdateChannelStateRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.UpdateChannelState))
+    }
+
+    func UpdateMemberState(request: Bgs_Protocol_Channel_V1_UpdateMemberStateRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.UpdateMemberState))
+    }
+
+    func Dissolve(request: Bgs_Protocol_Channel_V1_DissolveRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.Dissolve))
     }
 }

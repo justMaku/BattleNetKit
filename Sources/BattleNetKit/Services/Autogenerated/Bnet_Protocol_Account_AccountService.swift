@@ -1,21 +1,8 @@
 import Foundation
+import NIO
+import SwiftProtobuf
 
 class Bnet_Protocol_Account_AccountService: ServiceType {
-    var id: UInt32?
-    static let name = "bnet.protocol.account.AccountService"
-
-    static func method(with id: UInt32) throws -> MethodType {
-        guard let method = Method(id: id) else {
-            throw ServiceTypeError.unknownMethodForService(method: id)
-        }
-
-        return method
-    }
-
-    static func handles(_ method: MethodType) -> Bool {
-        return type(of: method) == Method.self
-    }
-
     enum Method: Int, MethodType {
         case ResolveAccount = 13
         case IsIgrAddress = 15
@@ -82,7 +69,75 @@ class Bnet_Protocol_Account_AccountService: ServiceType {
         }
 
         var id: UInt32 {
-            return UInt32(rawValue)
+            return UInt32(self.rawValue)
         }
+    }
+
+    static let name = "bnet.protocol.account.AccountService"
+
+    let messageQueue: AuroraMessageQueue
+    let eventLoop: EventLoop
+
+    init(eventLoop: EventLoop, messageQueue: AuroraMessageQueue) {
+        self.eventLoop = eventLoop
+        self.messageQueue = messageQueue
+    }
+
+    static func method(with id: UInt32) throws -> MethodType {
+        guard let method = Method(id: id) else {
+            throw ServiceTypeError.unknownMethodForService(method: id)
+        }
+
+        return method
+    }
+}
+
+extension Bnet_Protocol_Account_AccountService {
+    func ResolveAccount(request: Bgs_Protocol_Account_V1_ResolveAccountRequest) -> EventLoopFuture<Bgs_Protocol_Account_V1_ResolveAccountResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.ResolveAccount))
+    }
+
+    func IsIgrAddress(request: Bgs_Protocol_Account_V1_IsIgrAddressRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.IsIgrAddress))
+    }
+
+    func Subscribe(request: Bgs_Protocol_Account_V1_SubscriptionUpdateRequest) -> EventLoopFuture<Bgs_Protocol_Account_V1_SubscriptionUpdateResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.Subscribe))
+    }
+
+    func Unsubscribe(request: Bgs_Protocol_Account_V1_SubscriptionUpdateRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.Unsubscribe))
+    }
+
+    func GetAccountState(request: Bgs_Protocol_Account_V1_GetAccountStateRequest) -> EventLoopFuture<Bgs_Protocol_Account_V1_GetAccountStateResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetAccountState))
+    }
+
+    func GetGameAccountState(request: Bgs_Protocol_Account_V1_GetGameAccountStateRequest) -> EventLoopFuture<Bgs_Protocol_Account_V1_GetGameAccountStateResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetGameAccountState))
+    }
+
+    func GetLicenses(request: Bgs_Protocol_Account_V1_GetLicensesRequest) -> EventLoopFuture<Bgs_Protocol_Account_V1_GetLicensesResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetLicenses))
+    }
+
+    func GetGameTimeRemainingInfo(request: Bgs_Protocol_Account_V1_GetGameTimeRemainingInfoRequest) -> EventLoopFuture<Bgs_Protocol_Account_V1_GetGameTimeRemainingInfoResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetGameTimeRemainingInfo))
+    }
+
+    func GetGameSessionInfo(request: Bgs_Protocol_Account_V1_GetGameSessionInfoRequest) -> EventLoopFuture<Bgs_Protocol_Account_V1_GetGameSessionInfoResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetGameSessionInfo))
+    }
+
+    func GetCAISInfo(request: Bgs_Protocol_Account_V1_GetCAISInfoRequest) -> EventLoopFuture<Bgs_Protocol_Account_V1_GetCAISInfoResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetCAISInfo))
+    }
+
+    func GetAuthorizedData(request: Bgs_Protocol_Account_V1_GetAuthorizedDataRequest) -> EventLoopFuture<Bgs_Protocol_Account_V1_GetAuthorizedDataResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetAuthorizedData))
+    }
+
+    func GetSignedAccountState(request: Bgs_Protocol_Account_V1_GetSignedAccountStateRequest) -> EventLoopFuture<Bgs_Protocol_Account_V1_GetSignedAccountStateResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetSignedAccountState))
     }
 }

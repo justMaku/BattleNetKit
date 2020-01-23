@@ -1,21 +1,8 @@
 import Foundation
+import NIO
+import SwiftProtobuf
 
 class Bnet_Protocol_UserManager_UserManagerService: ServiceType {
-    var id: UInt32?
-    static let name = "bnet.protocol.user_manager.UserManagerService"
-
-    static func method(with id: UInt32) throws -> MethodType {
-        guard let method = Method(id: id) else {
-            throw ServiceTypeError.unknownMethodForService(method: id)
-        }
-
-        return method
-    }
-
-    static func handles(_ method: MethodType) -> Bool {
-        return type(of: method) == Method.self
-    }
-
     enum Method: Int, MethodType {
         case Subscribe = 1
         case AddRecentPlayers = 10
@@ -62,7 +49,55 @@ class Bnet_Protocol_UserManager_UserManagerService: ServiceType {
         }
 
         var id: UInt32 {
-            return UInt32(rawValue)
+            return UInt32(self.rawValue)
         }
+    }
+
+    static let name = "bnet.protocol.user_manager.UserManagerService"
+
+    let messageQueue: AuroraMessageQueue
+    let eventLoop: EventLoop
+
+    init(eventLoop: EventLoop, messageQueue: AuroraMessageQueue) {
+        self.eventLoop = eventLoop
+        self.messageQueue = messageQueue
+    }
+
+    static func method(with id: UInt32) throws -> MethodType {
+        guard let method = Method(id: id) else {
+            throw ServiceTypeError.unknownMethodForService(method: id)
+        }
+
+        return method
+    }
+}
+
+extension Bnet_Protocol_UserManager_UserManagerService {
+    func Subscribe(request: Bgs_Protocol_UserManager_V1_SubscribeRequest) -> EventLoopFuture<Bgs_Protocol_UserManager_V1_SubscribeResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.Subscribe))
+    }
+
+    func AddRecentPlayers(request: Bgs_Protocol_UserManager_V1_AddRecentPlayersRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.AddRecentPlayers))
+    }
+
+    func ClearRecentPlayers(request: Bgs_Protocol_UserManager_V1_ClearRecentPlayersRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.ClearRecentPlayers))
+    }
+
+    func BlockPlayer(request: Bgs_Protocol_UserManager_V1_BlockPlayerRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.BlockPlayer))
+    }
+
+    func UnblockPlayer(request: Bgs_Protocol_UserManager_V1_UnblockPlayerRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.UnblockPlayer))
+    }
+
+    func BlockPlayerForSession(request: Bgs_Protocol_UserManager_V1_BlockPlayerRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.BlockPlayerForSession))
+    }
+
+    func Unsubscribe(request: Bgs_Protocol_UserManager_V1_UnsubscribeRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.Unsubscribe))
     }
 }

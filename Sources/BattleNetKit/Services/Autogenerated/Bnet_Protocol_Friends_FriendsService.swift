@@ -1,21 +1,8 @@
 import Foundation
+import NIO
+import SwiftProtobuf
 
 class Bnet_Protocol_Friends_FriendsService: ServiceType {
-    var id: UInt32?
-    static let name = "bnet.protocol.friends.FriendsService"
-
-    static func method(with id: UInt32) throws -> MethodType {
-        guard let method = Method(id: id) else {
-            throw ServiceTypeError.unknownMethodForService(method: id)
-        }
-
-        return method
-    }
-
-    static func handles(_ method: MethodType) -> Bool {
-        return type(of: method) == Method.self
-    }
-
     enum Method: Int, MethodType {
         case Subscribe = 1
         case SendInvitation = 2
@@ -86,7 +73,79 @@ class Bnet_Protocol_Friends_FriendsService: ServiceType {
         }
 
         var id: UInt32 {
-            return UInt32(rawValue)
+            return UInt32(self.rawValue)
         }
+    }
+
+    static let name = "bnet.protocol.friends.FriendsService"
+
+    let messageQueue: AuroraMessageQueue
+    let eventLoop: EventLoop
+
+    init(eventLoop: EventLoop, messageQueue: AuroraMessageQueue) {
+        self.eventLoop = eventLoop
+        self.messageQueue = messageQueue
+    }
+
+    static func method(with id: UInt32) throws -> MethodType {
+        guard let method = Method(id: id) else {
+            throw ServiceTypeError.unknownMethodForService(method: id)
+        }
+
+        return method
+    }
+}
+
+extension Bnet_Protocol_Friends_FriendsService {
+    func Subscribe(request: Bgs_Protocol_Friends_V1_SubscribeRequest) -> EventLoopFuture<Bgs_Protocol_Friends_V1_SubscribeResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.Subscribe))
+    }
+
+    func SendInvitation(request: Bgs_Protocol_Friends_V1_SendInvitationRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.SendInvitation))
+    }
+
+    func AcceptInvitation(request: Bgs_Protocol_Friends_V1_AcceptInvitationRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.AcceptInvitation))
+    }
+
+    func RevokeInvitation(request: Bgs_Protocol_Friends_V1_RevokeInvitationRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.RevokeInvitation))
+    }
+
+    func DeclineInvitation(request: Bgs_Protocol_Friends_V1_DeclineInvitationRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.DeclineInvitation))
+    }
+
+    func IgnoreInvitation(request: Bgs_Protocol_Friends_V1_IgnoreInvitationRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.IgnoreInvitation))
+    }
+
+    func RemoveFriend(request: Bgs_Protocol_Friends_V1_RemoveFriendRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.RemoveFriend))
+    }
+
+    func ViewFriends(request: Bgs_Protocol_Friends_V1_ViewFriendsRequest) -> EventLoopFuture<Bgs_Protocol_Friends_V1_ViewFriendsResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.ViewFriends))
+    }
+
+    func UpdateFriendState(request: Bgs_Protocol_Friends_V1_UpdateFriendStateRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.UpdateFriendState))
+    }
+
+    func Unsubscribe(request: Bgs_Protocol_Friends_V1_UnsubscribeRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.Unsubscribe))
+    }
+
+    func RevokeAllInvitations(request: Bgs_Protocol_Friends_V1_RevokeAllInvitationsRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.RevokeAllInvitations))
+    }
+
+    func GetFriendList(request: Bgs_Protocol_Friends_V1_GetFriendListRequest) -> EventLoopFuture<Bgs_Protocol_Friends_V1_GetFriendListResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetFriendList))
+    }
+
+    func CreateFriendship(request: Bgs_Protocol_Friends_V1_CreateFriendshipRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.CreateFriendship))
     }
 }

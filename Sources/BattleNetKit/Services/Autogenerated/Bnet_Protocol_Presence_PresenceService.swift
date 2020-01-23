@@ -1,21 +1,8 @@
 import Foundation
+import NIO
+import SwiftProtobuf
 
 class Bnet_Protocol_Presence_PresenceService: ServiceType {
-    var id: UInt32?
-    static let name = "bnet.protocol.presence.PresenceService"
-
-    static func method(with id: UInt32) throws -> MethodType {
-        guard let method = Method(id: id) else {
-            throw ServiceTypeError.unknownMethodForService(method: id)
-        }
-
-        return method
-    }
-
-    static func handles(_ method: MethodType) -> Bool {
-        return type(of: method) == Method.self
-    }
-
     enum Method: Int, MethodType {
         case Subscribe = 1
         case Unsubscribe = 2
@@ -66,7 +53,59 @@ class Bnet_Protocol_Presence_PresenceService: ServiceType {
         }
 
         var id: UInt32 {
-            return UInt32(rawValue)
+            return UInt32(self.rawValue)
         }
+    }
+
+    static let name = "bnet.protocol.presence.PresenceService"
+
+    let messageQueue: AuroraMessageQueue
+    let eventLoop: EventLoop
+
+    init(eventLoop: EventLoop, messageQueue: AuroraMessageQueue) {
+        self.eventLoop = eventLoop
+        self.messageQueue = messageQueue
+    }
+
+    static func method(with id: UInt32) throws -> MethodType {
+        guard let method = Method(id: id) else {
+            throw ServiceTypeError.unknownMethodForService(method: id)
+        }
+
+        return method
+    }
+}
+
+extension Bnet_Protocol_Presence_PresenceService {
+    func Subscribe(request: Bgs_Protocol_Presence_V1_SubscribeRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.Subscribe))
+    }
+
+    func Unsubscribe(request: Bgs_Protocol_Presence_V1_UnsubscribeRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.Unsubscribe))
+    }
+
+    func Update(request: Bgs_Protocol_Presence_V1_UpdateRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.Update))
+    }
+
+    func Query(request: Bgs_Protocol_Presence_V1_QueryRequest) -> EventLoopFuture<Bgs_Protocol_Presence_V1_QueryResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.Query))
+    }
+
+    func Ownership(request: Bgs_Protocol_Presence_V1_OwnershipRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.Ownership))
+    }
+
+    func SubscribeNotification(request: Bgs_Protocol_Presence_V1_SubscribeNotificationRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.SubscribeNotification))
+    }
+
+    func BatchSubscribe(request: Bgs_Protocol_Presence_V1_BatchSubscribeRequest) -> EventLoopFuture<Bgs_Protocol_Presence_V1_BatchSubscribeResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.BatchSubscribe))
+    }
+
+    func BatchUnsubscribe(request: Bgs_Protocol_Presence_V1_BatchUnsubscribeRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.BatchUnsubscribe))
     }
 }

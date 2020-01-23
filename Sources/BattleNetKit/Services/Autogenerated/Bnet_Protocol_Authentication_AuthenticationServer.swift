@@ -1,21 +1,8 @@
 import Foundation
+import NIO
+import SwiftProtobuf
 
 class Bnet_Protocol_Authentication_AuthenticationServer: ServiceType {
-    var id: UInt32?
-    static let name = "bnet.protocol.authentication.AuthenticationServer"
-
-    static func method(with id: UInt32) throws -> MethodType {
-        guard let method = Method(id: id) else {
-            throw ServiceTypeError.unknownMethodForService(method: id)
-        }
-
-        return method
-    }
-
-    static func handles(_ method: MethodType) -> Bool {
-        return type(of: method) == Method.self
-    }
-
     enum Method: Int, MethodType {
         case Logon = 1
         case ModuleNotify = 2
@@ -66,7 +53,59 @@ class Bnet_Protocol_Authentication_AuthenticationServer: ServiceType {
         }
 
         var id: UInt32 {
-            return UInt32(rawValue)
+            return UInt32(self.rawValue)
         }
+    }
+
+    static let name = "bnet.protocol.authentication.AuthenticationServer"
+
+    let messageQueue: AuroraMessageQueue
+    let eventLoop: EventLoop
+
+    init(eventLoop: EventLoop, messageQueue: AuroraMessageQueue) {
+        self.eventLoop = eventLoop
+        self.messageQueue = messageQueue
+    }
+
+    static func method(with id: UInt32) throws -> MethodType {
+        guard let method = Method(id: id) else {
+            throw ServiceTypeError.unknownMethodForService(method: id)
+        }
+
+        return method
+    }
+}
+
+extension Bnet_Protocol_Authentication_AuthenticationServer {
+    func Logon(request: Bgs_Protocol_Authentication_V1_LogonRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.Logon))
+    }
+
+    func ModuleNotify(request: Bgs_Protocol_Authentication_V1_ModuleNotification) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.ModuleNotify))
+    }
+
+    func ModuleMessage(request: Bgs_Protocol_Authentication_V1_ModuleMessageRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.ModuleMessage))
+    }
+
+    func SelectGameAccount_DEPRECATED(request: Bgs_Protocol_EntityId) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.SelectGameAccount_DEPRECATED))
+    }
+
+    func GenerateSSOToken(request: Bgs_Protocol_Authentication_V1_GenerateSSOTokenRequest) -> EventLoopFuture<Bgs_Protocol_Authentication_V1_GenerateSSOTokenResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GenerateSSOToken))
+    }
+
+    func SelectGameAccount(request: Bgs_Protocol_Authentication_V1_SelectGameAccountRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.SelectGameAccount))
+    }
+
+    func VerifyWebCredentials(request: Bgs_Protocol_Authentication_V1_VerifyWebCredentialsRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.VerifyWebCredentials))
+    }
+
+    func GenerateWebCredentials(request: Bgs_Protocol_Authentication_V1_GenerateWebCredentialsRequest) -> EventLoopFuture<Bgs_Protocol_Authentication_V1_GenerateWebCredentialsResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GenerateWebCredentials))
     }
 }

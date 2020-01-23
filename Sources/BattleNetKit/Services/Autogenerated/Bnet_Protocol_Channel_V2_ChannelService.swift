@@ -1,21 +1,8 @@
 import Foundation
+import NIO
+import SwiftProtobuf
 
 class Bnet_Protocol_Channel_V2_ChannelService: ServiceType {
-    var id: UInt32?
-    static let name = "bnet.protocol.channel.v2.ChannelService"
-
-    static func method(with id: UInt32) throws -> MethodType {
-        guard let method = Method(id: id) else {
-            throw ServiceTypeError.unknownMethodForService(method: id)
-        }
-
-        return method
-    }
-
-    static func handles(_ method: MethodType) -> Bool {
-        return type(of: method) == Method.self
-    }
-
     enum Method: Int, MethodType {
         case CreateChannel = 2
         case DissolveChannel = 3
@@ -126,7 +113,119 @@ class Bnet_Protocol_Channel_V2_ChannelService: ServiceType {
         }
 
         var id: UInt32 {
-            return UInt32(rawValue)
+            return UInt32(self.rawValue)
         }
+    }
+
+    static let name = "bnet.protocol.channel.v2.ChannelService"
+
+    let messageQueue: AuroraMessageQueue
+    let eventLoop: EventLoop
+
+    init(eventLoop: EventLoop, messageQueue: AuroraMessageQueue) {
+        self.eventLoop = eventLoop
+        self.messageQueue = messageQueue
+    }
+
+    static func method(with id: UInt32) throws -> MethodType {
+        guard let method = Method(id: id) else {
+            throw ServiceTypeError.unknownMethodForService(method: id)
+        }
+
+        return method
+    }
+}
+
+extension Bnet_Protocol_Channel_V2_ChannelService {
+    func CreateChannel(request: Bgs_Protocol_Channel_V2_CreateChannelRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.CreateChannel))
+    }
+
+    func DissolveChannel(request: Bgs_Protocol_Channel_V2_DissolveChannelRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.DissolveChannel))
+    }
+
+    func GetChannel(request: Bgs_Protocol_Channel_V2_GetChannelRequest) -> EventLoopFuture<Bgs_Protocol_Channel_V2_GetChannelResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetChannel))
+    }
+
+    func GetPublicChannelTypes(request: Bgs_Protocol_Channel_V2_GetPublicChannelTypesRequest) -> EventLoopFuture<Bgs_Protocol_Channel_V2_GetPublicChannelTypesResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetPublicChannelTypes))
+    }
+
+    func FindChannel(request: Bgs_Protocol_Channel_V2_FindChannelRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.FindChannel))
+    }
+
+    func Subscribe(request: Bgs_Protocol_Channel_V2_SubscribeRequest) -> EventLoopFuture<Bgs_Protocol_Channel_V2_SubscribeResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.Subscribe))
+    }
+
+    func Unsubscribe(request: Bgs_Protocol_Channel_V2_UnsubscribeRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.Unsubscribe))
+    }
+
+    func SetAttribute(request: Bgs_Protocol_Channel_V2_SetAttributeRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.SetAttribute))
+    }
+
+    func SetPrivacyLevel(request: Bgs_Protocol_Channel_V2_SetPrivacyLevelRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.SetPrivacyLevel))
+    }
+
+    func SendMessage(request: Bgs_Protocol_Channel_V2_SendMessageRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.SendMessage))
+    }
+
+    func SetTypingIndicator(request: Bgs_Protocol_Channel_V2_SetTypingIndicatorRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.SetTypingIndicator))
+    }
+
+    func Join(request: Bgs_Protocol_Channel_V2_JoinRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.Join))
+    }
+
+    func Leave(request: Bgs_Protocol_Channel_V2_LeaveRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.Leave))
+    }
+
+    func Kick(request: Bgs_Protocol_Channel_V2_KickRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.Kick))
+    }
+
+    func SetMemberAttribute(request: Bgs_Protocol_Channel_V2_SetMemberAttributeRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.SetMemberAttribute))
+    }
+
+    func AssignRole(request: Bgs_Protocol_Channel_V2_AssignRoleRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.AssignRole))
+    }
+
+    func UnassignRole(request: Bgs_Protocol_Channel_V2_UnassignRoleRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.UnassignRole))
+    }
+
+    func SendInvitation(request: Bgs_Protocol_Channel_V2_SendInvitationRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.SendInvitation))
+    }
+
+    func AcceptInvitation(request: Bgs_Protocol_Channel_V2_AcceptInvitationRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.AcceptInvitation))
+    }
+
+    func DeclineInvitation(request: Bgs_Protocol_Channel_V2_DeclineInvitationRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.DeclineInvitation))
+    }
+
+    func RevokeInvitation(request: Bgs_Protocol_Channel_V2_RevokeInvitationRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.RevokeInvitation))
+    }
+
+    func SendSuggestion(request: Bgs_Protocol_Channel_V2_SendSuggestionRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.SendSuggestion))
+    }
+
+    func GetJoinVoiceToken(request: Bgs_Protocol_Channel_V2_GetJoinVoiceTokenRequest) -> EventLoopFuture<Bgs_Protocol_Channel_V2_GetJoinVoiceTokenResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetJoinVoiceToken))
     }
 }

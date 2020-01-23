@@ -1,21 +1,8 @@
 import Foundation
+import NIO
+import SwiftProtobuf
 
 class Bnet_Protocol_Session_SessionService: ServiceType {
-    var id: UInt32?
-    static let name = "bnet.protocol.session.SessionService"
-
-    static func method(with id: UInt32) throws -> MethodType {
-        guard let method = Method(id: id) else {
-            throw ServiceTypeError.unknownMethodForService(method: id)
-        }
-
-        return method
-    }
-
-    static func handles(_ method: MethodType) -> Bool {
-        return type(of: method) == Method.self
-    }
-
     enum Method: Int, MethodType {
         case CreateSession = 1
         case DestroySession = 2
@@ -70,7 +57,63 @@ class Bnet_Protocol_Session_SessionService: ServiceType {
         }
 
         var id: UInt32 {
-            return UInt32(rawValue)
+            return UInt32(self.rawValue)
         }
+    }
+
+    static let name = "bnet.protocol.session.SessionService"
+
+    let messageQueue: AuroraMessageQueue
+    let eventLoop: EventLoop
+
+    init(eventLoop: EventLoop, messageQueue: AuroraMessageQueue) {
+        self.eventLoop = eventLoop
+        self.messageQueue = messageQueue
+    }
+
+    static func method(with id: UInt32) throws -> MethodType {
+        guard let method = Method(id: id) else {
+            throw ServiceTypeError.unknownMethodForService(method: id)
+        }
+
+        return method
+    }
+}
+
+extension Bnet_Protocol_Session_SessionService {
+    func CreateSession(request: Bgs_Protocol_Session_V1_CreateSessionRequest) -> EventLoopFuture<Bgs_Protocol_Session_V1_CreateSessionResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.CreateSession))
+    }
+
+    func DestroySession(request: Bgs_Protocol_Session_V1_DestroySessionRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.DestroySession))
+    }
+
+    func UpdateSession(request: Bgs_Protocol_Session_V1_UpdateSessionRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.UpdateSession))
+    }
+
+    func GetSessionCapacity(request: Bgs_Protocol_Session_V1_GetSessionCapacityRequest) -> EventLoopFuture<Bgs_Protocol_Session_V1_GetSessionCapacityResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetSessionCapacity))
+    }
+
+    func GetSessionStateByBenefactor(request: Bgs_Protocol_Session_V1_GetSessionStateByBenefactorRequest) -> EventLoopFuture<Bgs_Protocol_Session_V1_GetSessionStateByBenefactorResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetSessionStateByBenefactor))
+    }
+
+    func MarkSessionsAlive(request: Bgs_Protocol_Session_V1_MarkSessionsAliveRequest) -> EventLoopFuture<Bgs_Protocol_Session_V1_MarkSessionsAliveResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.MarkSessionsAlive))
+    }
+
+    func GetSessionState(request: Bgs_Protocol_Session_V1_GetSessionStateRequest) -> EventLoopFuture<Bgs_Protocol_Session_V1_GetSessionStateResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetSessionState))
+    }
+
+    func GetSignedSessionState(request: Bgs_Protocol_Session_V1_GetSignedSessionStateRequest) -> EventLoopFuture<Bgs_Protocol_Session_V1_GetSignedSessionStateResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetSignedSessionState))
+    }
+
+    func RefreshSessionKey(request: Bgs_Protocol_Session_V1_RefreshSessionKeyRequest) -> EventLoopFuture<Bgs_Protocol_Session_V1_RefreshSessionKeyResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.RefreshSessionKey))
     }
 }

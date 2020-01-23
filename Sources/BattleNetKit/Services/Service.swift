@@ -1,4 +1,5 @@
 import Foundation
+import NIO
 
 protocol MethodType {
     var id: UInt32 { get }
@@ -18,64 +19,33 @@ extension MethodType where Self: RawRepresentable, Self.RawValue == Int {
 protocol ServiceType {
     static var name: String { get }
 
-    var id: UInt32? { get set }
+    var eventLoop: EventLoop { get }
+
     static func method(with id: UInt32) throws -> MethodType
 
-    static func handles(_ type: MethodType) -> Bool
+    func handle(method: MethodType, request: Message?) -> EventLoopFuture<Message>
 }
 
-class ReplyService: ServiceType {
+enum ReplyService {
     static var id: UInt32 = 254
-    static var name = "reply service"
-    var id: UInt32? = ReplyService.id
-
-    static func method(with id: UInt32) throws -> MethodType {
-        throw ServiceTypeError.unknownMethodForService(method: id)
-    }
-
-    static func handles(_ type: MethodType) -> Bool {
-        return false
-    }
 }
 
 enum MethodTypeError: Swift.Error {
     case unknownMethod(method: UInt32)
+    case unimplementedMethod
 }
 
 enum ServiceTypeError: Swift.Error {
-    case invalidRoutingForPacket(packet: AuroraEnvelope)
     case unknownMethodForService(method: UInt32)
     case unableToCreateHashForName(name: String)
-    case cantRegisterUnboundService
-}
-
-enum ServiceName: UInt32 {
-    case authServerService = 1
-    case gameUtilitiesService
-    case gameMasterService
-    case notificationService
-    case presenceService
-    case channelService
-    case channelOwnerService
-    case channelInvitationService
-    case friendsService
-    case challengeService
-    case accountService
-    case resourcesService
-
-    case authClientService
-    case gameMasterSubscriberService
-    case gameFactorySubscriberService
-    case notificationListenerService
-    case channelSubscriberService
-    case channelInvitationNotifyService
-    case friendsNotify
-    case challengeNotify
-    case accountNotify
+    case missingDelegateForService(service: ServiceType)
+    case unexpectedMessageType(expected: Message.Type, received: Message?.Type)
+    case unexpectedMethodType(expected: MethodType.Type, received: MethodType.Type)
+    case outboundOnlyServiceReceivedAnInboundCall(service: ServiceType)
 }
 
 extension ServiceType {
-    func hash() throws -> UInt32 {
+    static func hash() throws -> UInt32 {
         var hash: UInt32 = 0x811c_9dc5
         guard let bytes = Self.name.data(using: .ascii, allowLossyConversion: false)?.bytes else {
             throw ServiceTypeError.unableToCreateHashForName(name: Self.name)
@@ -89,9 +59,7 @@ extension ServiceType {
         return hash
     }
 
-    func handle(_ packet: AuroraEnvelope) throws {
-        guard packet.header.serviceID == self.id else {
-            throw ServiceTypeError.invalidRoutingForPacket(packet: packet)
-        }
+    func handle(method: MethodType, request: Message?) -> EventLoopFuture<Message> {
+        return self.eventLoop.makeFailedFuture(ServiceTypeError.outboundOnlyServiceReceivedAnInboundCall(service: self))
     }
 }

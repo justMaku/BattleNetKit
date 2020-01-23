@@ -1,21 +1,8 @@
 import Foundation
+import NIO
+import SwiftProtobuf
 
 class Bnet_Protocol_Sns_SocialNetworkService: ServiceType {
-    var id: UInt32?
-    static let name = "bnet.protocol.sns.SocialNetworkService"
-
-    static func method(with id: UInt32) throws -> MethodType {
-        guard let method = Method(id: id) else {
-            throw ServiceTypeError.unknownMethodForService(method: id)
-        }
-
-        return method
-    }
-
-    static func handles(_ method: MethodType) -> Bool {
-        return type(of: method) == Method.self
-    }
-
     enum Method: Int, MethodType {
         case GetFacebookAuthCode = 1
         case GetFacebookBnetFriends = 2
@@ -62,7 +49,55 @@ class Bnet_Protocol_Sns_SocialNetworkService: ServiceType {
         }
 
         var id: UInt32 {
-            return UInt32(rawValue)
+            return UInt32(self.rawValue)
         }
+    }
+
+    static let name = "bnet.protocol.sns.SocialNetworkService"
+
+    let messageQueue: AuroraMessageQueue
+    let eventLoop: EventLoop
+
+    init(eventLoop: EventLoop, messageQueue: AuroraMessageQueue) {
+        self.eventLoop = eventLoop
+        self.messageQueue = messageQueue
+    }
+
+    static func method(with id: UInt32) throws -> MethodType {
+        guard let method = Method(id: id) else {
+            throw ServiceTypeError.unknownMethodForService(method: id)
+        }
+
+        return method
+    }
+}
+
+extension Bnet_Protocol_Sns_SocialNetworkService {
+    func GetFacebookAuthCode(request: Bgs_Protocol_Sns_V1_GetFacebookAuthCodeRequest) -> EventLoopFuture<Bgs_Protocol_Sns_V1_GetFacebookAuthCodeResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetFacebookAuthCode))
+    }
+
+    func GetFacebookBnetFriends(request: Bgs_Protocol_Sns_V1_GetFacebookBnetFriendsRequest) -> EventLoopFuture<Bgs_Protocol_NoData> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetFacebookBnetFriends))
+    }
+
+    func GetFacebookSettings(request: Bgs_Protocol_NoData) -> EventLoopFuture<Bgs_Protocol_Sns_V1_GetFacebookSettingsResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetFacebookSettings))
+    }
+
+    func GetFacebookAccountLinkStatus(request: Bgs_Protocol_Sns_V1_GetFacebookAccountLinkStatusRequest) -> EventLoopFuture<Bgs_Protocol_Sns_V1_GetFacebookAccountLinkStatusResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetFacebookAccountLinkStatus))
+    }
+
+    func GetGoogleAuthToken(request: Bgs_Protocol_Sns_V1_GetGoogleAuthTokenRequest) -> EventLoopFuture<Bgs_Protocol_Sns_V1_GetGoogleAuthTokenResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetGoogleAuthToken))
+    }
+
+    func GetGoogleSettings(request: Bgs_Protocol_NoData) -> EventLoopFuture<Bgs_Protocol_Sns_V1_GetGoogleSettingsResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetGoogleSettings))
+    }
+
+    func GetGoogleAccountLinkStatus(request: Bgs_Protocol_Sns_V1_GetGoogleAccountLinkStatusRequest) -> EventLoopFuture<Bgs_Protocol_Sns_V1_GetGoogleAccountLinkStatusResponse> {
+        return self.messageQueue.enqueue(call: .init(message: request, service: self, method: Method.GetGoogleAccountLinkStatus))
     }
 }

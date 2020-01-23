@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from google.protobuf.descriptor_pb2 import ServiceDescriptorProto
 from google.protobuf.descriptor_pb2 import DescriptorProto
@@ -69,18 +69,13 @@ def handle(service):
 
     direction = None
     if sdk_options.inbound:
-        direction = "inbound"
-    elif sdk_options.outbound:
-        direction = "outbound"
-
-    if direction is not None:
-        data.update({
-            "direction": direction
-        })
-
+        data.update({"is_inbound": True})
+    if sdk_options.outbound:
+        data.update({"is_outbound": True})
     methods = []
     for method in service.method:
         method_id = method.options.Extensions[method_options_pb2.method_options].id
+
         methods.append(
             {
                 "name": method.name,
@@ -127,9 +122,10 @@ def generate_code(request, response):
 
 
 if __name__ == '__main__':
-    # Read request message from stdin
-    data = sys.stdin.read()
+    stdin = open(sys.stdin.fileno(), mode='rb', closefd=False)
+    stdout = open(sys.stdout.fileno(), mode='wb', closefd=False)
 
+    data = stdin.read()
     # Parse request
     request = plugin.CodeGeneratorRequest()
     request.ParseFromString(data)
@@ -144,4 +140,4 @@ if __name__ == '__main__':
     output = response.SerializeToString()
 
     # Write to stdout
-    sys.stdout.write(output)
+    stdout.write(output)
