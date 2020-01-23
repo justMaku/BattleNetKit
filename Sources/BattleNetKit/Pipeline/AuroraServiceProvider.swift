@@ -6,8 +6,8 @@ internal final class AuroraServiceProvider {
         case unknownInboundService(id: UInt32)
     }
 
-    let inboundServices: [UInt32: ServiceType] = [:]
-    let outboundServices: [UInt32: ServiceType] = [:]
+    private var inboundServices: [UInt32: ServiceType] = [:]
+    private var outboundServices: [UInt32: ServiceType] = [:]
 
     internal func outboundService(with id: UInt32) throws -> ServiceType {
         guard let service = self.outboundServices[id] else {
@@ -23,5 +23,17 @@ internal final class AuroraServiceProvider {
         }
 
         return service
+    }
+
+    internal func register(inbound service: ServiceType) throws {
+        let hash = try type(of: service).hash()
+
+        self.inboundServices[hash] = service
+    }
+
+    internal func register(outbound service: ServiceType) throws {
+        let hash = try type(of: service).hash()
+
+        self.outboundServices[hash] = service
     }
 }

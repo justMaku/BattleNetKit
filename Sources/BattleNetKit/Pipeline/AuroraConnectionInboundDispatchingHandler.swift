@@ -16,7 +16,7 @@ internal final class AuroraConnectionInboundDispatchingHandler: ChannelInboundHa
         let envelope = unwrapInboundIn(data)
 
         do {
-            try messageDispatcher.dispatch(envelope: envelope)
+            try messageDispatcher.dispatch(context: context, envelope: envelope)
         } catch {
             context.fireErrorCaught(error)
         }

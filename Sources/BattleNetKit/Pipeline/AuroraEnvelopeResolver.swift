@@ -31,7 +31,7 @@ internal final class AuroraEnvelopeResolver {
     }
 
     private func resolveCall(envelope: UnresolvedAuroraEnvelope) throws -> AuroraEnvelope {
-        let service = try serviceProvider.inboundService(with: envelope.header.serviceID)
+        let service = try serviceProvider.inboundService(with: envelope.header.serviceHash)
 
         guard let method = try? type(of: service).method(with: envelope.header.methodID) else {
             throw Error.unknownMethod(service: service, methodId: envelope.header.methodID)
@@ -51,7 +51,7 @@ internal final class AuroraEnvelopeResolver {
     }
 
     func resolveResponse(envelope: UnresolvedAuroraEnvelope) throws -> AuroraEnvelope {
-        let (messageType, _) = try messageQueue.dequeue(for: envelope.header.token)
+        let (messageType, _) = try messageQueue.get(envelope.header.token)
 
         guard let buffer = envelope.messageBytes?.getBytes(at: 0, length: Int(envelope.header.size)) else {
             throw Error.messageExpected

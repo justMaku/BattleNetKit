@@ -5,6 +5,7 @@ internal final class AuroraEnvelopeDispatcher {
         case errorStatus(status: BattleNetStatus)
         case unknownStatus(status: UInt32)
         case unknownMethod(service: ServiceType, methodId: UInt32)
+        case missingRequestMessage
         case missingResponeMessage
         case unexpectedMessageType(expected: Message.Type, received: Message.Type)
     }
@@ -23,28 +24,37 @@ internal final class AuroraEnvelopeDispatcher {
         self.messageQueue = messageQueue
     }
 
-    func dispatch(envelope: AuroraEnvelope) throws {
+    func dispatch(context: ChannelHandlerContext, envelope: AuroraEnvelope) throws {
         if envelope.header.serviceID == ReplyService.id {
-            return try dispatchResponse(envelope: envelope)
+            return try dispatchResponse(context: context, envelope: envelope)
         } else {
-            return try dispatchCall(envelope: envelope)
+            return try dispatchCall(context: context, envelope: envelope)
         }
     }
 
-    private func dispatchCall(envelope: AuroraEnvelope) throws {
-        let service = try serviceProvider.inboundService(with: envelope.header.serviceID)
+    private func dispatchCall(context: ChannelHandlerContext, envelope: AuroraEnvelope) throws {
+        let service = try serviceProvider.inboundService(with: envelope.header.serviceHash)
 
-        guard let method = try? type(of: service).method(with: envelope.header.methodID) else {
+        guard
+            let method = try? type(of: service).method(with: envelope.header.methodID)
+        else {
             throw Error.unknownMethod(service: service, methodId: envelope.header.methodID)
         }
 
-        let promise = eventLoop.makePromise(of: Message.self)
-
-        print(envelope)
-        //        return AuroraEnvelope(header: envelope.header, message: message)
+        service
+            .handle(method: method, request: envelope.message)
+            .whenComplete { result in
+                switch result {
+                case .failure(let error):
+                    context.fireErrorCaught(error)
+                case .success(let reply):
+                    // TODO: Figure out if this is the right way of handling this.
+                    let _ = self.messageQueue.enqueue(reply: reply, to: envelope)
+                }
+            }
     }
 
-    private func dispatchResponse(envelope: AuroraEnvelope) throws {
+    private func dispatchResponse(context: ChannelHandlerContext, envelope: AuroraEnvelope) throws {
         let (expectedMessageType, promise) = try messageQueue.dequeue(for: envelope.header.token)
 
         guard let message = envelope.message else {

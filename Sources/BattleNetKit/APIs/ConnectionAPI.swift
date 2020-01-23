@@ -7,64 +7,28 @@ public class ConnectionAPI: API {
     }
 
     private let connectionService: Bnet_Protocol_Connection_ConnectionService
+    internal let eventLoop: EventLoop
 
-    let importedServices: [ServiceType] = [
-        Bnet_Protocol_Authentication_AuthenticationServer(),
-        Bnet_Protocol_Account_AccountService(),
-        Bnet_Protocol_GameUtilities_GameUtilities(),
-    ]
+    required init(eventLoop: EventLoop, serviceProvider: AuroraServiceProvider, messageQueue: AuroraMessageQueue) throws {
+        self.eventLoop = eventLoop
 
-    let exportedServices: [ServiceType] = [
-        Bnet_Protocol_Authentication_AuthenticationClient(),
-        Bnet_Protocol_Challenge_ChallengeNotify(),
-        Bnet_Protocol_Account_AccountNotify(),
-    ]
+        self.connectionService = .init(eventLoop: eventLoop, messageQueue: messageQueue)
+        self.connectionService.delegate = self
 
-    required init(messageQueue: AuroraMessageQueue, serviceProvider _: AuroraServiceProvider) {
-        connectionService = .init(messageQueue: messageQueue)
+        try serviceProvider.register(inbound: self.connectionService)
+        try serviceProvider.register(outbound: self.connectionService)
     }
-
-    func bind(to _: ConnectionAPI) throws {}
-
-    func register(with _: ConnectionAPI) throws {}
 }
 
 // MARK: - Outgoing Message Calls
 
 public extension ConnectionAPI {
-    internal func connect() throws -> EventLoopFuture<()> {
+    internal func connect() -> EventLoopFuture<()> {
         var connectionRequest = Bgs_Protocol_Connection_V1_ConnectRequest()
-        var bindRequest = Bgs_Protocol_Connection_V1_BindRequest()
 
-        let exportedServices = [self.connectionService] + self.exportedServices
-        let importedServices = [self.connectionService] + self.importedServices
+        connectionRequest.useBindlessRpc = true
 
-        (self.exportedServices + self.importedServices).enumerated().forEach { arg in
-            var (index, service) = arg
-            service.id = UInt32(index) + 1
-        }
-
-        bindRequest.exportedService = try exportedServices.map { service in
-            var boundService = Bgs_Protocol_Connection_V1_BoundService()
-            boundService.id = service.id ?? 0
-
-            boundService.hash = try type(of: service).hash()
-
-            return boundService
-        }
-
-        bindRequest.importedService = try importedServices.map { service in
-            var boundService = Bgs_Protocol_Connection_V1_BoundService()
-            boundService.id = service.id ?? 0
-            boundService.hash = try type(of: service).hash()
-
-            return boundService
-        }
-
-        connectionRequest.bindRequest = bindRequest
-        connectionRequest.useBindlessRpc = false
-
-        return connectionService.connect(request: connectionRequest).flatMapResult {
+        return connectionService.Connect(request: connectionRequest).flatMapResult {
             (response) -> Result<(), Error> in
 
             if response.bindResult == 0 {
@@ -78,15 +42,4 @@ public extension ConnectionAPI {
 
 // MARK: - Incoming Message Handlers
 
-private extension ConnectionAPI {
-    private func echo(
-        request: Bgs_Protocol_Connection_V1_EchoRequest,
-        promise: EventLoopPromise<Bgs_Protocol_Connection_V1_EchoResponse>
-    ) {
-        var response = Bgs_Protocol_Connection_V1_EchoResponse()
-        response.time = request.time
-        response.payload = request.payload
-
-        promise.succeed(response)
-    }
-}
+extension ConnectionAPI: Bnet_Protocol_Connection_ConnectionServiceHandler {}

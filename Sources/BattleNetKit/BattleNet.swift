@@ -29,48 +29,70 @@ public class BattleNet {
         self.bootstrap = bootstrap
     }
 
-    public func client() -> EventLoopFuture<(Client, EventLoopFuture<()>)> {
+    public func client() -> EventLoopFuture<(Client, EventLoopFuture<()>, EventLoopFuture<()>)> {
         return bootstrap
             .connect(host: region.host, port: 1119)
             .flatMap { channel in
-                let client = Client(region: self.region, channel: channel)
+                do {
+                    let client = try Client(region: self.region, channel: channel)
 
-                return client
-                    .attach(pipeline: channel.pipeline)
-                    .map { (client, channel.closeFuture)
-                    }
+                    return client
+                        .attach(pipeline: channel.pipeline)
+                        .map { (client, channel.closeFuture, client.errorFuture) }
+                } catch let error {
+                    return channel.eventLoop.makeFailedFuture(error)
+                }
             }
     }
 
     public class Client {
         public let region: Region
 
+        internal var errorFuture: EventLoopFuture<()> {
+            return self.errorPromise.futureResult
+        }
+
         private let channel: Channel
         private let messageQueue: AuroraMessageQueue
         private let serviceProvider: AuroraServiceProvider
+        private let errorPromise: EventLoopPromise<()>
 
         // - MARK: APIs
-        public let connectionAPI: ConnectionAPI
+        public let api: APIContainer
 
-        public init(region: Region, channel: Channel) {
+        public init(region: Region, channel: Channel) throws {
             let messageQueue = AuroraMessageQueue(channel: channel)
             let serviceProvider = AuroraServiceProvider()
 
-            let connectionAPI = ConnectionAPI(
-                messageQueue: messageQueue,
-                serviceProvider: serviceProvider
-            )
-
             self.region = region
             self.channel = channel
-            self.connectionAPI = connectionAPI
             self.messageQueue = messageQueue
             self.serviceProvider = serviceProvider
+            self.errorPromise = channel.eventLoop.makePromise()
+
+            self.api = try .init(
+                connection: ConnectionAPI(
+                    eventLoop: channel.eventLoop,
+                    serviceProvider: serviceProvider,
+                    messageQueue: messageQueue
+                ),
+                authentication: AuthenticationAPI(
+                    eventLoop: channel.eventLoop,
+                    serviceProvider: serviceProvider,
+                    messageQueue: messageQueue
+                ),
+                utilities: GameServicesAPI(
+                    eventLoop: channel.eventLoop,
+                    serviceProvider: serviceProvider,
+                    messageQueue: messageQueue
+                )
+            )
         }
 
         internal func attach(pipeline: ChannelPipeline) -> EventLoopFuture<()> {
             let messageEncoder = MessageToByteHandler(AuroraEnvelopeEncoder())
             let messageDecoder = ByteToMessageHandler(AuroraEnvelopeDecoder())
+            let errorHandler = AuroraPipelineErrorHandler(promise: self.errorPromise)
 
             let resolver = AuroraEnvelopeResolver(
                 serviceProvider: serviceProvider,
@@ -91,17 +113,12 @@ public class BattleNet {
                 messageEncoder,
                 resolvingHandler,
                 dispatchingHandler,
+                errorHandler,
             ])
         }
 
         public func connect() -> EventLoopFuture<Client> {
-            do {
-                return try connectionAPI.connect().map {
-                    self
-                }
-            } catch {
-                return channel.eventLoop.makeFailedFuture(error)
-            }
+            return self.api.connection.connect().map { self }
         }
 
         public func close() -> EventLoopFuture<()> {
