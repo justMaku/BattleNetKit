@@ -7,6 +7,8 @@ public enum Region: UInt32, Codable {
     case us = 1
     case eu = 2
     case kr = 3
+    case cn = 5
+
     case test = 98
 
     var host: String {
@@ -18,6 +20,7 @@ public enum Region: UInt32, Codable {
         case .us: return "us"
         case .eu: return "eu"
         case .kr: return "kr"
+        case .cn: return "cn"
         case .test: return "test"
         }
     }
