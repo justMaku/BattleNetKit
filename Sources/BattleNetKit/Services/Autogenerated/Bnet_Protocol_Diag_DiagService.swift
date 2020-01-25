@@ -122,16 +122,31 @@ protocol Bnet_Protocol_Diag_DiagServiceHandler: AnyObject {
 extension Bnet_Protocol_Diag_DiagServiceHandler {
     func GetVar(request: Bgs_Protocol_Diag_V1_GetVarRequest)
         -> EventLoopFuture<Bgs_Protocol_Diag_V1_GetVarResponse> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Diag_DiagService.Method.GetVar,
+                of: Bnet_Protocol_Diag_DiagService.self
+            )
+        )
     }
 
     func SetVar(request: Bgs_Protocol_Diag_V1_SetVarRequest)
         -> EventLoopFuture<Bgs_Protocol_NoData> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Diag_DiagService.Method.SetVar,
+                of: Bnet_Protocol_Diag_DiagService.self
+            )
+        )
     }
 
     func Query(request: Bgs_Protocol_Diag_V1_QueryRequest)
         -> EventLoopFuture<Bgs_Protocol_Diag_V1_QueryResponse> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Diag_DiagService.Method.Query,
+                of: Bnet_Protocol_Diag_DiagService.self
+            )
+        )
     }
 }

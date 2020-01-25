@@ -190,36 +190,71 @@ protocol Bnet_Protocol_Channel_ChannelSubscriberHandler: AnyObject {
 extension Bnet_Protocol_Channel_ChannelSubscriberHandler {
     func OnJoin(request: Bgs_Protocol_Channel_V1_JoinNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_ChannelSubscriber.Method.OnJoin,
+                of: Bnet_Protocol_Channel_ChannelSubscriber.self
+            )
+        )
     }
 
     func OnMemberAdded(request: Bgs_Protocol_Channel_V1_MemberAddedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_ChannelSubscriber.Method.OnMemberAdded,
+                of: Bnet_Protocol_Channel_ChannelSubscriber.self
+            )
+        )
     }
 
     func OnLeave(request: Bgs_Protocol_Channel_V1_LeaveNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_ChannelSubscriber.Method.OnLeave,
+                of: Bnet_Protocol_Channel_ChannelSubscriber.self
+            )
+        )
     }
 
     func OnMemberRemoved(request: Bgs_Protocol_Channel_V1_MemberRemovedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_ChannelSubscriber.Method.OnMemberRemoved,
+                of: Bnet_Protocol_Channel_ChannelSubscriber.self
+            )
+        )
     }
 
     func OnSendMessage(request: Bgs_Protocol_Channel_V1_SendMessageNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_ChannelSubscriber.Method.OnSendMessage,
+                of: Bnet_Protocol_Channel_ChannelSubscriber.self
+            )
+        )
     }
 
     func OnUpdateChannelState(request: Bgs_Protocol_Channel_V1_UpdateChannelStateNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_ChannelSubscriber.Method.OnUpdateChannelState,
+                of: Bnet_Protocol_Channel_ChannelSubscriber.self
+            )
+        )
     }
 
     func OnUpdateMemberState(request: Bgs_Protocol_Channel_V1_UpdateMemberStateNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_ChannelSubscriber.Method.OnUpdateMemberState,
+                of: Bnet_Protocol_Channel_ChannelSubscriber.self
+            )
+        )
     }
 }

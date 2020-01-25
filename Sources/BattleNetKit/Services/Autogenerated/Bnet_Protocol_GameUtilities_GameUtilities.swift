@@ -283,51 +283,101 @@ protocol Bnet_Protocol_GameUtilities_GameUtilitiesHandler: AnyObject {
 extension Bnet_Protocol_GameUtilities_GameUtilitiesHandler {
     func ProcessClientRequest(request: Bgs_Protocol_GameUtilities_V1_ClientRequest)
         -> EventLoopFuture<Bgs_Protocol_GameUtilities_V1_ClientResponse> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_GameUtilities_GameUtilities.Method.ProcessClientRequest,
+                of: Bnet_Protocol_GameUtilities_GameUtilities.self
+            )
+        )
     }
 
     func PresenceChannelCreated(request: Bgs_Protocol_GameUtilities_V1_PresenceChannelCreatedRequest)
         -> EventLoopFuture<Bgs_Protocol_NoData> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_GameUtilities_GameUtilities.Method.PresenceChannelCreated,
+                of: Bnet_Protocol_GameUtilities_GameUtilities.self
+            )
+        )
     }
 
     func GetPlayerVariables(request: Bgs_Protocol_GameUtilities_V1_GetPlayerVariablesRequest)
         -> EventLoopFuture<Bgs_Protocol_GameUtilities_V1_GetPlayerVariablesResponse> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_GameUtilities_GameUtilities.Method.GetPlayerVariables,
+                of: Bnet_Protocol_GameUtilities_GameUtilities.self
+            )
+        )
     }
 
     func ProcessServerRequest(request: Bgs_Protocol_GameUtilities_V1_ServerRequest)
         -> EventLoopFuture<Bgs_Protocol_GameUtilities_V1_ServerResponse> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_GameUtilities_GameUtilities.Method.ProcessServerRequest,
+                of: Bnet_Protocol_GameUtilities_GameUtilities.self
+            )
+        )
     }
 
     func OnGameAccountOnline(request: Bgs_Protocol_GameUtilities_V1_GameAccountOnlineNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_GameUtilities_GameUtilities.Method.OnGameAccountOnline,
+                of: Bnet_Protocol_GameUtilities_GameUtilities.self
+            )
+        )
     }
 
     func OnGameAccountOffline(request: Bgs_Protocol_GameUtilities_V1_GameAccountOfflineNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_GameUtilities_GameUtilities.Method.OnGameAccountOffline,
+                of: Bnet_Protocol_GameUtilities_GameUtilities.self
+            )
+        )
     }
 
     func GetAchievementsFile(request: Bgs_Protocol_GameUtilities_V1_GetAchievementsFileRequest)
         -> EventLoopFuture<Bgs_Protocol_GameUtilities_V1_GetAchievementsFileResponse> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_GameUtilities_GameUtilities.Method.GetAchievementsFile,
+                of: Bnet_Protocol_GameUtilities_GameUtilities.self
+            )
+        )
     }
 
     func GetAllValuesForAttribute(request: Bgs_Protocol_GameUtilities_V1_GetAllValuesForAttributeRequest)
         -> EventLoopFuture<Bgs_Protocol_GameUtilities_V1_GetAllValuesForAttributeResponse> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_GameUtilities_GameUtilities.Method.GetAllValuesForAttribute,
+                of: Bnet_Protocol_GameUtilities_GameUtilities.self
+            )
+        )
     }
 
     func RegisterUtilities(request: Bgs_Protocol_GameUtilities_V1_RegisterUtilitiesRequest)
         -> EventLoopFuture<Bgs_Protocol_GameUtilities_V1_RegisterUtilitiesResponse> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_GameUtilities_GameUtilities.Method.RegisterUtilities,
+                of: Bnet_Protocol_GameUtilities_GameUtilities.self
+            )
+        )
     }
 
     func UnregisterUtilities(request: Bgs_Protocol_GameUtilities_V1_UnregisterUtilitiesRequest)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_GameUtilities_GameUtilities.Method.UnregisterUtilities,
+                of: Bnet_Protocol_GameUtilities_GameUtilities.self
+            )
+        )
     }
 }

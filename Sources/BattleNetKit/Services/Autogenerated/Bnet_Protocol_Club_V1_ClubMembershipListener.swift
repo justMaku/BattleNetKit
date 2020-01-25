@@ -207,41 +207,81 @@ protocol Bnet_Protocol_Club_V1_ClubMembershipListenerHandler: AnyObject {
 extension Bnet_Protocol_Club_V1_ClubMembershipListenerHandler {
     func OnClubAdded(request: Bgs_Protocol_Club_V1_Membership_ClubAddedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Club_V1_ClubMembershipListener.Method.OnClubAdded,
+                of: Bnet_Protocol_Club_V1_ClubMembershipListener.self
+            )
+        )
     }
 
     func OnClubRemoved(request: Bgs_Protocol_Club_V1_Membership_ClubRemovedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Club_V1_ClubMembershipListener.Method.OnClubRemoved,
+                of: Bnet_Protocol_Club_V1_ClubMembershipListener.self
+            )
+        )
     }
 
     func OnReceivedInvitationAdded(request: Bgs_Protocol_Club_V1_Membership_ReceivedInvitationAddedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Club_V1_ClubMembershipListener.Method.OnReceivedInvitationAdded,
+                of: Bnet_Protocol_Club_V1_ClubMembershipListener.self
+            )
+        )
     }
 
     func OnReceivedInvitationRemoved(request: Bgs_Protocol_Club_V1_Membership_ReceivedInvitationRemovedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Club_V1_ClubMembershipListener.Method.OnReceivedInvitationRemoved,
+                of: Bnet_Protocol_Club_V1_ClubMembershipListener.self
+            )
+        )
     }
 
     func OnSharedSettingsChanged(request: Bgs_Protocol_Club_V1_Membership_SharedSettingsChangedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Club_V1_ClubMembershipListener.Method.OnSharedSettingsChanged,
+                of: Bnet_Protocol_Club_V1_ClubMembershipListener.self
+            )
+        )
     }
 
     func OnStreamMentionAdded(request: Bgs_Protocol_Club_V1_Membership_StreamMentionAddedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Club_V1_ClubMembershipListener.Method.OnStreamMentionAdded,
+                of: Bnet_Protocol_Club_V1_ClubMembershipListener.self
+            )
+        )
     }
 
     func OnStreamMentionRemoved(request: Bgs_Protocol_Club_V1_Membership_StreamMentionRemovedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Club_V1_ClubMembershipListener.Method.OnStreamMentionRemoved,
+                of: Bnet_Protocol_Club_V1_ClubMembershipListener.self
+            )
+        )
     }
 
     func OnStreamMentionAdvanceViewTime(request: Bgs_Protocol_Club_V1_Membership_StreamMentionAdvanceViewTimeNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Club_V1_ClubMembershipListener.Method.OnStreamMentionAdvanceViewTime,
+                of: Bnet_Protocol_Club_V1_ClubMembershipListener.self
+            )
+        )
     }
 }

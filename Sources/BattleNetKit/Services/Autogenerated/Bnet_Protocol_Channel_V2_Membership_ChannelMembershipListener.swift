@@ -139,21 +139,41 @@ protocol Bnet_Protocol_Channel_V2_Membership_ChannelMembershipListenerHandler: A
 extension Bnet_Protocol_Channel_V2_Membership_ChannelMembershipListenerHandler {
     func OnChannelAdded(request: Bgs_Protocol_Channel_V2_Membership_ChannelAddedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_V2_Membership_ChannelMembershipListener.Method.OnChannelAdded,
+                of: Bnet_Protocol_Channel_V2_Membership_ChannelMembershipListener.self
+            )
+        )
     }
 
     func OnChannelRemoved(request: Bgs_Protocol_Channel_V2_Membership_ChannelRemovedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_V2_Membership_ChannelMembershipListener.Method.OnChannelRemoved,
+                of: Bnet_Protocol_Channel_V2_Membership_ChannelMembershipListener.self
+            )
+        )
     }
 
     func OnReceivedInvitationAdded(request: Bgs_Protocol_Channel_V2_Membership_ReceivedInvitationAddedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_V2_Membership_ChannelMembershipListener.Method.OnReceivedInvitationAdded,
+                of: Bnet_Protocol_Channel_V2_Membership_ChannelMembershipListener.self
+            )
+        )
     }
 
     func OnReceivedInvitationRemoved(request: Bgs_Protocol_Channel_V2_Membership_ReceivedInvitationRemovedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_V2_Membership_ChannelMembershipListener.Method.OnReceivedInvitationRemoved,
+                of: Bnet_Protocol_Channel_V2_Membership_ChannelMembershipListener.self
+            )
+        )
     }
 }

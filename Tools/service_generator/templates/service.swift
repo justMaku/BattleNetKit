@@ -130,7 +130,12 @@ extension {{ service["name"] }}Handler {
     func {{ method["name"] }}(request: {{ method["request"] }}) 
             -> EventLoopFuture<{{ method["response"] }}>
     {% endif %} {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: {{ service["name"] }}.Method.{{ method["name"] }}, 
+                of: {{ service["name"] }}.self
+            )
+        )
     }
     {% endfor %}
 }

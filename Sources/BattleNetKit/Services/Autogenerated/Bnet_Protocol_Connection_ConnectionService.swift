@@ -214,36 +214,71 @@ protocol Bnet_Protocol_Connection_ConnectionServiceHandler: AnyObject {
 extension Bnet_Protocol_Connection_ConnectionServiceHandler {
     func Connect(request: Bgs_Protocol_Connection_V1_ConnectRequest)
         -> EventLoopFuture<Bgs_Protocol_Connection_V1_ConnectResponse> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Connection_ConnectionService.Method.Connect,
+                of: Bnet_Protocol_Connection_ConnectionService.self
+            )
+        )
     }
 
     func Bind(request: Bgs_Protocol_Connection_V1_BindRequest)
         -> EventLoopFuture<Bgs_Protocol_Connection_V1_BindResponse> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Connection_ConnectionService.Method.Bind,
+                of: Bnet_Protocol_Connection_ConnectionService.self
+            )
+        )
     }
 
     func Echo(request: Bgs_Protocol_Connection_V1_EchoRequest)
         -> EventLoopFuture<Bgs_Protocol_Connection_V1_EchoResponse> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Connection_ConnectionService.Method.Echo,
+                of: Bnet_Protocol_Connection_ConnectionService.self
+            )
+        )
     }
 
     func ForceDisconnect(request: Bgs_Protocol_Connection_V1_DisconnectNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Connection_ConnectionService.Method.ForceDisconnect,
+                of: Bnet_Protocol_Connection_ConnectionService.self
+            )
+        )
     }
 
     func KeepAlive()
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Connection_ConnectionService.Method.KeepAlive,
+                of: Bnet_Protocol_Connection_ConnectionService.self
+            )
+        )
     }
 
     func Encrypt(request: Bgs_Protocol_Connection_V1_EncryptRequest)
         -> EventLoopFuture<Bgs_Protocol_NoData> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Connection_ConnectionService.Method.Encrypt,
+                of: Bnet_Protocol_Connection_ConnectionService.self
+            )
+        )
     }
 
     func RequestDisconnect(request: Bgs_Protocol_Connection_V1_DisconnectRequest)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Connection_ConnectionService.Method.RequestDisconnect,
+                of: Bnet_Protocol_Connection_ConnectionService.self
+            )
+        )
     }
 }

@@ -258,56 +258,111 @@ protocol Bnet_Protocol_Channel_V2_ChannelListenerHandler: AnyObject {
 extension Bnet_Protocol_Channel_V2_ChannelListenerHandler {
     func OnMemberAdded(request: Bgs_Protocol_Channel_V2_MemberAddedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_V2_ChannelListener.Method.OnMemberAdded,
+                of: Bnet_Protocol_Channel_V2_ChannelListener.self
+            )
+        )
     }
 
     func OnMemberRemoved(request: Bgs_Protocol_Channel_V2_MemberRemovedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_V2_ChannelListener.Method.OnMemberRemoved,
+                of: Bnet_Protocol_Channel_V2_ChannelListener.self
+            )
+        )
     }
 
     func OnMemberAttributeChanged(request: Bgs_Protocol_Channel_V2_MemberAttributeChangedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_V2_ChannelListener.Method.OnMemberAttributeChanged,
+                of: Bnet_Protocol_Channel_V2_ChannelListener.self
+            )
+        )
     }
 
     func OnMemberRoleChanged(request: Bgs_Protocol_Channel_V2_MemberRoleChangedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_V2_ChannelListener.Method.OnMemberRoleChanged,
+                of: Bnet_Protocol_Channel_V2_ChannelListener.self
+            )
+        )
     }
 
     func OnSendMessage(request: Bgs_Protocol_Channel_V2_SendMessageNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_V2_ChannelListener.Method.OnSendMessage,
+                of: Bnet_Protocol_Channel_V2_ChannelListener.self
+            )
+        )
     }
 
     func OnTypingIndicator(request: Bgs_Protocol_Channel_V2_TypingIndicatorNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_V2_ChannelListener.Method.OnTypingIndicator,
+                of: Bnet_Protocol_Channel_V2_ChannelListener.self
+            )
+        )
     }
 
     func OnAttributeChanged(request: Bgs_Protocol_Channel_V2_AttributeChangedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_V2_ChannelListener.Method.OnAttributeChanged,
+                of: Bnet_Protocol_Channel_V2_ChannelListener.self
+            )
+        )
     }
 
     func OnPrivacyLevelChanged(request: Bgs_Protocol_Channel_V2_PrivacyLevelChangedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_V2_ChannelListener.Method.OnPrivacyLevelChanged,
+                of: Bnet_Protocol_Channel_V2_ChannelListener.self
+            )
+        )
     }
 
     func OnInvitationAdded(request: Bgs_Protocol_Channel_V2_InvitationAddedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_V2_ChannelListener.Method.OnInvitationAdded,
+                of: Bnet_Protocol_Channel_V2_ChannelListener.self
+            )
+        )
     }
 
     func OnInvitationRemoved(request: Bgs_Protocol_Channel_V2_InvitationRemovedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_V2_ChannelListener.Method.OnInvitationRemoved,
+                of: Bnet_Protocol_Channel_V2_ChannelListener.self
+            )
+        )
     }
 
     func OnSuggestionAdded(request: Bgs_Protocol_Channel_V2_SuggestionAddedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Channel_V2_ChannelListener.Method.OnSuggestionAdded,
+                of: Bnet_Protocol_Channel_V2_ChannelListener.self
+            )
+        )
     }
 }

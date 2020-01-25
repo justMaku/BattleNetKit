@@ -190,36 +190,71 @@ protocol Bnet_Protocol_Friends_FriendsNotifyHandler: AnyObject {
 extension Bnet_Protocol_Friends_FriendsNotifyHandler {
     func OnFriendAdded(request: Bgs_Protocol_Friends_V1_FriendNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Friends_FriendsNotify.Method.OnFriendAdded,
+                of: Bnet_Protocol_Friends_FriendsNotify.self
+            )
+        )
     }
 
     func OnFriendRemoved(request: Bgs_Protocol_Friends_V1_FriendNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Friends_FriendsNotify.Method.OnFriendRemoved,
+                of: Bnet_Protocol_Friends_FriendsNotify.self
+            )
+        )
     }
 
     func OnReceivedInvitationAdded(request: Bgs_Protocol_Friends_V1_InvitationNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Friends_FriendsNotify.Method.OnReceivedInvitationAdded,
+                of: Bnet_Protocol_Friends_FriendsNotify.self
+            )
+        )
     }
 
     func OnReceivedInvitationRemoved(request: Bgs_Protocol_Friends_V1_InvitationNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Friends_FriendsNotify.Method.OnReceivedInvitationRemoved,
+                of: Bnet_Protocol_Friends_FriendsNotify.self
+            )
+        )
     }
 
     func OnSentInvitationAdded(request: Bgs_Protocol_Friends_V1_SentInvitationAddedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Friends_FriendsNotify.Method.OnSentInvitationAdded,
+                of: Bnet_Protocol_Friends_FriendsNotify.self
+            )
+        )
     }
 
     func OnSentInvitationRemoved(request: Bgs_Protocol_Friends_V1_SentInvitationRemovedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Friends_FriendsNotify.Method.OnSentInvitationRemoved,
+                of: Bnet_Protocol_Friends_FriendsNotify.self
+            )
+        )
     }
 
     func OnUpdateFriendState(request: Bgs_Protocol_Friends_V1_UpdateFriendStateNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Friends_FriendsNotify.Method.OnUpdateFriendState,
+                of: Bnet_Protocol_Friends_FriendsNotify.self
+            )
+        )
     }
 }

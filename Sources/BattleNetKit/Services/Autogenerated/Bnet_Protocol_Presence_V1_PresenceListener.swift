@@ -105,11 +105,21 @@ protocol Bnet_Protocol_Presence_V1_PresenceListenerHandler: AnyObject {
 extension Bnet_Protocol_Presence_V1_PresenceListenerHandler {
     func OnSubscribe(request: Bgs_Protocol_Presence_V1_SubscribeNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Presence_V1_PresenceListener.Method.OnSubscribe,
+                of: Bnet_Protocol_Presence_V1_PresenceListener.self
+            )
+        )
     }
 
     func OnStateChanged(request: Bgs_Protocol_Presence_V1_StateChangedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Presence_V1_PresenceListener.Method.OnStateChanged,
+                of: Bnet_Protocol_Presence_V1_PresenceListener.self
+            )
+        )
     }
 }

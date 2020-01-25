@@ -235,51 +235,101 @@ protocol Bnet_Protocol_Authentication_AuthenticationClientHandler: AnyObject {
 extension Bnet_Protocol_Authentication_AuthenticationClientHandler {
     func OnModuleLoad(request: Bgs_Protocol_Authentication_V1_ModuleLoadRequest)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Authentication_AuthenticationClient.Method.OnModuleLoad,
+                of: Bnet_Protocol_Authentication_AuthenticationClient.self
+            )
+        )
     }
 
     func OnModuleMessage(request: Bgs_Protocol_Authentication_V1_ModuleMessageRequest)
         -> EventLoopFuture<Bgs_Protocol_NoData> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Authentication_AuthenticationClient.Method.OnModuleMessage,
+                of: Bnet_Protocol_Authentication_AuthenticationClient.self
+            )
+        )
     }
 
     func OnServerStateChange(request: Bgs_Protocol_Authentication_V1_ServerStateChangeRequest)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Authentication_AuthenticationClient.Method.OnServerStateChange,
+                of: Bnet_Protocol_Authentication_AuthenticationClient.self
+            )
+        )
     }
 
     func OnLogonComplete(request: Bgs_Protocol_Authentication_V1_LogonResult)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Authentication_AuthenticationClient.Method.OnLogonComplete,
+                of: Bnet_Protocol_Authentication_AuthenticationClient.self
+            )
+        )
     }
 
     func OnMemModuleLoad(request: Bgs_Protocol_Authentication_V1_MemModuleLoadRequest)
         -> EventLoopFuture<Bgs_Protocol_Authentication_V1_MemModuleLoadResponse> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Authentication_AuthenticationClient.Method.OnMemModuleLoad,
+                of: Bnet_Protocol_Authentication_AuthenticationClient.self
+            )
+        )
     }
 
     func OnLogonUpdate(request: Bgs_Protocol_Authentication_V1_LogonUpdateRequest)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Authentication_AuthenticationClient.Method.OnLogonUpdate,
+                of: Bnet_Protocol_Authentication_AuthenticationClient.self
+            )
+        )
     }
 
     func OnVersionInfoUpdated(request: Bgs_Protocol_Authentication_V1_VersionInfoNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Authentication_AuthenticationClient.Method.OnVersionInfoUpdated,
+                of: Bnet_Protocol_Authentication_AuthenticationClient.self
+            )
+        )
     }
 
     func OnLogonQueueUpdate(request: Bgs_Protocol_Authentication_V1_LogonQueueUpdateRequest)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Authentication_AuthenticationClient.Method.OnLogonQueueUpdate,
+                of: Bnet_Protocol_Authentication_AuthenticationClient.self
+            )
+        )
     }
 
     func OnLogonQueueEnd()
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Authentication_AuthenticationClient.Method.OnLogonQueueEnd,
+                of: Bnet_Protocol_Authentication_AuthenticationClient.self
+            )
+        )
     }
 
     func OnGameAccountSelected(request: Bgs_Protocol_Authentication_V1_GameAccountSelectedRequest)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Authentication_AuthenticationClient.Method.OnGameAccountSelected,
+                of: Bnet_Protocol_Authentication_AuthenticationClient.self
+            )
+        )
     }
 }

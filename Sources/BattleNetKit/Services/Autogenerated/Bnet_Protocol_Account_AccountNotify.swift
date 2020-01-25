@@ -139,21 +139,41 @@ protocol Bnet_Protocol_Account_AccountNotifyHandler: AnyObject {
 extension Bnet_Protocol_Account_AccountNotifyHandler {
     func OnAccountStateUpdated(request: Bgs_Protocol_Account_V1_AccountStateNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Account_AccountNotify.Method.OnAccountStateUpdated,
+                of: Bnet_Protocol_Account_AccountNotify.self
+            )
+        )
     }
 
     func OnGameAccountStateUpdated(request: Bgs_Protocol_Account_V1_GameAccountStateNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Account_AccountNotify.Method.OnGameAccountStateUpdated,
+                of: Bnet_Protocol_Account_AccountNotify.self
+            )
+        )
     }
 
     func OnGameAccountsUpdated(request: Bgs_Protocol_Account_V1_GameAccountNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Account_AccountNotify.Method.OnGameAccountsUpdated,
+                of: Bnet_Protocol_Account_AccountNotify.self
+            )
+        )
     }
 
     func OnGameSessionUpdated(request: Bgs_Protocol_Account_V1_GameAccountSessionNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Account_AccountNotify.Method.OnGameSessionUpdated,
+                of: Bnet_Protocol_Account_AccountNotify.self
+            )
+        )
     }
 }

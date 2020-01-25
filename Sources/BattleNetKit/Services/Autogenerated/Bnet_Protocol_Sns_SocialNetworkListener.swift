@@ -88,6 +88,11 @@ protocol Bnet_Protocol_Sns_SocialNetworkListenerHandler: AnyObject {
 extension Bnet_Protocol_Sns_SocialNetworkListenerHandler {
     func OnFacebookBnetFriendListReceived(request: Bgs_Protocol_Sns_V1_FacebookBnetFriendListNotification)
         -> EventLoopFuture<Bgs_Protocol_Sns_V1_FacebookBnetFriendListNotificationResponse> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Sns_SocialNetworkListener.Method.OnFacebookBnetFriendListReceived,
+                of: Bnet_Protocol_Sns_SocialNetworkListener.self
+            )
+        )
     }
 }

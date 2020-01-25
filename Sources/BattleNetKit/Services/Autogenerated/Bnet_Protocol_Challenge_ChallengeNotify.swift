@@ -105,11 +105,21 @@ protocol Bnet_Protocol_Challenge_ChallengeNotifyHandler: AnyObject {
 extension Bnet_Protocol_Challenge_ChallengeNotifyHandler {
     func OnExternalChallenge(request: Bgs_Protocol_Challenge_V1_ChallengeExternalRequest)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Challenge_ChallengeNotify.Method.OnExternalChallenge,
+                of: Bnet_Protocol_Challenge_ChallengeNotify.self
+            )
+        )
     }
 
     func OnExternalChallengeResult(request: Bgs_Protocol_Challenge_V1_ChallengeExternalResult)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Challenge_ChallengeNotify.Method.OnExternalChallengeResult,
+                of: Bnet_Protocol_Challenge_ChallengeNotify.self
+            )
+        )
     }
 }

@@ -139,21 +139,41 @@ protocol Bnet_Protocol_UserManager_UserManagerNotifyHandler: AnyObject {
 extension Bnet_Protocol_UserManager_UserManagerNotifyHandler {
     func OnBlockedPlayerAdded(request: Bgs_Protocol_UserManager_V1_BlockedPlayerAddedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_UserManager_UserManagerNotify.Method.OnBlockedPlayerAdded,
+                of: Bnet_Protocol_UserManager_UserManagerNotify.self
+            )
+        )
     }
 
     func OnBlockedPlayerRemoved(request: Bgs_Protocol_UserManager_V1_BlockedPlayerRemovedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_UserManager_UserManagerNotify.Method.OnBlockedPlayerRemoved,
+                of: Bnet_Protocol_UserManager_UserManagerNotify.self
+            )
+        )
     }
 
     func OnRecentPlayersAdded(request: Bgs_Protocol_UserManager_V1_RecentPlayersAddedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_UserManager_UserManagerNotify.Method.OnRecentPlayersAdded,
+                of: Bnet_Protocol_UserManager_UserManagerNotify.self
+            )
+        )
     }
 
     func OnRecentPlayersRemoved(request: Bgs_Protocol_UserManager_V1_RecentPlayersRemovedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_UserManager_UserManagerNotify.Method.OnRecentPlayersRemoved,
+                of: Bnet_Protocol_UserManager_UserManagerNotify.self
+            )
+        )
     }
 }

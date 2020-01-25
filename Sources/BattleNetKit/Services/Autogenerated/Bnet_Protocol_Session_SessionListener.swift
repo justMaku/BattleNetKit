@@ -122,16 +122,31 @@ protocol Bnet_Protocol_Session_SessionListenerHandler: AnyObject {
 extension Bnet_Protocol_Session_SessionListenerHandler {
     func OnSessionCreated(request: Bgs_Protocol_Session_V1_SessionCreatedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Session_SessionListener.Method.OnSessionCreated,
+                of: Bnet_Protocol_Session_SessionListener.self
+            )
+        )
     }
 
     func OnSessionDestroyed(request: Bgs_Protocol_Session_V1_SessionDestroyedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Session_SessionListener.Method.OnSessionDestroyed,
+                of: Bnet_Protocol_Session_SessionListener.self
+            )
+        )
     }
 
     func OnSessionUpdated(request: Bgs_Protocol_Session_V1_SessionUpdatedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Session_SessionListener.Method.OnSessionUpdated,
+                of: Bnet_Protocol_Session_SessionListener.self
+            )
+        )
     }
 }

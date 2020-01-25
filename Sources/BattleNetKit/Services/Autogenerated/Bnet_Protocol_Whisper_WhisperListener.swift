@@ -173,31 +173,61 @@ protocol Bnet_Protocol_Whisper_WhisperListenerHandler: AnyObject {
 extension Bnet_Protocol_Whisper_WhisperListenerHandler {
     func OnWhisper(request: Bgs_Protocol_Whisper_V1_WhisperNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Whisper_WhisperListener.Method.OnWhisper,
+                of: Bnet_Protocol_Whisper_WhisperListener.self
+            )
+        )
     }
 
     func OnWhisperEcho(request: Bgs_Protocol_Whisper_V1_WhisperEchoNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Whisper_WhisperListener.Method.OnWhisperEcho,
+                of: Bnet_Protocol_Whisper_WhisperListener.self
+            )
+        )
     }
 
     func OnTypingIndicatorUpdate(request: Bgs_Protocol_Whisper_V1_TypingIndicatorNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Whisper_WhisperListener.Method.OnTypingIndicatorUpdate,
+                of: Bnet_Protocol_Whisper_WhisperListener.self
+            )
+        )
     }
 
     func OnAdvanceViewTime(request: Bgs_Protocol_Whisper_V1_AdvanceViewTimeNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Whisper_WhisperListener.Method.OnAdvanceViewTime,
+                of: Bnet_Protocol_Whisper_WhisperListener.self
+            )
+        )
     }
 
     func OnWhisperUpdated(request: Bgs_Protocol_Whisper_V1_WhisperUpdatedNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Whisper_WhisperListener.Method.OnWhisperUpdated,
+                of: Bnet_Protocol_Whisper_WhisperListener.self
+            )
+        )
     }
 
     func OnAdvanceClearTime(request: Bgs_Protocol_Whisper_V1_AdvanceClearTimeNotification)
         -> EventLoopFuture<Bgs_Protocol_NO_RESPONSE> {
-        self.eventLoop.makeFailedFuture(MethodTypeError.unimplementedMethod)
+        self.eventLoop.makeFailedFuture(
+            MethodTypeError.unimplementedMethod(
+                method: Bnet_Protocol_Whisper_WhisperListener.Method.OnAdvanceClearTime,
+                of: Bnet_Protocol_Whisper_WhisperListener.self
+            )
+        )
     }
 }

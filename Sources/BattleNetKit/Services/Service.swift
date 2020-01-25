@@ -32,7 +32,7 @@ enum ReplyService {
 
 enum MethodTypeError: Swift.Error {
     case unknownMethod(method: UInt32)
-    case unimplementedMethod
+    case unimplementedMethod(method: MethodType, of: ServiceType.Type)
 }
 
 enum ServiceTypeError: Swift.Error {
