@@ -13,7 +13,7 @@ enum Constants {
     public static let systemVersion = "OS X 10.14"
     public static let buildVariant = "darwin-x86_64-clang-release"
 
-    public static let clientVersion = JamJSONGameVersion(versionMajor: 1, versionMinor: 13, versionRevision: 0, versionBuild: 28211)
+    public static let clientVersion = JamJSONGameVersion(versionMajor: 8, versionMinor: 3, versionRevision: 0, versionBuild: 33115)
 }
 
 public class AuthenticationAPI: API {
