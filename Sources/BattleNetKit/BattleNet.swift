@@ -71,21 +71,9 @@ public class BattleNet {
             self.errorPromise = channel.eventLoop.makePromise()
 
             self.api = try .init(
-                connection: ConnectionAPI(
-                    eventLoop: channel.eventLoop,
-                    serviceProvider: serviceProvider,
-                    messageQueue: messageQueue
-                ),
-                authentication: AuthenticationAPI(
-                    eventLoop: channel.eventLoop,
-                    serviceProvider: serviceProvider,
-                    messageQueue: messageQueue
-                ),
-                utilities: GameServicesAPI(
-                    eventLoop: channel.eventLoop,
-                    serviceProvider: serviceProvider,
-                    messageQueue: messageQueue
-                )
+                eventLoop: channel.eventLoop,
+                serviceProvider: serviceProvider,
+                messageQueue: messageQueue
             )
         }
 
