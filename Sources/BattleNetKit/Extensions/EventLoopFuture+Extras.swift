@@ -1,21 +1,32 @@
 import Foundation
 import NIO
 
-func join<T>(
+// This has to be in a separate function as otherwise compiler can't figure it out.
+private func internalJoin<T>(
     _ futures: [EventLoopFuture<T>],
     eventLoop: EventLoop = EmbeddedEventLoop()
 ) -> EventLoopFuture<[T]> {
-    return EventLoopFuture.reduce([], futures, on: eventLoop) { acc, cur in
-        return acc + [cur] // TODO: Make sure this is more optimal.
+    return EventLoopFuture.reduce(into: [], futures, on: eventLoop) { acc, cur in
+        acc.append(cur)
     }
 }
+
 
 extension EventLoopFuture {
     func flatMap<T>(_ closure: @escaping (Value) -> [EventLoopFuture<T>]) -> EventLoopFuture<[T]> {
         return self.flatMap { (value) -> EventLoopFuture<[T]> in
             let futures = closure(value)
 
-            return join(futures)
+            return EventLoopFuture.join(futures)
         }
+    }
+}
+
+extension EventLoopFuture {
+    static func join<T>(
+        _ futures: [EventLoopFuture<T>],
+        eventLoop: EventLoop = EmbeddedEventLoop()
+    ) -> EventLoopFuture<[T]> {
+        internalJoin(futures, eventLoop: eventLoop)
     }
 }
