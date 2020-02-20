@@ -27,19 +27,19 @@ public class AccountAPI: API {
         try serviceProvider.register(outbound: self.serverService)
     }
 
-    public func getAccountState(account: Bgs_Protocol_EntityId) -> EventLoopFuture<Bgs_Protocol_Account_V1_AccountState> {
+    public func getAccountState(account: Bgs_Protocol_EntityId) -> EventLoopFuture<BattleNetAccount> {
         var request = Bgs_Protocol_Account_V1_GetAccountStateRequest()
 
         request.entityID = account
         request.options.allFields = true
 
-        return self.serverService.GetAccountState(request: request).map { $0.state }
+        return self.serverService.GetAccountState(request: request).map { $0.state }.map(BattleNetAccount.init)
     }
 
     public func getGameAccountState(
         accountID: Bgs_Protocol_EntityId,
         gameAccountID: Bgs_Protocol_EntityId
-    ) -> EventLoopFuture<Bgs_Protocol_Account_V1_GameAccountState> {
+    ) -> EventLoopFuture<GameAccount> {
         var request = Bgs_Protocol_Account_V1_GetGameAccountStateRequest()
 
         request.accountID = accountID
@@ -48,16 +48,18 @@ public class AccountAPI: API {
         request.options.allFields = true
 
         return self.serverService
-            .GetGameAccountState(request: request).map { $0.state }
+            .GetGameAccountState(request: request).map { $0.state }.map(GameAccount.init)
     }
 
     public func getAuthorizedData(accountID: Bgs_Protocol_EntityId) -> EventLoopFuture<Bgs_Protocol_Account_V1_GetAuthorizedDataResponse> {
         var request = Bgs_Protocol_Account_V1_GetAuthorizedDataRequest()
+
         request.entityID = accountID
 
         return self.serverService.GetAuthorizedData(request: request)
     }
 
+    /// It is known that this call does not in fact return all of the licenses associated with the account.
     public func getLicenses(accountID: Bgs_Protocol_EntityId) -> EventLoopFuture<Bgs_Protocol_Account_V1_GetLicensesResponse> {
         var request = Bgs_Protocol_Account_V1_GetLicensesRequest()
 
@@ -71,5 +73,4 @@ public class AccountAPI: API {
     }
 }
 
-extension AccountAPI: Bnet_Protocol_Account_AccountNotifyHandler {
-}
+extension AccountAPI: Bnet_Protocol_Account_AccountNotifyHandler {}
