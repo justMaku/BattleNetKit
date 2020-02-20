@@ -55,6 +55,7 @@ public enum Region: UInt32, Codable {
         case Region.eu.name: self = .eu
         case Region.kr.name: self = .kr
         case Region.us.name: self = .us
+        case Region.cn.name: self = .cn
         case Region.test.name: self = .test
         case _: throw Error.unknownName(name: name)
         }
