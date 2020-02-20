@@ -24,6 +24,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-nio.git", from: "2.6.0"),
         .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.6.0"),
         .package(url: "https://github.com/onevcat/Rainbow", from: "3.1.5"),
+        .package(url: "https://github.com/jakeheis/SwiftCLI", from: "6.0.0"),
     ],
     targets: [
         .target(
@@ -40,6 +41,7 @@ let package = Package(
             name: "Aurora",
             dependencies: [
                 "BattleNetKit",
+                "SwiftCLI",
             ]
         ),
     ]
