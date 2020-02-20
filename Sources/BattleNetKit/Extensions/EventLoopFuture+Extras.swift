@@ -11,9 +11,8 @@ private func internalJoin<T>(
     }
 }
 
-
 extension EventLoopFuture {
-    func flatMap<T>(_ closure: @escaping (Value) -> [EventLoopFuture<T>]) -> EventLoopFuture<[T]> {
+    public func flatMap<T>(futures closure: @escaping (Value) -> [EventLoopFuture<T>]) -> EventLoopFuture<[T]> {
         return self.flatMap { (value) -> EventLoopFuture<[T]> in
             let futures = closure(value)
 
@@ -23,7 +22,7 @@ extension EventLoopFuture {
 }
 
 extension EventLoopFuture {
-    static func join<T>(
+    public static func join<T>(
         _ futures: [EventLoopFuture<T>],
         eventLoop: EventLoop = EmbeddedEventLoop()
     ) -> EventLoopFuture<[T]> {
