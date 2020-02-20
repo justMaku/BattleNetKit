@@ -31,6 +31,7 @@ public class AccountAPI: API {
         var request = Bgs_Protocol_Account_V1_GetAccountStateRequest()
 
         request.entityID = account
+        request.options.allFields = true
 
         return self.serverService.GetAccountState(request: request).map { $0.state }
     }
