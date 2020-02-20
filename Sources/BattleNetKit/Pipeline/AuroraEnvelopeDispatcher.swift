@@ -25,6 +25,8 @@ internal final class AuroraEnvelopeDispatcher {
     }
 
     func dispatch(context: ChannelHandlerContext, envelope: AuroraEnvelope) throws {
+        Log.debug("Received message: \(envelope)", domain: .aurora)
+
         if envelope.header.serviceID == ReplyService.id {
             return try dispatchResponse(context: context, envelope: envelope)
         } else {
