@@ -30,12 +30,12 @@ public class RealmlistAPI: API {
     }
 
     public func requestRealmlist(
-        for gameAccountID: Bgs_Protocol_EntityId,
+        for gameAccountID: EntityId,
         with sessionKey: Data,
         environment: Environment
     ) -> EventLoopFuture<Realmlist> {
         return self
-            .requestRealmlistTicket(for: gameAccountID)
+            .requestRealmlistTicket(for: gameAccountID.proto)
             .flatMap { ticket in
                 return self.requestSubRegions(environment: environment).flatMap { subregions in
                     return subregions.map { subregion in
