@@ -22,8 +22,11 @@ extension UInt32 {
 
         for byte in bytes {
             let ascii = self >> byte & 0xff
-            guard let scalar = UnicodeScalar(ascii) else {
-                return ret
+            guard
+                let scalar = UnicodeScalar(ascii),
+                ascii != 0x00
+            else {
+                continue
             }
 
             ret.append(Character(scalar))
