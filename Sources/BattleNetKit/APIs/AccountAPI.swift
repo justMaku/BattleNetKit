@@ -48,7 +48,7 @@ public class AccountAPI: API {
         request.options.allFields = true
 
         return self.serverService
-            .GetGameAccountState(request: request).map { $0.state }.map(GameAccount.init)
+            .GetGameAccountState(request: request).map { $0.state }.and(value: gameAccountID).map(GameAccount.init)
     }
 
     public func getAuthorizedData(accountID: Bgs_Protocol_EntityId) -> EventLoopFuture<Bgs_Protocol_Account_V1_GetAuthorizedDataResponse> {

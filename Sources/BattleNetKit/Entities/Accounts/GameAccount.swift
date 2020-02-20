@@ -43,6 +43,7 @@ public struct GameAccount: Codable {
         case unk32 = 0x8000_0000
     }
 
+    public let id: EntityId
     public let name: String
     public let program: String
     public let licenses: [UInt32]
@@ -51,7 +52,8 @@ public struct GameAccount: Codable {
 }
 
 extension GameAccount {
-    init(with state: Bgs_Protocol_Account_V1_GameAccountState) {
+    init(with state: Bgs_Protocol_Account_V1_GameAccountState, id: Bgs_Protocol_EntityId) {
+        self.id = EntityId(with: id)
         self.name = state.gameLevelInfo.name
         self.program = state.gameLevelInfo.program.fourCC()
         self.licenses = state.gameLevelInfo.licenses.map { $0.id }
