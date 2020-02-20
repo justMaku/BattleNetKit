@@ -20,11 +20,15 @@ class AuroraCommand<ResultType: Encodable>: Command {
     @Param var region: Region
     @Param var token: String
 
+    @Flag("-v", "--verbose", "verbose mode")
+    var verbose: Bool
+
     init(name: String, shortDescription: String) {
         self.name = name
         self.shortDescription = shortDescription
 
         self.jsonEncoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        Log.enabled = verbose
     }
 
     func handle(_ error: Swift.Error) -> Never {
@@ -44,6 +48,8 @@ class AuroraCommand<ResultType: Encodable>: Command {
     }
 
     func execute() throws {
+        Log.enabled = self.verbose
+
         do {
             let (client, _, errorFuture) = try BattleNet(region: self.region).client().wait()
 
