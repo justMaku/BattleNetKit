@@ -32,19 +32,19 @@ class AuroraCommand<ResultType: Encodable>: Command {
     }
 
     func handle(_ error: Swift.Error) -> Never {
-        print(error)
-        exit(1)
+        self.output(error.localizedDescription)
     }
 
-    func output(_ any: ResultType) {
+    func output<T: Encodable>(_ any: T, error: Bool = false) -> Never {
         guard
             let data = try? self.jsonEncoder.encode(any),
             let string = String(data: data, encoding: .utf8)
         else {
-            return
+            fatalError("fatal error: can't process output")
         }
 
         print(string)
+        exit(error ? 1 : 0)
     }
 
     func execute() throws {
