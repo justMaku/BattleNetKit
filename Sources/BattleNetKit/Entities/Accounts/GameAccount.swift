@@ -8,20 +8,22 @@ public struct GameAccount: Codable {
         case restricted
     }
 
+    // This information comes from bnet app catalogs and has not been
+    // properly verified.
     public enum RealmPermission: UInt32, CaseIterable, Codable {
         case unk1 = 0x1
         case unk2 = 0x2
-        case unk3 = 0x4
-        case unk4 = 0x8
-        case unk5 = 0x10
+        case vendor1 = 0x4
+        case event1 = 0x8
+        case event2 = 0x10
         case unk6 = 0x20
         case unk7 = 0x40
-        case unk8 = 0x80
-        case unk9 = 0x100
-        case unk10 = 0x200
-        case unk11 = 0x400
+        case beta = 0x80
+        case submission = 0x100
+        case ptr = 0x200
+        case vendor3 = 0x400
         case unk12 = 0x800
-        case unk13 = 0x1000
+        case vendor2 = 0x1000
         case unk14 = 0x2000
         case unk15 = 0x4000
         case unk16 = 0x8000
