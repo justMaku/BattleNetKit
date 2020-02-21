@@ -1,21 +1,6 @@
 import Foundation
 import NIO
 
-enum Constants {
-    public static let auroraClientName = "WoW"
-    public static let auroraClientVersion = "Battle.net Game Service SDK v1.11.5 \"1b75249ba9\"/224 (Oct 22 2018 09:29:50)"
-    public static let gameClientName = "WoW"
-    public static let localeName = "enUS"
-    public static let platformType = "Mac"
-    public static let platformName = "Mc64"
-    public static let clientArchitecture = "x64"
-    public static let systemArchitecture = "x64"
-    public static let systemVersion = "OS X 10.14"
-    public static let buildVariant = "darwin-x86_64-clang-release"
-
-    public static let clientVersion = JamJSONGameVersion(versionMajor: 8, versionMinor: 3, versionRevision: 0, versionBuild: 33115)
-}
-
 public class AuthenticationAPI: API {
     enum Error: Swift.Error {
         case externalChallengeRequired
@@ -49,7 +34,8 @@ public class AuthenticationAPI: API {
         try serviceProvider.register(inbound: self.challangeService)
     }
 
-    public func login(token: String) -> EventLoopFuture<Bgs_Protocol_Authentication_V1_LogonResult> {
+    // TODO: Figure out whether it makes sense to paste Environment here.
+    public func login(token: String, environment: Environment = .live) -> EventLoopFuture<Bgs_Protocol_Authentication_V1_LogonResult> {
         var logonRequest = Bgs_Protocol_Authentication_V1_LogonRequest()
         let loginPromise = self.eventLoop.makePromise(of: Bgs_Protocol_Authentication_V1_LogonResult.self)
 
@@ -57,7 +43,7 @@ public class AuthenticationAPI: API {
         logonRequest.locale = Constants.localeName
         logonRequest.platform = Constants.platformName
         logonRequest.version = Constants.auroraClientVersion
-        logonRequest.applicationVersion = Int32(Constants.clientVersion.versionBuild)
+        logonRequest.applicationVersion = Int32(environment.clientVersion.versionBuild)
         logonRequest.publicComputer = false
         logonRequest.allowLogonQueueNotifications = true
         logonRequest.cachedWebCredentials = token.data(using: .ascii)!

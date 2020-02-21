@@ -70,9 +70,9 @@ public class RealmlistAPI: API {
                     buildVariant: Constants.buildVariant,
                     timeZone: "Etc/UTC",
                     systemVersion: Constants.systemVersion,
-                    versionDataBuild: Constants.clientVersion.versionBuild,
+                    versionDataBuild: environment.clientVersion.versionBuild,
                     audioLocale: Constants.localeName.fourCC(),
-                    version: Constants.clientVersion,
+                    version: environment.clientVersion,
                     secret: clientSecret,
                     type: Constants.gameClientName.fourCC(),
                     textLocale: Constants.localeName.fourCC()
