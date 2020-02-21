@@ -31,8 +31,8 @@ public extension Data {
             var chunk = self.subdata(in: position..<upperBound)
             stream.avail_in = UInt32(chunk.count)
 
-            chunk.withUnsafeMutableBytes { (bytes: UnsafeMutablePointer<Bytef>) in
-                stream.next_in = bytes
+            stream.next_in = chunk.withUnsafeMutableBytes { pointer in
+                return pointer.baseAddress?.assumingMemoryBound(to: UInt8.self)
             }
 
             position += chunk.count
@@ -41,8 +41,8 @@ public extension Data {
                 stream.avail_out = UInt32(bufferSize)
 
                 var outputData = Data(count: bufferSize)
-                outputData.withUnsafeMutableBytes { (bytes: UnsafeMutablePointer<Bytef>) in
-                    stream.next_out = bytes
+                stream.next_out = outputData.withUnsafeMutableBytes { pointer in
+                    return pointer.baseAddress?.assumingMemoryBound(to: UInt8.self)
                 }
 
                 result = inflate(&stream, Z_NO_FLUSH)
