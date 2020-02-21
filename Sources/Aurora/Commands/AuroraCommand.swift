@@ -76,6 +76,7 @@ class AuroraCommand<ResultType: Encodable>: Command {
     }
 
     func handler(response: Bgs_Protocol_Authentication_V1_LogonResult, client: BattleNet.Client) -> EventLoopFuture<ResultType> {
-        return EmbeddedEventLoop().makeFailedFuture(Error.missingRegion)
+        
+        fatalError("handler(response:client:) must be implemented in every AuroraCommand subclass.")
     }
 }
