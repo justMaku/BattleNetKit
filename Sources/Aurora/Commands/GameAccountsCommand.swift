@@ -18,6 +18,6 @@ class GameAccountsCommand: AuroraCommand<[GameAccount]> {
             client.api.account.getGameAccountState(accountID: response.accountID, gameAccountID: gameAccountID)
         }
 
-        return EventLoopFuture<ResultType>.join(futures)
+        return EventLoopFuture<ResultType>.join(futures, eventLoop: client.eventLoop)
     }
 }

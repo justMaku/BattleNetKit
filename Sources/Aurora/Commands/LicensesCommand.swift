@@ -21,7 +21,7 @@ class LicensesCommand: AuroraCommand<Set<UInt32>> {
         }
 
         return EventLoopFuture<Set<UInt32>>
-            .join(futures)
+            .join(futures, eventLoop: client.eventLoop)
             .and(client.api.account.getLicenses(accountID: response.accountID))
             .map { accounts, licenses in
                 let standardLicenses = licenses.licenses.map { $0.id }
