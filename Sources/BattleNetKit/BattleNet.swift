@@ -57,8 +57,8 @@ public class BattleNet {
         private let serviceProvider: AuroraServiceProvider
         private let errorPromise: EventLoopPromise<()>
 
-        // - MARK: APIs
         public let api: APIContainer
+        public let eventLoop: EventLoop
 
         public init(region: Region, channel: Channel) throws {
             let messageQueue = AuroraMessageQueue(channel: channel)
@@ -69,6 +69,7 @@ public class BattleNet {
             self.messageQueue = messageQueue
             self.serviceProvider = serviceProvider
             self.errorPromise = channel.eventLoop.makePromise()
+            self.eventLoop = channel.eventLoop
 
             self.api = try .init(
                 eventLoop: channel.eventLoop,
