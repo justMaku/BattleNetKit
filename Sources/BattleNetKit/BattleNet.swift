@@ -1,3 +1,5 @@
+import Foundation
+
 import NIO
 import NIOSSL
 
@@ -15,7 +17,7 @@ public class BattleNet {
         let sslContext = try NIOSSLContext(configuration: sslConfiguration)
         let sslHandler = try NIOSSLClientHandler(context: sslContext, serverHostname: region.host)
 
-        let group = MultiThreadedEventLoopGroup(numberOfThreads: 4)
+        let group = MultiThreadedEventLoopGroup(numberOfThreads: ProcessInfo.processInfo.processorCount)
         let bootstrap = ClientBootstrap(group: group)
             .channelOption(ChannelOptions.socket(SocketOptionLevel(SOL_SOCKET), SO_REUSEADDR), value: 1)
             .channelInitializer { channel in
