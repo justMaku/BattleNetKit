@@ -11,13 +11,13 @@ public struct GameAccount: Codable {
     // This information comes from bnet app catalogs and has not been
     // properly verified.
     public enum RealmPermission: UInt32, CaseIterable, Codable {
-        case unk1 = 0x1
-        case unk2 = 0x2
+        case unk1 = 0x1 // retail ?
+        case unk2 = 0x2 // alpha/dev ?
         case vendor1 = 0x4
         case event1 = 0x8
         case event2 = 0x10
         case unk6 = 0x20
-        case unk7 = 0x40
+        case unk7 = 0x40 // tournament?
         case beta = 0x80
         case submission = 0x100
         case ptr = 0x200
