@@ -22,7 +22,7 @@ struct AuroraEnvelope {
             UInt8(headerSize) & 255,
         ]
 
-        let sizeData = Data(bytes: sizeBytes)
+        let sizeData = Data(sizeBytes)
 
         return sizeData + headerData + (messageData ?? Data())
     }

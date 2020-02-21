@@ -10,7 +10,7 @@ extension EntityId: ConvertibleFromString {
     public init?(input: String) {
         do {
             try self.init(stringRepresentation: input)
-        } catch let error {
+        } catch {
             return nil
         }
     }
