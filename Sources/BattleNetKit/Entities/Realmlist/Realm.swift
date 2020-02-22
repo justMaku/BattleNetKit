@@ -84,6 +84,7 @@ public struct Realm: Hashable, Equatable, Codable, CustomStringConvertible {
     public let cfgRealmsID: Int32
     public let cfgConfigsID: Int32
     public let cfgLanguagesID: Int32
+    public let cfgCategoriesID: Int32
 
     init(jam: JamJSONRealmEntry) {
         self.name = jam.name
@@ -95,6 +96,7 @@ public struct Realm: Hashable, Equatable, Codable, CustomStringConvertible {
         self.cfgRealmsID = jam.cfgRealmsID
         self.cfgConfigsID = jam.cfgConfigsID
         self.cfgLanguagesID = jam.cfgLanguagesID
+        self.cfgCategoriesID = jam.cfgCategoriesID
     }
 
     public var region: UInt32 {

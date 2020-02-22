@@ -3,6 +3,7 @@ import Foundation
 public struct JamJSONRealmEntry: Codable {
     public let wowRealmAddress: UInt32
     public let cfgTimezonesID: Int32
+    public let cfgCategoriesID: Int32
     public let populationState: Int32
     public let version: JamJSONGameVersion
     public let cfgRealmsID: Int32
