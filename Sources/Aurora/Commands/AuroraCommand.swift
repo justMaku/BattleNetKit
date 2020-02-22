@@ -17,6 +17,14 @@ class AuroraCommand<ResultType: Encodable>: Command {
         case missingToken
     }
 
+    struct ErrorContainer: Encodable {
+        let error: String
+
+        init(error: Swift.Error) {
+            self.error = String(describing: error)
+        }
+    }
+
     @Param var region: Region
     @Param var token: String
 
@@ -32,7 +40,7 @@ class AuroraCommand<ResultType: Encodable>: Command {
     }
 
     func handle(_ error: Swift.Error) -> Never {
-        self.output(error.localizedDescription)
+        self.output(ErrorContainer(error: error))
     }
 
     func output<T: Encodable>(_ any: T, error: Bool = false) -> Never {
