@@ -35,7 +35,9 @@ public class AuthenticationAPI: API {
     }
 
     // TODO: Figure out whether it makes sense to paste Environment here.
-    public func login(token: String, environment: Environment = .live) -> EventLoopFuture<Bgs_Protocol_Authentication_V1_LogonResult> {
+    public func login(token: String, environment: Environment)
+        -> EventLoopFuture<Bgs_Protocol_Authentication_V1_LogonResult>
+    {
         var logonRequest = Bgs_Protocol_Authentication_V1_LogonRequest()
         let loginPromise = self.eventLoop.makePromise(of: Bgs_Protocol_Authentication_V1_LogonResult.self)
 

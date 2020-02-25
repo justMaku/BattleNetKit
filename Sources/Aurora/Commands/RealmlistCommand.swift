@@ -17,7 +17,6 @@ extension EntityId: ConvertibleFromString {
 }
 
 class RealmlistCommand: AuroraCommand<Realmlist> {
-    @Param var environment: Environment
     @Param var gameAccountId: EntityId
 
     init() {
@@ -28,11 +27,12 @@ class RealmlistCommand: AuroraCommand<Realmlist> {
     }
 
     override func handler(response: Bgs_Protocol_Authentication_V1_LogonResult, client: BattleNet.Client) -> EventLoopFuture<ResultType> {
+
         return client.api.realmlist
             .requestRealmlist(
                 for: self.gameAccountId,
                 with: response.sessionKey,
-                environment: self.environment
+                environment: self.selectedEnvironment
         )
     }
 }

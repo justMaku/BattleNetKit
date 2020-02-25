@@ -28,6 +28,13 @@ class AuroraCommand<ResultType: Encodable>: Command {
     @Param var region: Region
     @Param var token: String
 
+    @Key("-e", "--environment", "environment to use [live|classic] (default: live)")
+    private var environment: Environment?
+
+    var selectedEnvironment: Environment {
+        return self.environment ?? .live
+    }
+
     @Flag("-v", "--verbose", "verbose mode")
     var verbose: Bool
 
@@ -59,7 +66,9 @@ class AuroraCommand<ResultType: Encodable>: Command {
         Log.enabled = self.verbose
 
         do {
-            let (client, _, errorFuture) = try BattleNet(region: self.region).client().wait()
+            let (client, _, errorFuture) = try BattleNet(
+                region: self.region
+            ).client().wait()
 
             errorFuture.whenFailure { error in
                 self.handle(error)
@@ -67,7 +76,10 @@ class AuroraCommand<ResultType: Encodable>: Command {
 
             try client.connect()
                 .flatMap { client in
-                    client.api.authentication.login(token: self.token).and(value: client)
+                    client.api.authentication.login(
+                        token: self.token,
+                        environment: self.selectedEnvironment
+                    ).and(value: client)
                 }
                 .flatMap(self.handler)
                 .always { result in
