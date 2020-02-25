@@ -8,7 +8,7 @@ public struct RealmlistSubregionEntry: Codable {
 
     init(subregion: Subregion, realms: [RealmlistRealmEntry]) {
         self.subregion = subregion
-        self.realms = realms
+        self.realms = realms.sorted { $0.realm < $1.realm }
     }
 
     enum CodingKeys: String, CodingKey {
@@ -28,7 +28,7 @@ public struct RealmlistRealmEntry: Codable {
     public let addresses: [Address]
 }
 
-public struct Realm: Hashable, Equatable, Codable, CustomStringConvertible {
+public struct Realm: Hashable, Equatable, Codable, Comparable, CustomStringConvertible {
     public enum Flag: UInt32, CaseIterable, Codable {
         case versionMismatch = 0x1
         case unk2 = 0x2
@@ -121,5 +121,9 @@ public struct Realm: Hashable, Equatable, Codable, CustomStringConvertible {
 
     public var description: String {
         return "[\(self.region)-\(self.group)-\(self.id)] \(self.name)\nFlags: \(self.flags)\nPopulation State: \(self.populationState)"
+    }
+
+    public static func < (lhs: Realm, rhs: Realm) -> Bool {
+        return lhs.cfgRealmsID < rhs.cfgRealmsID
     }
 }

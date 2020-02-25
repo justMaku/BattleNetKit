@@ -50,7 +50,7 @@ public class RealmlistAPI: API {
                             .map { RealmlistSubregionEntry(subregion: subregion, realms: $0) }
                     }
                 }
-            }
+            }.map { $0.sorted { $0.subregion < $1.subregion } }
     }
 
     public func requestRealmlistTicket(

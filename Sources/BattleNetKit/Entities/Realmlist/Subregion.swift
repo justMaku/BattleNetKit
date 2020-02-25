@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Subregion: CustomStringConvertible, Hashable, Equatable, Codable {
+public struct Subregion: CustomStringConvertible, Hashable, Equatable, Codable, Comparable {
     enum Error: Swift.Error {
         case invalidVariantType
         case invalidDescription
@@ -40,5 +40,12 @@ public struct Subregion: CustomStringConvertible, Hashable, Equatable, Codable {
 
     public static func == (lhs: Subregion, rhs: Subregion) -> Bool {
         return lhs.hashValue == rhs.hashValue
+    }
+
+    public static func < (lhs: Subregion, rhs: Subregion) -> Bool {
+        if rhs.unk1 != rhs.unk1 { return rhs.unk1 < rhs.unk1 }
+        if rhs.unk2 != rhs.unk2 { return rhs.unk2 < rhs.unk2 }
+
+        return rhs.unk3 < rhs.unk3
     }
 }
