@@ -1,6 +1,6 @@
 import Foundation
 
-public struct GameAccount: Codable {
+public struct GameAccount: Encodable {
     public enum Flag: String, Codable {
         case beta
         case lifetime
@@ -10,7 +10,7 @@ public struct GameAccount: Codable {
 
     // This information comes from bnet app catalogs and has not been
     // properly verified.
-    public enum RealmPermission: UInt32, CaseIterable, Codable {
+    public enum RealmPermission: UInt32, CaseIterable, Encodable {
         case unk1 = 0x1 // retail ?
         case unk2 = 0x2 // alpha/dev ?
         case vendor1 = 0x4
@@ -43,6 +43,11 @@ public struct GameAccount: Codable {
         case unk30 = 0x2000_0000
         case unk31 = 0x4000_0000
         case unk32 = 0x8000_0000
+
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+            try container.encode(String(describing: self))
+        }
     }
 
     public let id: EntityId

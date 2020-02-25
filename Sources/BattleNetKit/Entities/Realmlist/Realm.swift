@@ -2,7 +2,7 @@ import Foundation
 
 public typealias Realmlist = [RealmlistSubregionEntry]
 
-public struct RealmlistSubregionEntry: Codable {
+public struct RealmlistSubregionEntry: Encodable {
     public let subregion: Subregion
     public let realms: [RealmlistRealmEntry]
 
@@ -23,13 +23,13 @@ public struct RealmlistSubregionEntry: Codable {
     }
 }
 
-public struct RealmlistRealmEntry: Codable {
+public struct RealmlistRealmEntry: Encodable {
     public let realm: Realm
     public let addresses: [Address]
 }
 
-public struct Realm: Hashable, Equatable, Codable, Comparable, CustomStringConvertible {
-    public enum Flag: UInt32, CaseIterable, Codable {
+public struct Realm: Hashable, Equatable, Encodable, Comparable, CustomStringConvertible {
+    public enum Flag: UInt32, CaseIterable, Encodable {
         case versionMismatch = 0x1
         case unk2 = 0x2
         case unk3 = 0x4
@@ -62,9 +62,14 @@ public struct Realm: Hashable, Equatable, Codable, Comparable, CustomStringConve
         case unk30 = 0x2000_0000
         case unk31 = 0x4000_0000
         case unk32 = 0x8000_0000
+
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+            try container.encode(String(describing: self))
+        }
     }
 
-    public enum PopulationState: Int32, Codable {
+    public enum PopulationState: Int32, Encodable {
         case offline = 0
         case low
         case medium
@@ -73,6 +78,11 @@ public struct Realm: Hashable, Equatable, Codable, Comparable, CustomStringConve
         case recommended
         case full
         case locked
+
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+            try container.encode(String(describing: self))
+        }
     }
 
     public let name: String
