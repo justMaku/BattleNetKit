@@ -2,6 +2,40 @@ import Foundation
 
 public typealias Realmlist = [RealmlistSubregionEntry]
 
+extension Realmlist {
+    public static func merge(_ realmlists: [Realmlist]) -> Realmlist {
+        var globalRealmlist: [Subregion: [Realm: Set<Address>]] = [:]
+
+        for realmlist in realmlists {
+            for entry in realmlist {
+                var subregion = globalRealmlist[entry.subregion] ?? [:]
+
+                for r in entry.realms {
+                    var addresses = subregion[r.realm] ?? Set<Address>()
+                    r.addresses.forEach { addresses.insert($0) }
+
+                    subregion[r.realm] = addresses
+                }
+
+                globalRealmlist[entry.subregion] = subregion
+            }
+        }
+
+        var result = Realmlist()
+
+        for (subregion, realms) in globalRealmlist {
+            let realmEntries = realms.map { (tuple) -> RealmlistRealmEntry in
+                let (realm, addresses) = tuple
+                return RealmlistRealmEntry(realm: realm, addresses: .init(addresses))
+            }
+
+            result.append(.init(subregion: subregion, realms: [realmEntries]))
+        }
+
+        return result.sorted { $0.subregion < $1.subregion }
+    }
+}
+
 public struct RealmlistSubregionEntry: Encodable {
     public let subregion: Subregion
     public let realms: [RealmlistRealmEntry]

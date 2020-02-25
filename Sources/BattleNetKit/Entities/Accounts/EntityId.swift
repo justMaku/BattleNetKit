@@ -22,6 +22,11 @@ public struct EntityId {
 }
 
 extension EntityId {
+    public init(proto: Bgs_Protocol_EntityId) {
+        self.high = proto.high
+        self.low = proto.low
+    }
+
     public init(stringRepresentation: String) throws {
         let parts = stringRepresentation.split(separator: "-")
 

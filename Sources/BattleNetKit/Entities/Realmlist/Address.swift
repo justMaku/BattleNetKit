@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Address: CustomStringConvertible, Codable {
+public struct Address: CustomStringConvertible, Codable, Hashable {
     public var description: String {
         return self.address + ":" + String(self.port)
     }
