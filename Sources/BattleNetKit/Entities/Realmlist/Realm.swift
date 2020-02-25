@@ -29,7 +29,7 @@ extension Realmlist {
                 return RealmlistRealmEntry(realm: realm, addresses: .init(addresses))
             }
 
-            result.append(.init(subregion: subregion, realms: [realmEntries]))
+            result.append(.init(subregion: subregion, realms: realmEntries))
         }
 
         return result.sorted { $0.subregion < $1.subregion }
