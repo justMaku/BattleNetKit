@@ -17,7 +17,7 @@ public struct GameAccount: Codable {
         case event1 = 0x8
         case event2 = 0x10
         case unk6 = 0x20
-        case unk7 = 0x40 // tournament?
+        case unk7 = 0x40 // gives access to russian servers
         case beta = 0x80
         case submission = 0x100
         case ptr = 0x200
