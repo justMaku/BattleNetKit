@@ -43,9 +43,9 @@ public struct Subregion: CustomStringConvertible, Hashable, Equatable, Codable, 
     }
 
     public static func < (lhs: Subregion, rhs: Subregion) -> Bool {
-        if rhs.unk1 != rhs.unk1 { return rhs.unk1 < rhs.unk1 }
-        if rhs.unk2 != rhs.unk2 { return rhs.unk2 < rhs.unk2 }
+        if lhs.unk1 != rhs.unk1 { return lhs.unk1 < rhs.unk1 }
+        if lhs.unk2 != rhs.unk2 { return lhs.unk2 < rhs.unk2 }
 
-        return rhs.unk3 < rhs.unk3
+        return lhs.unk3 < rhs.unk3
     }
 }
