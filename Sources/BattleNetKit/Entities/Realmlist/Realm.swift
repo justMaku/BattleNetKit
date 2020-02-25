@@ -32,12 +32,12 @@ public struct Realm: Hashable, Equatable, Encodable, Comparable, CustomStringCon
     public enum Flag: UInt32, CaseIterable, Encodable {
         case versionMismatch = 0x1
         case unk2 = 0x2
-        case unk3 = 0x4
+        case unk3 = 0x4 // PVP Tournament?
         case unk4 = 0x8
         case unk5 = 0x10
         case unk6 = 0x20
         case unk7 = 0x40
-        case unk8 = 0x80
+        case unk8 = 0x80 // PTR?
         case unk9 = 0x100
         case unk10 = 0x200
         case unk11 = 0x400
