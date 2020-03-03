@@ -44,7 +44,12 @@ public class RealmlistAPI: API {
                             .flatMap { realms in
                                 realms.map { realm in
                                     self.requestRealmJoin(realm: realm, in: subregion, ticket: ticket, sessionKey: sessionKey, environment: environment)
-                                        .map { joinInfo in RealmlistRealmEntry(realm: realm, addresses: joinInfo.addresses) }
+                                        .map { joinInfo in
+                                            RealmlistRealmEntry(
+                                                realm: realm,
+                                                addresses: joinInfo.addresses.sorted()
+                                            )
+                                        }
                                 }
                             }
                             .map { RealmlistSubregionEntry(subregion: subregion, realms: $0) }
