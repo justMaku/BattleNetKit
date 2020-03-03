@@ -1,0 +1,14 @@
+name: Build on Push
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: swift build -v
